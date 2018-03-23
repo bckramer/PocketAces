@@ -1,0 +1,20 @@
+#Below is a simple way to grab the entire screen in 1920x1080,
+#but it should work in other resolutions.
+import numpy as np
+from PIL import ImageGrab
+import cv2
+#VERY IMPORTANT: Without it, the entire screen will not be captured
+from ctypes import windll
+user32 = windll.user32
+user32.SetProcessDPIAware()
+
+while(True):
+    printscreen_pil =  ImageGrab.grab()
+    #Converted to an array OpenCV can use.
+    printscreen_numpy =   np.array(printscreen_pil, dtype='uint8')
+    #Recommended for convenience. Without it, you can't do much.
+    resize = cv2.resize(printscreen_numpy, (1000, 500))
+    cv2.imshow('window', resize)
+    if cv2.waitKey(25) & 0xFF == ord('q'):
+        cv2.destroyAllWindows()
+        break
