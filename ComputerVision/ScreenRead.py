@@ -1,6 +1,7 @@
 # Below is a simple way to grab the entire screen in 1920x1080,
 # but it should work in other resolutions.
 import numpy as np
+from Utils import loadPlayeSE
 from PIL import ImageGrab
 import cv2
 # VERY IMPORTANT: Without it, the entire screen will not be captured
@@ -25,4 +26,32 @@ while True:
         break
 
 #Finds the cards in the users hand
-#def findCards(cards):
+def findCards(cardsImage):
+    strels = loadPlayeSE()
+    card1Image = cardsImage[8:50, 12:50]
+    card2Image = cardsImage[20:58, 48:100]
+    cardImages = []
+    cardImages.append(card1Image)
+    cardImages.append(card2Image)
+    cards = []
+    card1 = 0
+    card2 = 0
+    cards.append(card1)
+    cards.append(card2)
+    i = 0
+    for card in cardImages:
+        j = 0
+        for strel in strels:
+            erosion = cv2.erode(card, strel, iterations = 1)
+            im, contours, hierarchy = cv2.findContours(erosion, cv2.RETR_TREE,
+                                                        cv2.CHAIN_APPROX_SIMPLE)
+            if len(contours) == 1:
+                cards[i] = j
+            j = j + 1
+        i = i + 1
+
+
+
+
+
+
