@@ -38,12 +38,10 @@ def loadPlayerSE():
 
     ten = cv2.imread('PlayerSE/10.PNG')
     ten = binarizeAndErode(ten)
-    #ten = np.ones((100, 100), np.uint8)
     strels.append(ten)
 
     jack = cv2.imread('PlayerSE/J.PNG')
     jack = binarizeAndErode(jack)
-    #jack = np.ones((100, 100), np.uint8)
     strels.append(jack)
 
     queen = cv2.imread('PlayerSE/Q.PNG')
@@ -58,10 +56,29 @@ def loadPlayerSE():
     ace = binarizeAndErode(ace)
     kernel = np.ones((2, 2), np.uint8)
     ace = cv2.erode(ace, kernel, iterations=1)
-    cv2.imshow("ace", ace)
     strels.append(ace)
 
     return strels
+
+def loadSuitStrels():
+    suits = []
+    club = cv2.imread("PlayerSE/Club.PNG")
+    club = binarizeAndErode(club)
+    suits.append(club)
+
+    heart = cv2.imread("PlayerSE/Heart.PNG")
+    heart = binarizeAndErode(heart)
+    suits.append(heart)
+
+    spade = cv2.imread("PlayerSE/Spade.PNG")
+    spade = binarizeAndErode(spade)
+    suits.append(spade)
+
+    diamond = cv2.imread("PlayerSE/Diamond.PNG")
+    diamond = binarizeAndErode(diamond)
+    suits.append(diamond)
+
+    return suits
 
 def binarizeAndErode(image):
     kernel = np.ones((2, 2), np.uint8)
@@ -69,4 +86,5 @@ def binarizeAndErode(image):
     image = cv2.threshold(image, 210, 255, cv2.THRESH_BINARY)[1]
     image = cv2.bitwise_not(image)
     image = cv2.erode(image, kernel, iterations=1)
+
     return image
