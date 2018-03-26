@@ -2,7 +2,7 @@ import numpy as np
 from PIL import ImageGrab
 import cv2
 
-def loadPlayeSE():
+def loadPlayerSE():
     strels = []
     two = cv2.imread('PlayerSE/2.PNG')
     two = binarizeAndErode(two)
@@ -43,7 +43,7 @@ def loadPlayeSE():
 
     jack = cv2.imread('PlayerSE/J.PNG')
     jack = binarizeAndErode(jack)
-    jack = np.ones((100, 100), np.uint8)
+    #jack = np.ones((100, 100), np.uint8)
     strels.append(jack)
 
     queen = cv2.imread('PlayerSE/Q.PNG')
@@ -56,6 +56,9 @@ def loadPlayeSE():
 
     ace = cv2.imread('PlayerSE/A.PNG')
     ace = binarizeAndErode(ace)
+    kernel = np.ones((2, 2), np.uint8)
+    ace = cv2.erode(ace, kernel, iterations=1)
+    cv2.imshow("ace", ace)
     strels.append(ace)
 
     return strels
@@ -67,6 +70,3 @@ def binarizeAndErode(image):
     image = cv2.bitwise_not(image)
     image = cv2.erode(image, kernel, iterations=1)
     return image
-
-
-
