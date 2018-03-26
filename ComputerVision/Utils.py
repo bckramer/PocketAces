@@ -2,6 +2,8 @@ import numpy as np
 from PIL import ImageGrab
 import cv2
 
+
+#TODO - Refactor and add comments, Ben 3/25
 def loadPlayerSE():
     strels = []
     two = cv2.imread('PlayerSE/2.PNG')

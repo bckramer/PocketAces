@@ -12,6 +12,8 @@ user32.SetProcessDPIAware()
 valueStrels = loadPlayerSE()
 suitStrels = loadSuitStrels()
 
+#TODO - Refactor and add comments, Ben 3/25
+#Finds the players current suit
 def findSuit(cardsImage):
     card1 = 0
     card2 = 0
