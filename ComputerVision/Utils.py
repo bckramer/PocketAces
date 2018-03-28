@@ -6,6 +6,7 @@ import cv2
 #TODO - Refactor and add comments, Ben 3/25
 def loadPlayerSE():
     strels = []
+
     two = cv2.imread('PlayerSE/2.PNG')
     two = binarizeAndErode(two)
     strels.append(two)
@@ -64,6 +65,7 @@ def loadPlayerSE():
 
 def loadSuitStrels():
     suits = []
+
     club = cv2.imread("PlayerSE/Club.PNG")
     club = binarizeAndErode(club)
     suits.append(club)
@@ -81,6 +83,10 @@ def loadSuitStrels():
     suits.append(diamond)
 
     return suits
+
+def loadPotSizeStrels():
+    nums = []
+
 
 def binarizeAndErode(image):
     kernel = np.ones((2, 2), np.uint8)

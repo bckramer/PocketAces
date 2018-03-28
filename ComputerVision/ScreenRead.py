@@ -1,10 +1,11 @@
-# Below is a simple way to grab the entire screen in 1920x1080,
-# but it should work in other resolutions.
+#Below is a simple way to grab the entire screen in 1920x1080,
+#but it should work in other resolutions.
 import numpy as np
 from Utils import *
 from PIL import ImageGrab
 import cv2
-# VERY IMPORTANT: Without it, the entire screen will not be captured
+import time
+#VERY IMPORTANT: Without it, the entire screen will not be captured
 from ctypes import windll
 
 user32 = windll.user32
@@ -72,10 +73,6 @@ def findCards(cardsImage):
     return cards[0], cards[1]
 
 def printResult(card1Value, card2Value, card1Suit, card2Suit):
-    card1Name = ""
-    card2Name = ""
-    card1SuitName = ""
-    card2SuitName = ""
     if card1Value == 11:
         card1Name = "Jack"
     elif card1Value == 12:
@@ -131,6 +128,7 @@ while True:
     card1Value, card2Value = findCards(cards)
     card1Suit, card2Suit = findSuit(cards)
     printResult(card1Value, card2Value, card1Suit, card2Suit)
+    time.sleep(1)
     if cv2.waitKey(30) & 0xFF == ord('q'):
         break
 
