@@ -4,7 +4,9 @@ import cv2
 import PotSizeObj
 
 
-#TODO - Refactor and add comments, Ben 3/25
+
+# TODO - Refactor and add comments, Ben 3/25
+# Case:            Error Output
 def loadPlayerSE():
     strels = []
 
@@ -67,6 +69,10 @@ def loadPlayerSE():
 def loadSuitStrels():
     suits = []
 
+    spade = cv2.imread("PlayerSE/Spade.PNG")
+    spade = binarizeAndErode(spade)
+    suits.append(spade)
+
     club = cv2.imread("PlayerSE/Club.PNG")
     club = binarizeAndErode(club)
     suits.append(club)
@@ -74,10 +80,6 @@ def loadSuitStrels():
     heart = cv2.imread("PlayerSE/Heart.PNG")
     heart = binarizeAndErode(heart)
     suits.append(heart)
-
-    spade = cv2.imread("PlayerSE/Spade.PNG")
-    spade = binarizeAndErode(spade)
-    suits.append(spade)
 
     diamond = cv2.imread("PlayerSE/Diamond.PNG")
     diamond = binarizeAndErode(diamond)
@@ -104,11 +106,10 @@ def loadPotSizeStrels():
     two = cv2.cvtColor(two, cv2.COLOR_BGR2GRAY)
     two = cv2.threshold(two, 150, 255, cv2.THRESH_BINARY)[1]
     two = cv2.erode(two, kernel, iterations=1)
-    cv2.imshow("3", two)
     nums.append(two)
 
     three = cv2.imread("PotSizeSE/3.PNG")
-    kernel = np.ones((2, 2), np.uint8)
+    kernel = np.ones((1, 1), np.uint8)
     three = cv2.cvtColor(three, cv2.COLOR_BGR2GRAY)
     three = cv2.threshold(three, 150, 255, cv2.THRESH_BINARY)[1]
     three = cv2.erode(three, kernel, iterations=1)
@@ -148,19 +149,27 @@ def loadPotSizeStrels():
 
 def findElementInImage(image, structuringElements, cardValues):
     i = 0
+    k = 0
     for strel in structuringElements:
         erosion = cv2.erode(image, strel, iterations=1)
-        #J and 10 get mixed up a lot when looking for the value of a card.
-        #This fixes that. Hopfully the root cause can be found, but for now, this works
+        # J and 10 get mixed up a lot when looking for the value of a card.
+        # This fixes that. Hopfully the root cause can be found, but for now, this works
         if (cardValues):
             row, col = erosion.shape
             erosion = erosion[0:col, 0:row - 20]
         im, contours, hierarchy = cv2.findContours(erosion, cv2.RETR_TREE,
                                                    cv2.CHAIN_APPROX_SIMPLE)
         if len(contours) == 1:
-            return i
+            # 3s and eights get confused. Right now this is
+            # the best solution. Modifying the 3 structuring
+            # element fixes the 8 issues, but causes 2s to be
+            # confused with 3s
+            if i == 1:
+                k = 1
+            else:
+                return i
         i = i + 1
-    return 0
+    return k
 
 def binarizeAndErode(image):
     kernel = np.ones((2, 2), np.uint8)
@@ -228,20 +237,20 @@ def printResult(card1Value, card2Value, card1Suit, card2Suit):
         card2Name = str(card2Value)
 
     if card1Suit == 0:
-        card1SuitName = "Clubs"
-    elif card1Suit == 1:
-        card1SuitName = "Hearts"
-    elif card1Suit == 2:
         card1SuitName = "Spades"
+    elif card1Suit == 1:
+        card1SuitName = "Clubs"
+    elif card1Suit == 2:
+        card1SuitName = "Hearts"
     else:
         card1SuitName = "Diamonds"
 
     if card2Suit == 0:
-        card2SuitName = "Clubs"
-    elif card2Suit == 1:
-        card2SuitName = "Hearts"
-    elif card2Suit == 2:
         card2SuitName = "Spades"
+    elif card2Suit == 1:
+        card2SuitName = "Clubs"
+    elif card2Suit == 2:
+        card2SuitName = "Hearts"
     else:
         card2SuitName = "Diamonds"
 
