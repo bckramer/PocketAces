@@ -51,7 +51,7 @@ while True:
     cv_image = np.array(screen_grab, dtype='uint8')
     cv_image_grey = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
 
-    thresh, cv_image_bw = cv2.threshold(cv_image_grey, 200, 255, cv2.THRESH_BINARY)
+    thresh, cv_image_bw = cv2.threshold(cv_image_grey, 200, 255, cv2.THRESH_BINARY_INV)
     cards = cv_image_bw[620:720, 1000:1100]
 
     thresh, cv_image_bw2 = cv2.threshold(cv_image_grey, 100, 255, cv2.THRESH_BINARY)

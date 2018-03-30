@@ -104,6 +104,7 @@ def loadPotSizeStrels():
     two = cv2.cvtColor(two, cv2.COLOR_BGR2GRAY)
     two = cv2.threshold(two, 150, 255, cv2.THRESH_BINARY)[1]
     two = cv2.erode(two, kernel, iterations=1)
+    cv2.imshow("3", two)
     nums.append(two)
 
     three = cv2.imread("PotSizeSE/3.PNG")
@@ -147,7 +148,6 @@ def loadPotSizeStrels():
 
 def findElementInImage(image, structuringElements, cardValues):
     i = 0
-    j = 0
     for strel in structuringElements:
         erosion = cv2.erode(image, strel, iterations=1)
         #J and 10 get mixed up a lot when looking for the value of a card.
@@ -158,15 +158,15 @@ def findElementInImage(image, structuringElements, cardValues):
         im, contours, hierarchy = cv2.findContours(erosion, cv2.RETR_TREE,
                                                    cv2.CHAIN_APPROX_SIMPLE)
         if len(contours) == 1:
-            j = i
+            return i
         i = i + 1
-    return j
+    return 0
 
 def binarizeAndErode(image):
     kernel = np.ones((2, 2), np.uint8)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     #If issues occur, it's probably starting here
-    image = cv2.threshold(image, 210, 255, cv2.THRESH_BINARY)[1]
+    image = cv2.threshold(image, 210, 255, cv2.THRESH_BINARY_INV)[1]
     image = cv2.erode(image, kernel, iterations=1)
 
     return image
