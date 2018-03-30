@@ -1,6 +1,7 @@
 import numpy as np
 from PIL import ImageGrab
 import cv2
+import PotSizeObj
 
 
 #TODO - Refactor and add comments, Ben 3/25
@@ -88,49 +89,65 @@ def loadPotSizeStrels():
     nums = []
 
     zero = cv2.imread("PotSizeSE/0.PNG")
-    zero = binarizeAndErode(zero)
+    kernel = np.ones((2, 2), np.uint8)
+    zero = cv2.cvtColor(zero, cv2.COLOR_BGR2GRAY)
+    zero = cv2.threshold(zero, 150, 255, cv2.THRESH_BINARY)[1]
+    zero = cv2.erode(zero, kernel, iterations=1)
     nums.append(zero)
 
     one = cv2.imread("PotSizeSE/1.PNG")
-    one = binarizeAndErode(one)
+    one = binarizeAndErodePot(one)
     nums.append(one)
 
     two = cv2.imread("PotSizeSE/2.PNG")
-    two = binarizeAndErode(two)
+    kernel = np.ones((2, 2), np.uint8)
+    two = cv2.cvtColor(two, cv2.COLOR_BGR2GRAY)
+    two = cv2.threshold(two, 150, 255, cv2.THRESH_BINARY)[1]
+    two = cv2.erode(two, kernel, iterations=1)
     nums.append(two)
 
     three = cv2.imread("PotSizeSE/3.PNG")
-    three = binarizeAndErode(three)
+    kernel = np.ones((2, 2), np.uint8)
+    three = cv2.cvtColor(three, cv2.COLOR_BGR2GRAY)
+    three = cv2.threshold(three, 150, 255, cv2.THRESH_BINARY)[1]
+    three = cv2.erode(three, kernel, iterations=1)
     nums.append(three)
 
     four = cv2.imread("PotSizeSE/4.PNG")
-    four = binarizeAndErode(four)
+    four = binarizeAndErodePot(four)
     nums.append(four)
 
     five = cv2.imread("PotSizeSE/5.PNG")
-    five = binarizeAndErode(five)
+    five = cv2.cvtColor(five, cv2.COLOR_BGR2GRAY)
+    kernel = np.ones((2, 2), np.uint8)
+    five = cv2.threshold(five, 137, 255, cv2.THRESH_BINARY)[1]
+    five = cv2.erode(five, kernel, iterations=1)
     nums.append(five)
 
     six = cv2.imread("PotSizeSE/6.PNG")
-    six = binarizeAndErode(six)
+    kernel = np.ones((2, 2), np.uint8)
+    six = cv2.cvtColor(six, cv2.COLOR_BGR2GRAY)
+    six = cv2.threshold(six, 150, 255, cv2.THRESH_BINARY)[1]
+    six = cv2.erode(six, kernel, iterations=1)
     nums.append(six)
 
     seven = cv2.imread("PotSizeSE/7.PNG")
-    seven = binarizeAndErode(seven)
+    seven = binarizeAndErodePot(seven)
     nums.append(seven)
 
     eight = cv2.imread("PotSizeSE/8.PNG")
-    eight = binarizeAndErode(eight)
+    eight = binarizeAndErodePot(eight)
     nums.append(eight)
 
     nine = cv2.imread("PotSizeSE/9.PNG")
-    nine = binarizeAndErode(nine)
+    nine = binarizeAndErodePot(nine)
     nums.append(nine)
 
     return nums
 
 def findElementInImage(image, structuringElements, cardValues):
     i = 0
+    j = 0
     for strel in structuringElements:
         erosion = cv2.erode(image, strel, iterations=1)
         #J and 10 get mixed up a lot when looking for the value of a card.
@@ -141,21 +158,50 @@ def findElementInImage(image, structuringElements, cardValues):
         im, contours, hierarchy = cv2.findContours(erosion, cv2.RETR_TREE,
                                                    cv2.CHAIN_APPROX_SIMPLE)
         if len(contours) == 1:
-            return i
+            j = i
         i = i + 1
-    return 0
-
-
-
+    return j
 
 def binarizeAndErode(image):
     kernel = np.ones((2, 2), np.uint8)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    #If issues occur, it's probably starting here
     image = cv2.threshold(image, 210, 255, cv2.THRESH_BINARY)[1]
-    image = cv2.bitwise_not(image)
     image = cv2.erode(image, kernel, iterations=1)
 
     return image
+
+def binarizeAndErodePot(image):
+    kernel = np.ones((1, 1), np.uint8)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    #If issues occur, it's probably starting here
+    image = cv2.threshold(image, 150, 255, cv2.THRESH_BINARY)[1]
+    image = cv2.erode(image, kernel, iterations=1)
+
+    return image
+
+def determinePotSize(image, structuringElements):
+    i = 0
+    potSizeObjs = []
+    xCoords = []
+    for strel in structuringElements:
+        erosion = cv2.erode(image, strel, iterations=1)
+        im, contours, hierarchy = cv2.findContours(erosion, cv2.RETR_TREE,
+                                                   cv2.CHAIN_APPROX_SIMPLE)
+        for contour in contours:
+            x, y, w, h = cv2.boundingRect(contour)
+            potSizeObj = PotSizeObj.makeNew(x, i)
+            potSizeObjs.append(potSizeObj)
+            xCoords.append(x)
+        i = i + 1
+    numberReps = ""
+    xCoords.sort()
+    for xCoord in xCoords:
+        for obj in potSizeObjs:
+            if xCoord == obj.xCoord and xCoord != 0:
+                numberReps += str(obj.number)
+    print "Pot Size: " + numberReps
+    return xCoords
 
 #Simple debug function for making the values found human readable
 def printResult(card1Value, card2Value, card1Suit, card2Suit):
