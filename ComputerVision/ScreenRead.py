@@ -2,6 +2,8 @@
 # but it should work in other resolutions.
 import numpy as np
 from Utils import *
+from findcontours import *
+from loadstrels import *
 from PIL import ImageGrab
 import cv2
 import time
@@ -10,9 +12,10 @@ from ctypes import windll
 
 user32 = windll.user32
 user32.SetProcessDPIAware()
-valueStrels = loadPlayerSE()
+valueStrels = loadPlayerStrels()
 suitStrels = loadSuitStrels()
 potSizeStrels = loadPotSizeStrels()
+publicstrels = loadPublicStrels()
 
 # TODO - Refactor and add comments, Ben 3/25
 # TODO - System doesn't work if there is only one card, fix, Ben3/28
@@ -42,8 +45,24 @@ def findCards(cardsImage):
 def findPotSize(potSizeImage):
     kernel = np.ones((2, 2), np.uint8)
     potSizeImage = cv2.dilate(potSizeImage, kernel, iterations=1)
-    cv2.imshow("image", potSizeImage)
     determinePotSize(potSizeImage, potSizeStrels)
+
+def findPublicCards(publiccards):
+    height, width = publiccards.shape
+
+    card1 = publiccards[0:height - (height / 2) - 20, 0:(width/5) - 68]
+    card2 = publiccards[0:height - (height / 2) - 20, width/5 + 5:(width / 5) * 2 - 63]
+    card3 = publiccards[0:height - (height / 2) - 20, (width / 5) * 2 + 10:(width / 5) * 3 - 62]
+    card4 = publiccards[0:height - (height / 2) - 20, (width / 5) * 3 + 12:(width / 5) * 4 - 56]
+    card5 = publiccards[0:height - (height / 2) - 20, (width / 5) * 4 + 20:(width / 5) * 5 - 50]
+    card1val = findElementInImage(card1, publicstrels, True) + 2
+    card2val = findElementInImage(card2, publicstrels, True) + 2
+    card3val = findElementInImage(card3, publicstrels, True) + 2
+    card4val = findElementInImage(card4, publicstrels, True) + 2
+    card5val = findElementInImage(card5, publicstrels, True) + 2
+    print str(card1val) + " " + str(card2val) + " " + str(card3val) + " " + str(card4val) + " " + str(card5val)
+
+    return 0
 
 while True:
     screen_grab = ImageGrab.grab()
@@ -53,13 +72,16 @@ while True:
 
     thresh, cv_image_bw = cv2.threshold(cv_image_grey, 200, 255, cv2.THRESH_BINARY_INV)
     cards = cv_image_bw[620:720, 1000:1100]
+    publicCards = cv_image_bw[398:510, 912:1400]
+    findPublicCards(publicCards)
 
     thresh, cv_image_bw2 = cv2.threshold(cv_image_grey, 100, 255, cv2.THRESH_BINARY)
+
     potSize = cv_image_bw2[533:570, 800:950]
+
+
+
     findPotSize(potSize)
-
-    cv2.imshow("potSize", cards)
-
 
     card1Value, card2Value = findCards(cards)
     card1Suit, card2Suit = findSuits(cards)
