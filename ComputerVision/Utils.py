@@ -1,6 +1,22 @@
-
+import cv2
+import numpy as np
 # TODO - Refactor and add comments, Ben 3/25
 # Case:            Error Output
+
+def binarizeAndErode(image, size, numiter, lowerbinarybound, bitwise):
+    kernel = np.ones((size, size), np.uint8)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    image = cv2.threshold(image, lowerbinarybound, 255, cv2.THRESH_BINARY_INV)[1]
+    if bitwise:
+        image = cv2.bitwise_not(image)
+    image = cv2.erode(image, kernel, iterations=numiter)
+    return image
+
+def dilate(image, size, numiter):
+    kernel = np.ones((size, size), np.uint8)
+    image = cv2.dilate(image, kernel, iterations=numiter)
+    return image
+
 #Simple debug function for making the values found human readable
 def printResult(card1Value, card2Value, card1Suit, card2Suit):
     if card1Value == 11:

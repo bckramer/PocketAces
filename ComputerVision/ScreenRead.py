@@ -16,6 +16,7 @@ valueStrels = loadPlayerStrels()
 suitStrels = loadSuitStrels()
 potSizeStrels = loadPotSizeStrels()
 publicstrels = loadPublicStrels()
+chipCountStrels = loadChipCountStrels()
 
 # TODO - Refactor and add comments, Ben 3/25
 # TODO - System doesn't work if there is only one card, fix, Ben3/28
@@ -45,7 +46,7 @@ def findCards(cardsImage):
 def findPotSize(potSizeImage):
     kernel = np.ones((2, 2), np.uint8)
     potSizeImage = cv2.dilate(potSizeImage, kernel, iterations=1)
-    determinePotSize(potSizeImage, potSizeStrels)
+    print str(determinePotSize(potSizeImage, potSizeStrels))
 
 def findPublicCards(publiccards):
     height, width = publiccards.shape
@@ -78,16 +79,13 @@ while True:
     thresh, cv_image_bw2 = cv2.threshold(cv_image_grey, 100, 255, cv2.THRESH_BINARY)
 
     potSize = cv_image_bw2[533:570, 800:950]
-
-
+    playerChips = cv_image_bw2[810:838, 1000:1170]
 
     findPotSize(potSize)
+    time.sleep(1)
 
     card1Value, card2Value = findCards(cards)
     card1Suit, card2Suit = findSuits(cards)
-
-    printResult(card1Value, card2Value, card1Suit, card2Suit)
-    time.sleep(1)
 
 
     if cv2.waitKey(30) & 0xFF == ord('q'):

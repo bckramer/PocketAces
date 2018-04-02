@@ -1,7 +1,5 @@
 from Utils import *
 import cv2
-from PIL import ImageGrab
-import numpy as np
 
 def loadPlayerStrels():
     strels = []
@@ -83,6 +81,10 @@ def loadSuitStrels():
 
 def loadPotSizeStrels():
     nums = []
+
+    dollar = cv2.imread("PotSizeSE/$.PNG")
+    dollar = binarizeAndErode(dollar, 2, 1, 150, True)
+    nums.append(dollar)
 
     zero = cv2.imread("PotSizeSE/0.PNG")
     zero = binarizeAndErode(zero, 2, 1, 150, True)
@@ -183,12 +185,57 @@ def loadPublicStrels():
 
     return strels
 
+def loadChipCountStrels():
+    nums = []
 
-def binarizeAndErode(image, size, numiter, lowerbinarybound, bitwise):
-    kernel = np.ones((size, size), np.uint8)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    image = cv2.threshold(image, lowerbinarybound, 255, cv2.THRESH_BINARY_INV)[1]
-    if bitwise:
-        image = cv2.bitwise_not(image)
-    image = cv2.erode(image, kernel, iterations=numiter)
-    return image
+    dollar = cv2.imread("PotSizeSE/$.PNG")
+    dollar = binarizeAndErode(dollar, 2, 1, 150, True)
+    nums.append(dollar)
+
+    zero = cv2.imread("ChipSE/0.PNG")
+    zero = cv2.cvtColor(zero, cv2.COLOR_BGR2GRAY)
+    zero = cv2.threshold(zero, 150, 255, cv2.THRESH_BINARY_INV)[1]
+    nums.append(zero)
+
+    one = cv2.imread("ChipSE/1.PNG")
+    binarizeAndErode(one, 2, 1, 150, True)
+    nums.append(one)
+
+    two = cv2.imread("ChipSE/2.PNG")
+    two = cv2.cvtColor(two, cv2.COLOR_BGR2GRAY)
+    two = cv2.threshold(two, 150, 255, cv2.THRESH_BINARY_INV)[1]
+    nums.append(two)
+
+    three = cv2.imread("PotSizeSE/3.PNG")
+    three = binarizeAndErode(three, 2, 1, 150, True)
+    nums.append(three)
+
+    four = cv2.imread("ChipSE/4.PNG")
+    four = binarizeAndErode(four, 1, 1, 150, True)
+    y, x = four.shape[:2]
+    four = four[0:y - 19, 0:x]
+    nums.append(four)
+
+    five = cv2.imread("PotSizeSE/5.PNG")
+    five = binarizeAndErode(five, 1, 1, 137, True)
+    nums.append(five)
+
+    six = cv2.imread("PotSizeSE/6.PNG")
+    six = binarizeAndErode(six, 2, 1, 150, True)
+    nums.append(six)
+
+    seven = cv2.imread("PotSizeSE/7.PNG")
+    seven = binarizeAndErode(seven, 2, 1, 150, True)
+    nums.append(seven)
+
+    eight = cv2.imread("ChipSE/8.PNG")
+    y, x = eight.shape[:2]
+    eight = eight[0:y - 19, 0:x]
+    eight = binarizeAndErode(eight, 1, 1, 150, True)
+    nums.append(eight)
+
+    nine = cv2.imread("ChipSE/9.PNG")
+    nine = binarizeAndErode(nine, 2, 1, 150, True)
+    nums.append(nine)
+
+    return nums
