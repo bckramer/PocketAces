@@ -43,10 +43,10 @@ def findCards(cardsImage):
 
     return card1, card2
 
-def findPotSize(potSizeImage):
+def findChipSize(chipSizeImage, strels, message):
     kernel = np.ones((2, 2), np.uint8)
-    potSizeImage = cv2.dilate(potSizeImage, kernel, iterations=1)
-    print str(determinePotSize(potSizeImage, potSizeStrels))
+    chipSizeImage = cv2.dilate(chipSizeImage, kernel, iterations=1)
+    print message + str(determinePotSize(chipSizeImage, strels))
 
 def findPublicCards(publiccards):
     height, width = publiccards.shape
@@ -74,18 +74,21 @@ while True:
     thresh, cv_image_bw = cv2.threshold(cv_image_grey, 200, 255, cv2.THRESH_BINARY_INV)
     cards = cv_image_bw[620:720, 1000:1100]
     publicCards = cv_image_bw[398:510, 912:1400]
-    findPublicCards(publicCards)
+    #findPublicCards(publicCards)
 
     thresh, cv_image_bw2 = cv2.threshold(cv_image_grey, 100, 255, cv2.THRESH_BINARY)
 
     potSize = cv_image_bw2[533:570, 800:950]
     playerChips = cv_image_bw2[810:838, 1000:1170]
+    # cv2.imshow("image2", playerChips)
 
-    findPotSize(potSize)
-    time.sleep(1)
+    findChipSize(potSize, potSizeStrels, "Pot Size: ")
+    # cv2.imshow("image", potSize)
+    findChipSize(playerChips, chipCountStrels, "Player Chips: ")
 
     card1Value, card2Value = findCards(cards)
     card1Suit, card2Suit = findSuits(cards)
+    time.sleep(1)
 
 
     if cv2.waitKey(30) & 0xFF == ord('q'):

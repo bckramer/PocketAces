@@ -37,13 +37,14 @@ def determinePotSize(image, structuringElements):
             erosion = cv2.erode(image, strel, iterations=1)
             im, contours, hierarchy = cv2.findContours(erosion, cv2.RETR_TREE,
                                                        cv2.CHAIN_APPROX_SIMPLE)
-            x = 10000
-            for contour in contours:
-                x0, y0, w0, h0 = cv2.boundingRect(contour)
-                if x0 < x:
-                    x = x0
-            x1, y1 = image.shape
-            image = image[0:y1, x + 9:y1]
+            if len(contours) > 0:
+                x = 10000
+                for contour in contours:
+                    x0, y0, w0, h0 = cv2.boundingRect(contour)
+                    if x0 < x:
+                        x = x0
+                x1, y1 = image.shape
+                image = image[0:y1, x + 9:y1]
             cv2.imshow("image", image)
         else:
             erosion = cv2.erode(image, strel, iterations=1)

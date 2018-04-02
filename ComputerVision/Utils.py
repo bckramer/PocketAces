@@ -5,7 +5,6 @@ import numpy as np
 
 def binarizeAndErode(image, size, numiter, lowerbinarybound, bitwise):
     kernel = np.ones((size, size), np.uint8)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     image = cv2.threshold(image, lowerbinarybound, 255, cv2.THRESH_BINARY_INV)[1]
     if bitwise:
         image = cv2.bitwise_not(image)
