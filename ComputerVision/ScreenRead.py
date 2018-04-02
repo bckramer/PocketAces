@@ -43,8 +43,8 @@ def findCards(cardsImage):
 
     return card1, card2
 
-def findChipSize(chipSizeImage, strels, message):
-    kernel = np.ones((2, 2), np.uint8)
+def findChipSize(chipSizeImage, strels, message, size):
+    kernel = np.ones((size, size), np.uint8)
     chipSizeImage = cv2.dilate(chipSizeImage, kernel, iterations=1)
     print message + str(determinePotSize(chipSizeImage, strels))
 
@@ -82,9 +82,9 @@ while True:
     playerChips = cv_image_bw2[810:838, 1000:1170]
     # cv2.imshow("image2", playerChips)
 
-    findChipSize(potSize, potSizeStrels, "Pot Size: ")
+    findChipSize(potSize, potSizeStrels, "Pot Size: ", 2)
     # cv2.imshow("image", potSize)
-    findChipSize(playerChips, chipCountStrels, "Player Chips: ")
+    findChipSize(playerChips, chipCountStrels, "Player Chips: ", 3)
 
     card1Value, card2Value = findCards(cards)
     card1Suit, card2Suit = findSuits(cards)

@@ -1,5 +1,6 @@
 import cv2
 import potsizeobj
+from rectangle import *
 from Utils import *
 
 def findElementInImage(image, structuringElements, cardValues):
@@ -32,6 +33,7 @@ def determinePotSize(image, structuringElements):
     i = -1
     potSizeObjs = []
     xCoords = []
+    boxes = []
     for strel in structuringElements:
         if i == -1:
             erosion = cv2.erode(image, strel, iterations=1)
@@ -44,22 +46,30 @@ def determinePotSize(image, structuringElements):
                     if x0 < x:
                         x = x0
                 x1, y1 = image.shape
-                image = image[0:y1, x + 9:y1]
-            cv2.imshow("image", image)
+                image = image[0:y1, x + 10:y1]
+                im, contours, hierarchy = cv2.findContours(image, cv2.RETR_TREE,
+                                                           cv2.CHAIN_APPROX_SIMPLE)
+                j = 0
+                for contour in contours:
+                    x, y, w, h = cv2.boundingRect(contour)
+                    rectangle = makeNew(x, y, x + w, y + h, j, -1)
+                    boxes.append(rectangle)
+                    j = j + 1
+                cv2.imshow("image", image)
         else:
             erosion = cv2.erode(image, strel, iterations=1)
             im, contours, hierarchy = cv2.findContours(erosion, cv2.RETR_TREE,
                                                    cv2.CHAIN_APPROX_SIMPLE)
             for contour in contours:
                 x, y, w, h = cv2.boundingRect(contour)
-                potSizeObj = potsizeobj.makeNew(x, i)
-                potSizeObjs.append(potSizeObj)
-                xCoords.append(x)
+                for box in boxes:
+                    if (x > box.x1 and x < box.x2 and y > box.y1 and y < box.y2):
+                        box.num = i
+
         i = i + 1
     numberReps = ""
     xCoords.sort()
-    for xCoord in xCoords:
-        for obj in potSizeObjs:
-            if xCoord == obj.xCoord and xCoord != 0:
-                numberReps += str(obj.number)
+    for box in boxes:
+        if box.num != -1:
+            numberReps = numberReps + str(box.num)
     return numberReps

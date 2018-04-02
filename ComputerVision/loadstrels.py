@@ -192,15 +192,17 @@ def loadChipCountStrels():
     dollar = binarizeAndErode(dollar, 1, 1, 150, True)
     y, x = dollar.shape[:2]
     dollar = dollar[0:y, 60:x]
-    cv2.imshow("dollar", dollar)
     nums.append(dollar)
 
     zero = cv2.imread("ChipSE/0.PNG", cv2.IMREAD_GRAYSCALE)
-    zero = cv2.threshold(zero, 150, 255, cv2.THRESH_BINARY_INV)[1]
+    zero = binarizeAndErode(zero, 1, 1, 150, True)
     nums.append(zero)
 
     one = cv2.imread("ChipSE/1.PNG", cv2.IMREAD_GRAYSCALE)
-    binarizeAndErode(one, 2, 1, 150, True)
+    binarizeAndErode(one, 3, 1, 150, True)
+    y, x = one.shape[:2]
+    one = one[0:y, 0:x - 24]
+    cv2.imshow("one", one)
     nums.append(one)
 
     two = cv2.imread("ChipSE/2.PNG", cv2.IMREAD_GRAYSCALE)
@@ -217,12 +219,16 @@ def loadChipCountStrels():
     four = four[0:y - 19, 0:x]
     nums.append(four)
 
-    five = cv2.imread("PotSizeSE/5.PNG", cv2.IMREAD_GRAYSCALE)
-    five = binarizeAndErode(five, 1, 1, 137, True)
+    five = cv2.imread("ChipSE/5.PNG", cv2.IMREAD_GRAYSCALE)
+    five = binarizeAndErode(five, 0, 1, 137, True)
+    y, x = five.shape[:2]
+    five = five[0:y - 4, 0:x - 10]
     nums.append(five)
 
-    six = cv2.imread("PotSizeSE/6.PNG", cv2.IMREAD_GRAYSCALE)
-    six = binarizeAndErode(six, 2, 1, 150, True)
+    six = cv2.imread("ChipSE/6.PNG", cv2.IMREAD_GRAYSCALE)
+    six = binarizeAndErode(six, 1, 1, 150, True)
+    y, x = six.shape[:2]
+    six = six[0:y - 4, 0:x - 10]
     nums.append(six)
 
     seven = cv2.imread("PotSizeSE/7.PNG", cv2.IMREAD_GRAYSCALE)
@@ -236,7 +242,7 @@ def loadChipCountStrels():
     nums.append(eight)
 
     nine = cv2.imread("ChipSE/9.PNG", cv2.IMREAD_GRAYSCALE)
-    nine = binarizeAndErode(nine, 2, 1, 150, True)
+    nine = binarizeAndErode(nine, 1, 1, 150, True)
     nums.append(nine)
 
     return nums
