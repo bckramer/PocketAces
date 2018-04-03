@@ -1,7 +1,6 @@
 import cv2
-import potsizeobj
 import numpy as np
-from rectangle import *
+from areaOfInterest import *
 from Utils import *
 import time
 
@@ -103,11 +102,11 @@ def findROIs(image, strel):
         for contour in contours:
             x, y, w, h = cv2.boundingRect(contour)
             if cv2.contourArea(contour) > 0:
-                rectangle = makeNew(x, y, x + w, y + h, -1)
-                rectangle.image = image[rectangle.y1:rectangle.y2, rectangle.x1:rectangle.x2]
-                rectangle.image = addBlackBorder(rectangle.image)
-                rectangle.image = binarizeAndErode(rectangle.image, 0, 0, 150, True)
-                boxes.append(rectangle)
+                areaOfInterest = makeNew(x, y, x + w, y + h, -1)
+                areaOfInterest.image = image[areaOfInterest.y1:areaOfInterest.y2, areaOfInterest.x1:areaOfInterest.x2]
+                areaOfInterest.image = addBlackBorder(areaOfInterest.image)
+                areaOfInterest.image = binarizeAndErode(areaOfInterest.image, 0, 0, 150, True)
+                boxes.append(areaOfInterest)
         boxes = insertion_sort(boxes)
         boxes.reverse()
     return boxes

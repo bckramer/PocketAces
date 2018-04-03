@@ -1,6 +1,6 @@
 import numpy as np
 
-class Rectangle(object):
+class areaOfInterest(object):
     x1 = 0
     y1 = 0
     x2 = 0
@@ -10,7 +10,7 @@ class Rectangle(object):
 
 
 def makeNew(x1, y1, x2, y2, num):
-    rectangle = Rectangle()
+    rectangle = areaOfInterest()
     rectangle.x1 = x1
     rectangle.y1 = y1
     rectangle.x2 = x2

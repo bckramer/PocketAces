@@ -84,8 +84,8 @@ while True:
     y, x = playerChips.shape[:2]
     playerChips = playerChips[0:y - 2, 0:x]
 
-    # findChipSize(potSize, potSizeStrels, "Pot Size: ", 2)
-    # findChipSize(playerChips, chipCountStrels, "Player Chips: ", 2)
+    findChipSize(potSize, potSizeStrels, "Pot Size: ", 2)
+    findChipSize(playerChips, chipCountStrels, "Player Chips: ", 2)
 
     card1Value, card2Value = findCards(cards)
     card1Suit, card2Suit = findSuits(cards)
