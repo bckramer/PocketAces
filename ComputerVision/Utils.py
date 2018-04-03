@@ -8,7 +8,8 @@ def binarizeAndErode(image, size, numiter, lowerbinarybound, bitwise):
     image = cv2.threshold(image, lowerbinarybound, 255, cv2.THRESH_BINARY_INV)[1]
     if bitwise:
         image = cv2.bitwise_not(image)
-    image = cv2.erode(image, kernel, iterations=numiter)
+    if size != 0:
+        image = cv2.erode(image, kernel, iterations=numiter)
     return image
 
 def dilate(image, size, numiter):

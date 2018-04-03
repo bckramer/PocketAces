@@ -1,5 +1,6 @@
 from Utils import *
 import cv2
+from findcontours import *
 
 def loadPlayerStrels():
     strels = []
@@ -200,61 +201,66 @@ def loadChipCountStrels():
     nums = []
 
     zero = cv2.imread("ChipSE/0.PNG", cv2.IMREAD_GRAYSCALE)
-    zero = binarizeAndErode(zero, 1, 1, 150, True)
+    zero = binarizeAndErode(zero, 1, 1, 50, True)
     y, x = zero.shape[:2]
     zero = zero[0:y, 0:x - 18]
+    cv2.imshow("zero", zero)
     nums.append(zero)
 
     one = cv2.imread("ChipSE/1.PNG", cv2.IMREAD_GRAYSCALE)
-    one = binarizeAndErode(one, 1, 1, 150, True)
+    one = binarizeAndErode(one, 0, 1, 50, True)
     y, x = one.shape[:2]
     one = one[0:y, 0:x - 24]
     nums.append(one)
 
     two = cv2.imread("ChipSE/2.PNG", cv2.IMREAD_GRAYSCALE)
-    two = cv2.threshold(two, 150, 255, cv2.THRESH_BINARY_INV)[1]
+    two = binarizeAndErode(two, 0, 1, 50, True)
+    y,x = two.shape[:2]
+    two = two[0:y - 4, 0:x - 20]
     nums.append(two)
 
     three = cv2.imread("PotSizeSE/3.PNG", cv2.IMREAD_GRAYSCALE)
-    three = binarizeAndErode(three, 1, 1, 150, True)
-    three = binarizeAndErode(three, 1, 1, 150, True)
+    three = binarizeAndErode(three, 0, 1, 150, True)
     y, x = three.shape[:2]
     three = three[0:y - 20, 0:x]
     nums.append(three)
 
     four = cv2.imread("ChipSE/4.PNG", cv2.IMREAD_GRAYSCALE)
-    four = binarizeAndErode(four, 1, 1, 150, True)
+    four = binarizeAndErode(four, 1, 1, 50, True)
     y, x = four.shape[:2]
-    four = four[0:y - 19, 0:x]
+    four = four[0:y - 19, 0:x - 2]
     nums.append(four)
 
     five = cv2.imread("ChipSE/5.PNG", cv2.IMREAD_GRAYSCALE)
-    five = binarizeAndErode(five, 1, 1, 120, True)
+    five = binarizeAndErode(five, 0, 1, 50, True)
     y, x = five.shape[:2]
     five = five[0:y - 4, 0:x - 38]
     nums.append(five)
 
     six = cv2.imread("ChipSE/6.PNG", cv2.IMREAD_GRAYSCALE)
-    six = binarizeAndErode(six, 1, 1, 150, True)
+    six = binarizeAndErode(six, 0, 1, 50, True)
     y, x = six.shape[:2]
     six = six[0:y - 4, 0:x - 42]
     nums.append(six)
 
     seven = cv2.imread("ChipSE/7.PNG", cv2.IMREAD_GRAYSCALE)
-    seven = binarizeAndErode(seven, 1, 1, 150, True)
+    seven = binarizeAndErode(seven, 0, 1, 50, True)
     y, x = seven.shape[:2]
     seven = seven[0:y, 0:x - 78]
     nums.append(seven)
 
     eight = cv2.imread("ChipSE/8.PNG", cv2.IMREAD_GRAYSCALE)
     y, x = eight.shape[:2]
-    eight = eight[0:y - 17, 0:x]
-    eight = binarizeAndErode(eight, 2, 1, 150, True)
+    eight = eight[0:y - 19, 0:x]
+    eight = binarizeAndErode(eight, 1, 1, 50, True)
+    cv2.imshow("eight", eight)
     y, x = seven.shape[:2]
     nums.append(eight)
 
-    nine = cv2.imread("PotSizeSE/9.PNG", cv2.IMREAD_GRAYSCALE)
-    nine = binarizeAndErode(nine, 1, 1, 150, True)
+    nine = cv2.imread("ChipSE/9.PNG", cv2.IMREAD_GRAYSCALE)
+    nine = binarizeAndErode(nine, 0, 1, 50, True)
+    y, x = nine.shape[:2]
+    nine = nine[0:y, 0:x - 20]
     nums.append(nine)
 
     return nums
