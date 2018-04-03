@@ -4,7 +4,7 @@ import numpy as np
 # Case:            Error Output
 
 def binarizeAndErode(image, size, numiter, lowerbinarybound, bitwise):
-    kernel = np.ones((size, size), np.uint8)
+    kernel = np.ones((size, size), dtype='uint8')
     image = cv2.threshold(image, lowerbinarybound, 255, cv2.THRESH_BINARY_INV)[1]
     if bitwise:
         image = cv2.bitwise_not(image)
@@ -16,7 +16,18 @@ def dilate(image, size, numiter):
     image = cv2.dilate(image, kernel, iterations=numiter)
     return image
 
-#Simple debug function for making the values found human readable
+def addBlackBorder(image):
+    row, col = image.shape[:2]
+    bottom = image[row - 2:row, 0:col]
+
+    bordersize = 40
+    border = cv2.copyMakeBorder(image, top=bordersize, bottom=bordersize, left=bordersize, right=bordersize,
+                                borderType=cv2.BORDER_CONSTANT, value=cv2.BORDER_REPLICATE)
+    return border
+
+# Taken from https://stackoverflow.com/questions/36255654/how-to-add-border-around-an-image-in-opencv-python
+
+# Simple debug function for making the values found human readable
 def printResult(card1Value, card2Value, card1Suit, card2Suit):
     if card1Value == 11:
         card1Name = "Jack"

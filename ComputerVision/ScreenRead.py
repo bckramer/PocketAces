@@ -44,9 +44,9 @@ def findCards(cardsImage):
     return card1, card2
 
 def findChipSize(chipSizeImage, strels, message, size):
-    kernel = np.ones((size, size), np.uint8)
+    kernel = np.ones((size, size), dtype='uint8')
     chipSizeImage = cv2.dilate(chipSizeImage, kernel, iterations=1)
-    print message + str(determinePotSize(chipSizeImage, strels))
+    print message + str(determinePotSize(chipSizeImage, strels, loadPlayerDollar()))
 
 def findPublicCards(publiccards):
     height, width = publiccards.shape
@@ -84,7 +84,7 @@ while True:
 
     findChipSize(potSize, potSizeStrels, "Pot Size: ", 2)
     # cv2.imshow("image", potSize)
-    findChipSize(playerChips, chipCountStrels, "Player Chips: ", 3)
+    #findChipSize(playerChips, chipCountStrels, "Player Chips: ", 2)
 
     card1Value, card2Value = findCards(cards)
     card1Suit, card2Suit = findSuits(cards)

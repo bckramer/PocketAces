@@ -1,7 +1,9 @@
 import cv2
 import potsizeobj
+import numpy as np
 from rectangle import *
 from Utils import *
+import time
 
 def findElementInImage(image, structuringElements, cardValues):
     i = 0
@@ -29,47 +31,78 @@ def findElementInImage(image, structuringElements, cardValues):
         k = -2
     return k
 
-def determinePotSize(image, structuringElements):
-    i = -1
-    potSizeObjs = []
-    xCoords = []
-    boxes = []
-    for strel in structuringElements:
-        if i == -1:
-            erosion = cv2.erode(image, strel, iterations=1)
-            im, contours, hierarchy = cv2.findContours(erosion, cv2.RETR_TREE,
-                                                       cv2.CHAIN_APPROX_SIMPLE)
-            if len(contours) > 0:
-                x = 10000
-                for contour in contours:
-                    x0, y0, w0, h0 = cv2.boundingRect(contour)
-                    if x0 < x:
-                        x = x0
-                x1, y1 = image.shape
-                image = image[0:y1, x + 10:y1]
-                im, contours, hierarchy = cv2.findContours(image, cv2.RETR_TREE,
-                                                           cv2.CHAIN_APPROX_SIMPLE)
-                j = 0
-                for contour in contours:
-                    x, y, w, h = cv2.boundingRect(contour)
-                    rectangle = makeNew(x, y, x + w, y + h, j, -1)
-                    boxes.append(rectangle)
-                    j = j + 1
-                cv2.imshow("image", image)
-        else:
-            erosion = cv2.erode(image, strel, iterations=1)
+def determinePotSize(image, structuringElements, dollar):
+    boxes = findROIs(image, dollar)
+    for box in boxes:
+        i = 0
+        for strel in structuringElements:
+            erosion = cv2.erode(box.image, strel, iterations=1)
             im, contours, hierarchy = cv2.findContours(erosion, cv2.RETR_TREE,
                                                    cv2.CHAIN_APPROX_SIMPLE)
-            for contour in contours:
-                x, y, w, h = cv2.boundingRect(contour)
-                for box in boxes:
-                    if (x > box.x1 and x < box.x2 and y > box.y1 and y < box.y2):
+            if i == 0:
+                cv2.drawContours(erosion, contours, -1, (128, 255, 0), 3)
+                cv2.imshow("0", erosion)
+            elif i == 2:
+                cv2.drawContours(erosion, contours, -1, (128, 255, 0), 3)
+                cv2.imshow("2", erosion)
+            elif i == 3:
+                cv2.drawContours(erosion, contours, -1, (128, 255, 0), 3)
+                cv2.imshow("3", erosion)
+            elif i == 4:
+                cv2.drawContours(erosion, contours, -1, (128, 255, 0), 3)
+                cv2.imshow("4", erosion)
+            elif i == 5:
+                cv2.drawContours(erosion, contours, -1, (128, 255, 0), 3)
+                cv2.imshow("5", erosion)
+            elif i == 6:
+                cv2.imshow("6-1", erosion)
+                cv2.drawContours(erosion, contours, -1, (255, 2, 0), 3)
+                cv2.imshow("6", erosion)
+            elif i == 7:
+                cv2.drawContours(erosion, contours, -1, (128, 255, 0), 3)
+                cv2.imshow("7", erosion)
+            elif i == 8:
+               # cv2.drawContours(erosion, contours, -1, (128, 255, 0), 3)
+                cv2.imshow("8", erosion)
+            elif i == 9:
+                cv2.drawContours(erosion, contours, -1, (128, 255, 0), 3)
+                cv2.imshow("9", erosion)
+            if len(contours) > 0:
+                print i
+                for contour in contours:
+                    x, y, w, h = cv2.boundingRect(contour)
+                    print "Contour Area: " + str(cv2.contourArea(contour)) + " at " + str(i)
+                    if cv2.contourArea(contour) > 1000:
                         box.num = i
-
-        i = i + 1
+            i = i + 1
     numberReps = ""
-    xCoords.sort()
     for box in boxes:
         if box.num != -1:
             numberReps = numberReps + str(box.num)
     return numberReps
+
+def findROIs(image, strel):
+    boxes = []
+    erosion = cv2.erode(image, strel, iterations=1)
+    im, contours, hierarchy = cv2.findContours(erosion, cv2.RETR_TREE,
+                                                cv2.CHAIN_APPROX_SIMPLE)
+    if len(contours) > 0:
+        x = 10000
+        for contour in contours:
+            x0, y0, w0, h0 = cv2.boundingRect(contour)
+            if x0 < x:
+                x = x0
+        x1, y1 = image.shape
+        image = image[0:y1, x + 10:y1]
+        im, contours, hierarchy = cv2.findContours(image, cv2.RETR_TREE,
+                                                           cv2.CHAIN_APPROX_SIMPLE)
+        for contour in contours:
+            x, y, w, h = cv2.boundingRect(contour)
+            if cv2.contourArea(contour) > 50:
+                rectangle = makeNew(x, y, x + w, y + h, -1)
+                rectangle.image = image[rectangle.y1:rectangle.y2, rectangle.x1:rectangle.x2]
+                rectangle.image = addBlackBorder(rectangle.image)
+                boxes.append(rectangle)
+        boxes = insertion_sort(boxes)
+        boxes.reverse()
+    return boxes
