@@ -80,66 +80,6 @@ def loadSuitStrels():
 
     return suits
 
-def loadPotSizeStrels():
-    nums = []
-
-    zero = cv2.imread("PotSizeSE/0.PNG", cv2.IMREAD_GRAYSCALE)
-    zero = binarizeAndErode(zero, 2, 1, 150, True)
-    nums.append(zero)
-
-    one = cv2.imread("PotSizeSE/1.PNG", cv2.IMREAD_GRAYSCALE)
-    one = binarizeAndErode(one, 1, 1, 150, True)
-    nums.append(one)
-
-    two = cv2.imread("PotSizeSE/2.PNG", cv2.IMREAD_GRAYSCALE)
-    two = binarizeAndErode(two, 2, 1, 150, True)
-    nums.append(two)
-
-    three = cv2.imread("PotSizeSE/3.PNG", cv2.IMREAD_GRAYSCALE)
-    three = binarizeAndErode(three, 1, 1, 150, True)
-    nums.append(three)
-
-    four = cv2.imread("PotSizeSE/4.PNG", cv2.IMREAD_GRAYSCALE)
-    four = binarizeAndErode(four, 1, 1, 150, True)
-    nums.append(four)
-
-    five = cv2.imread("PotSizeSE/5.PNG", cv2.IMREAD_GRAYSCALE)
-    five = binarizeAndErode(five, 2, 1, 137, True)
-    nums.append(five)
-
-    six = cv2.imread("PotSizeSE/6.PNG", cv2.IMREAD_GRAYSCALE)
-    six = binarizeAndErode(six, 2, 1, 150, True)
-    nums.append(six)
-
-    seven = cv2.imread("PotSizeSE/7.PNG", cv2.IMREAD_GRAYSCALE)
-    seven = binarizeAndErode(seven, 1, 1, 150, True)
-    nums.append(seven)
-
-    eight = cv2.imread("PotSizeSE/8.PNG", cv2.IMREAD_GRAYSCALE)
-    eight = binarizeAndErode(eight, 1, 1, 150, True)
-    nums.append(eight)
-
-    nine = cv2.imread("PotSizeSE/9.PNG", cv2.IMREAD_GRAYSCALE)
-    nine = binarizeAndErode(nine, 1, 1, 150, True)
-    nums.append(nine)
-
-    return nums
-
-def loadPlayerDollar():
-
-    dollar = cv2.imread("ChipSE/$.PNG", cv2.IMREAD_GRAYSCALE)
-    dollar = binarizeAndErode(dollar, 1, 1, 150, True)
-    y, x = dollar.shape[:2]
-    dollar = dollar[0:y, 60:x]
-
-    return dollar
-
-def loadPotDollar():
-    dollar = cv2.imread("PotSizeSE/$.PNG", cv2.IMREAD_GRAYSCALE)
-    dollar = binarizeAndErode(dollar, 2, 1, 150, True)
-
-    return dollar
-
 def loadPublicStrels():
     strels = []
 
@@ -197,54 +137,120 @@ def loadPublicStrels():
 
     return strels
 
+def loadPotSizeStrels():
+    nums = []
+
+    zero = cv2.imread("PotSizeSE/0.PNG", cv2.IMREAD_GRAYSCALE)
+    zero = binarizeAndErode(zero, 2, 1, 150, True)
+    y, x = zero.shape[:2]
+    zero = zero[0:y - 20, 2:x - 10]
+    nums.append(zero)
+
+    one = cv2.imread("PotSizeSE/1.PNG", cv2.IMREAD_GRAYSCALE)
+    one = binarizeAndErode(one, 2, 1, 150, True)
+    y, x = one.shape[:2]
+    one = one[0:y - 20, 2:x]
+    nums.append(one)
+
+    two = cv2.imread("PotSizeSE/2.PNG", cv2.IMREAD_GRAYSCALE)
+    two = binarizeAndErode(two, 2, 1, 150, True)
+    nums.append(two)
+
+    three = cv2.imread("PotSizeSE/3.PNG", cv2.IMREAD_GRAYSCALE)
+    three = binarizeAndErode(three, 2, 1, 150, True)
+    y, x = three.shape[:2]
+    three = three[0:y - 24, 0:x - 9]
+    nums.append(three)
+
+    four = cv2.imread("PotSizeSE/4.PNG", cv2.IMREAD_GRAYSCALE)
+    four = binarizeAndErode(four, 1, 1, 150, True)
+    y, x = four.shape[:2]
+    four = four[0:y - 10, 0:x - 5]
+    nums.append(four)
+
+    five = cv2.imread("PotSizeSE/5.PNG", cv2.IMREAD_GRAYSCALE)
+    five = binarizeAndErode(five, 2, 1, 137, True)
+    y, x = five.shape[:2]
+    five = five[0:y - 10, 0:x - 6]
+    nums.append(five)
+
+    six = cv2.imread("PotSizeSE/6.PNG", cv2.IMREAD_GRAYSCALE)
+    six = binarizeAndErode(six, 2, 1, 150, True)
+    y, x = six.shape[:2]
+    six = six[0:y - 10, 0:x - 10]
+    nums.append(six)
+
+    seven = cv2.imread("PotSizeSE/7.PNG", cv2.IMREAD_GRAYSCALE)
+    seven = binarizeAndErode(seven, 1, 1, 150, True)
+    seven = seven[0:y - 10, 0:x - 11]
+    nums.append(seven)
+
+    eight = cv2.imread("PotSizeSE/8.PNG", cv2.IMREAD_GRAYSCALE)
+    eight = binarizeAndErode(eight, 1, 1, 150, True)
+    eight = eight[6:y - 6, 0:x - 11]
+    nums.append(eight)
+
+    nine = cv2.imread("PotSizeSE/9.PNG", cv2.IMREAD_GRAYSCALE)
+    nine = binarizeAndErode(nine, 1, 1, 150, True)
+    nine = binarizeAndErode(nine, 1, 1, 150, True)
+    nine = nine[0:y - 8, 0:x - 11]
+    nums.append(nine)
+
+    return nums
+
+def loadPotDollar():
+    dollar = cv2.imread("PotSizeSE/$.PNG", cv2.IMREAD_GRAYSCALE)
+    dollar = binarizeAndErode(dollar, 2, 1, 150, True)
+
+    return dollar
+
 def loadChipCountStrels():
     nums = []
 
     zero = cv2.imread("ChipSE/0.PNG", cv2.IMREAD_GRAYSCALE)
-    zero = binarizeAndErode(zero, 1, 1, 50, True)
+    zero = binarizeAndErode(zero, 2, 1, 50, True)
     y, x = zero.shape[:2]
-    zero = zero[0:y, 0:x - 18]
-    cv2.imshow("zero", zero)
+    zero = zero[0:y, 2:x - 18]
     nums.append(zero)
 
     one = cv2.imread("ChipSE/1.PNG", cv2.IMREAD_GRAYSCALE)
-    one = binarizeAndErode(one, 0, 1, 50, True)
+    one = binarizeAndErode(one, 2, 1, 50, True)
     y, x = one.shape[:2]
     one = one[0:y, 0:x - 24]
     nums.append(one)
 
     two = cv2.imread("ChipSE/2.PNG", cv2.IMREAD_GRAYSCALE)
-    two = binarizeAndErode(two, 0, 1, 50, True)
+    two = binarizeAndErode(two, 2, 1, 50, True)
     y,x = two.shape[:2]
     two = two[0:y - 4, 0:x - 20]
     nums.append(two)
 
     three = cv2.imread("PotSizeSE/3.PNG", cv2.IMREAD_GRAYSCALE)
-    three = binarizeAndErode(three, 0, 1, 150, True)
+    three = binarizeAndErode(three, 2, 1, 150, True)
     y, x = three.shape[:2]
     three = three[0:y - 20, 0:x]
     nums.append(three)
 
     four = cv2.imread("ChipSE/4.PNG", cv2.IMREAD_GRAYSCALE)
-    four = binarizeAndErode(four, 1, 1, 50, True)
+    four = binarizeAndErode(four, 2, 1, 50, True)
     y, x = four.shape[:2]
     four = four[0:y - 19, 0:x - 2]
     nums.append(four)
 
     five = cv2.imread("ChipSE/5.PNG", cv2.IMREAD_GRAYSCALE)
-    five = binarizeAndErode(five, 0, 1, 50, True)
+    five = binarizeAndErode(five, 2, 1, 50, True)
     y, x = five.shape[:2]
     five = five[0:y - 4, 0:x - 38]
     nums.append(five)
 
     six = cv2.imread("ChipSE/6.PNG", cv2.IMREAD_GRAYSCALE)
-    six = binarizeAndErode(six, 0, 1, 50, True)
+    six = binarizeAndErode(six, 2, 1, 50, True)
     y, x = six.shape[:2]
     six = six[0:y - 4, 0:x - 42]
     nums.append(six)
 
     seven = cv2.imread("ChipSE/7.PNG", cv2.IMREAD_GRAYSCALE)
-    seven = binarizeAndErode(seven, 0, 1, 50, True)
+    seven = binarizeAndErode(seven, 2, 1, 50, True)
     y, x = seven.shape[:2]
     seven = seven[0:y, 0:x - 78]
     nums.append(seven)
@@ -252,15 +258,23 @@ def loadChipCountStrels():
     eight = cv2.imread("ChipSE/8.PNG", cv2.IMREAD_GRAYSCALE)
     y, x = eight.shape[:2]
     eight = eight[0:y - 19, 0:x]
-    eight = binarizeAndErode(eight, 1, 1, 50, True)
-    cv2.imshow("eight", eight)
+    eight = binarizeAndErode(eight, 2, 1, 50, True)
     y, x = seven.shape[:2]
     nums.append(eight)
 
     nine = cv2.imread("ChipSE/9.PNG", cv2.IMREAD_GRAYSCALE)
-    nine = binarizeAndErode(nine, 0, 1, 50, True)
+    nine = binarizeAndErode(nine, 2, 1, 50, True)
     y, x = nine.shape[:2]
     nine = nine[0:y, 0:x - 20]
     nums.append(nine)
 
     return nums
+
+def loadPlayerDollar():
+
+    dollar = cv2.imread("ChipSE/$.PNG", cv2.IMREAD_GRAYSCALE)
+    dollar = binarizeAndErode(dollar, 1, 1, 150, True)
+    y, x = dollar.shape[:2]
+    dollar = dollar[0:y, 60:x]
+
+    return dollar

@@ -74,7 +74,7 @@ while True:
     thresh, cv_image_bw = cv2.threshold(cv_image_grey, 200, 255, cv2.THRESH_BINARY_INV)
     cards = cv_image_bw[620:720, 1000:1100]
     publicCards = cv_image_bw[398:510, 912:1400]
-    #findPublicCards(publicCards)
+    # findPublicCards(publicCards)
 
     thresh, cv_image_bw2 = cv2.threshold(cv_image_grey, 100, 255, cv2.THRESH_BINARY)
     thresh, cv_image_bw3 = cv2.threshold(cv_image_grey, 75, 255, cv2.THRESH_BINARY)
@@ -83,11 +83,9 @@ while True:
     playerChips = cv_image_bw3[810:838, 1000:1170]
     y, x = playerChips.shape[:2]
     playerChips = playerChips[0:y - 2, 0:x]
-    # cv2.imshow("image2", playerChips)
 
-    #findChipSize(potSize, potSizeStrels, "Pot Size: ", 2)
-    # cv2.imshow("image", potSize)
-    findChipSize(playerChips, chipCountStrels, "Player Chips: ", 3)
+    # findChipSize(potSize, potSizeStrels, "Pot Size: ", 2)
+    # findChipSize(playerChips, chipCountStrels, "Player Chips: ", 2)
 
     card1Value, card2Value = findCards(cards)
     card1Suit, card2Suit = findSuits(cards)

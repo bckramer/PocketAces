@@ -41,37 +41,39 @@ def determinePotSize(image, structuringElements, dollar):
             erosion = erosion[0:y, 10:x]
             im, contours, hierarchy = cv2.findContours(erosion, cv2.RETR_TREE,
                                                         cv2.CHAIN_APPROX_SIMPLE)
-            if i == 0:
-                cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
-                cv2.imshow("0", erosion)
-            elif i == 1:
-                cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
-                cv2.imshow("1", erosion)
-            elif i == 2:
-                cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
-                cv2.imshow("2", erosion)
-            elif i == 3:
-                cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
-                cv2.imshow("3", erosion)
-            elif i == 4:
-                cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
-                cv2.imshow("4", erosion)
-            elif i == 5:
-                cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
-                cv2.imshow("5", erosion)
-            elif i == 6:
-                cv2.imshow("6-1", erosion)
-                cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
-                cv2.imshow("6", erosion)
-            elif i == 7:
-                cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
-                cv2.imshow("7", erosion)
-            elif i == 8:
-               # cv2.drawContours(erosion, contours, -1, (128, 255, 0), 3)
-                cv2.imshow("8", erosion)
-            elif i == 9:
-                cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
-                cv2.imshow("9", erosion)
+
+            # Big block of code, but extremely useful for debugging
+            # if i == 0:
+            #     cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
+            #     cv2.imshow("0", erosion)
+            # elif i == 1:
+            #     cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
+            #     cv2.imshow("1", erosion)
+            # elif i == 2:
+            #     cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
+            #     cv2.imshow("2", erosion)
+            # elif i == 3:
+            #     cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
+            #     cv2.imshow("3", erosion)
+            # elif i == 4:
+            #     cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
+            #     cv2.imshow("4", erosion)
+            # elif i == 5:
+            #     cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
+            #     cv2.imshow("5", erosion)
+            # elif i == 6:
+            #     cv2.imshow("6-1", erosion)
+            #     cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
+            #     cv2.imshow("6", erosion)
+            # elif i == 7:
+            #     cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
+            #     cv2.imshow("7", erosion)
+            # elif i == 8:
+            #    # cv2.drawContours(erosion, contours, -1, (128, 255, 0), 3)
+            #     cv2.imshow("8", erosion)
+            # elif i == 9:
+            #     cv2.drawContours(erosion, contours, -1, (255, 255, 0), 3)
+            #     cv2.imshow("9", erosion)
             if len(contours) > 0:
                 for contour in contours:
                     x, y, w, h = cv2.boundingRect(contour)
@@ -96,7 +98,6 @@ def findROIs(image, strel):
                 x = x0
         x1, y1 = image.shape
         image = image[0:y1, x + 11:y1]
-        cv2.imshow("image", image)
         im, contours, hierarchy = cv2.findContours(image, cv2.RETR_TREE,
                                                            cv2.CHAIN_APPROX_SIMPLE)
         for contour in contours:
