@@ -82,6 +82,8 @@ def determinePotSize(image, structuringElements, dollar):
     for box in boxes:
         if box.num != -1:
             numberReps = numberReps + str(box.num)
+    if len(numberReps) == 0:
+        return -1
     return numberReps
 
 def findROIs(image, strel):

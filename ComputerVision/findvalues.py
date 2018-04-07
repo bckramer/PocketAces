@@ -49,6 +49,7 @@ def findChipSize(chipSizeImage, strels, size):
 def findPublicCards(publiccards):
     height, width = publiccards.shape
 
+    cardValues = []
     card1 = publiccards[0:height - (height / 2) - 20, 0:(width/5) - 68]
     card2 = publiccards[0:height - (height / 2) - 20, width/5 + 5:(width / 5) * 2 - 63]
     card3 = publiccards[0:height - (height / 2) - 20, (width / 5) * 2 + 10:(width / 5) * 3 - 62]
@@ -59,5 +60,11 @@ def findPublicCards(publiccards):
     card3val = findElementInImage(card3, publicstrels, True) + 2
     card4val = findElementInImage(card4, publicstrels, True) + 2
     card5val = findElementInImage(card5, publicstrels, True) + 2
+    cardValues.append(card1val)
+    cardValues.append(card2val)
+    cardValues.append(card3val)
+    cardValues.append(card4val)
+    cardValues.append(card5val)
 
-    return card1val, card2val, card3val, card4val, card5val
+
+    return cardValues
