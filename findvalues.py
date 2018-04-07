@@ -7,9 +7,9 @@ import cv2
 import time
 # VERY IMPORTANT: Without it, the entire screen will not be captured
 from ctypes import windll
+# user32 = windll.user32
+# user32.SetProcessDPIAware()
 
-user32 = windll.user32
-user32.SetProcessDPIAware()
 valueStrels = loadPlayerStrels()
 suitStrels = loadSuitStrels()
 potSizeStrels = loadPotSizeStrels()
@@ -41,7 +41,11 @@ def findCards(cardsImage):
 
     return card1, card2
 
-def findChipSize(chipSizeImage, strels, size):
+def findChipSize(chipSizeImage, potSize, size):
+    if potSize == 1:
+        strels = potSizeStrels
+    else:
+        strels = chipCountStrels
     kernel = np.ones((size, size), dtype='uint8')
     chipSizeImage = cv2.dilate(chipSizeImage, kernel, iterations=1)
     return determinePotSize(chipSizeImage, strels, loadPlayerDollar())

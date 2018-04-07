@@ -30,13 +30,13 @@ while True:
     playerChips = playerChips[0:y - 2, 0:x]
 
     # Use to get pot size
-    print findChipSize(potSize, potSizeStrels, 2)
     # Use to get player chips
-    # findChipSize(playerChips, chipCountStrels, 2)
 
     card1Value, card2Value = findCards(cards)
     card1Suit, card2Suit = findSuits(cards)
     printResult(card1Value, card2Value, card1Suit, card2Suit)
+    potSize = findChipSize(potSize, potSizeStrels, 2)
+    playerPot = findChipSize(playerChips, chipCountStrels, 2)
 
     if cv2.waitKey(30) & 0xFF == ord('q'):
         break

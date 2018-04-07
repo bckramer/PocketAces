@@ -1,18 +1,17 @@
 # Below is a simple way to grab the entire screen in 1920x1080,
 # but it should work in other resolutions.
 import numpy as np
-from ComputerVision.Utils import *
-from ComputerVision.findcontours import *
-from ComputerVision.loadstrels import *
+from Utils import *
+from findcontours import *
+from loadstrels import *
+from findvalues import *
 from PIL import ImageGrab
-from ComputerVision.findvalues import *
 import cv2
 import time
 # VERY IMPORTANT: Without it, the entire screen will not be captured
 from ctypes import windll
-
-potSizeStrels = loadPotSizeStrels()
-chipCountStrels = loadChipCountStrels()
+user32 = windll.user32
+user32.SetProcessDPIAware()
 
 while True:
     screen_grab = ImageGrab.grab()
@@ -33,12 +32,14 @@ while True:
     playerChips = playerChips[0:y - 2, 0:x]
 
     # Use to get pot size
-    print findChipSize(potSize, potSizeStrels, 2)
     # Use to get player chips
-    # findChipSize(playerChips, chipCountStrels, 2)
 
     card1Value, card2Value = findCards(cards)
     card1Suit, card2Suit = findSuits(cards)
+    printResult(card1Value, card2Value, card1Suit, card2Suit)
+    potSize = findChipSize(potSize, 1, 2)
+    playerPot = findChipSize(playerChips, 0, 2)
+
     printResult(card1Value, card2Value, card1Suit, card2Suit)
 
     if cv2.waitKey(30) & 0xFF == ord('q'):
