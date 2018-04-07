@@ -37,8 +37,6 @@ while True:
     card1Value, card2Value = findCards(cards)
     card1Suit, card2Suit = findSuits(cards)
     printResult(card1Value, card2Value, card1Suit, card2Suit)
-    time.sleep(1)
-
 
     if cv2.waitKey(30) & 0xFF == ord('q'):
         break
