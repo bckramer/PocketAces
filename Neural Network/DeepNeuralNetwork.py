@@ -67,5 +67,3 @@ deepNeuralNetwork = fully_connected_classifier_net(input, num_output_classes, hi
 
 
 
-# deepNeuralNetwork = Sequential([For(range(num_hidden_layers), lambda i: Dense(hidden_layers_dim, activation=C.relu)),
-#                     Dense(num_output_classes)])(scaled_input)
