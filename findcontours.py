@@ -10,7 +10,7 @@ def findElementInImage(image, structuringElements, cardValues):
     for strel in structuringElements:
         erosion = cv2.erode(image, strel, iterations=1)
         # J and 10 get mixed up a lot when looking for the value of a card.
-        # This fixes that. Hopfully the root cause can be found, but for now, this works
+        # This fixes that. Hopefully the root cause can be found, but for now, this works
         if (cardValues):
             row, col = erosion.shape
             erosion = erosion[0:col, 0:row - 20]

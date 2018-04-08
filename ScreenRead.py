@@ -36,6 +36,9 @@ while True:
     card1Suit, card2Suit = findSuits(cards)
     printResult(card1Value, card2Value, card1Suit, card2Suit)
     potSize = findChipSize(potSize, potSizeStrels, 2)
+    cv2.imshow("publiccards", publicCards)
+    findPublicCards(publicCards)
+    time.sleep(2)
     playerPot = findChipSize(playerChips, chipCountStrels, 2)
 
     if cv2.waitKey(30) & 0xFF == ord('q'):

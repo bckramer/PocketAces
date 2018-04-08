@@ -12,6 +12,7 @@ from ctypes import windll
 
 valueStrels = loadPlayerStrels()
 suitStrels = loadSuitStrels()
+publicSuitStrels = loadPublicSuitStrels()
 potSizeStrels = loadPotSizeStrels()
 publicstrels = loadPublicStrels()
 chipCountStrels = loadChipCountStrels()
@@ -54,21 +55,79 @@ def findPublicCards(publiccards):
     height, width = publiccards.shape
 
     cardValues = []
-    card1 = publiccards[0:height - (height / 2) - 20, 0:(width/5) - 68]
-    card2 = publiccards[0:height - (height / 2) - 20, width/5 + 5:(width / 5) * 2 - 63]
-    card3 = publiccards[0:height - (height / 2) - 20, (width / 5) * 2 + 10:(width / 5) * 3 - 62]
-    card4 = publiccards[0:height - (height / 2) - 20, (width / 5) * 3 + 12:(width / 5) * 4 - 56]
-    card5 = publiccards[0:height - (height / 2) - 20, (width / 5) * 4 + 20:(width / 5) * 5 - 50]
+    height, width = publiccards.shape
+    heightVar = int(height - (height / 2) - 20)
+    cardValues = []
+    cardSuits = []
+    card1 = publiccards[0:heightVar, 0:int((width/5) - 68)]
+    card1s = publiccards[heightVar - 2:heightVar + 38, 0:int((width/5) - 68)]
+    card2 = publiccards[0:heightVar, int(width/5 + 5):int((width / 5) * 2 - 65)]
+    card2s = publiccards[heightVar - 2:heightVar + 38, int(width/5 + 5):int((width / 5) * 2 - 60)]
+    card3 = publiccards[0:heightVar, int((width / 5) * 2 + 10):int((width / 5) * 3 - 62)]
+    card3s = publiccards[heightVar - 2:heightVar + 38, int((width / 5) * 2 + 10):int((width / 5) * 3 - 62)]
+    card4 = publiccards[0:heightVar, int((width / 5) * 3 + 12):int((width / 5) * 4 - 56)]
+    card4s = publiccards[heightVar - 2:heightVar + 38, int((width / 5) * 3 + 12):int((width / 5) * 4 - 56)]
+    card5 = publiccards[0:heightVar, int((width / 5) * 4 + 20):int((width / 5) * 5 - 55)]
+    card5s = publiccards[heightVar - 2:heightVar + 38, int((width / 5) * 4 + 20):int((width / 5) * 5 - 55)]
+
     card1val = findElementInImage(card1, publicstrels, True) + 2
     card2val = findElementInImage(card2, publicstrels, True) + 2
     card3val = findElementInImage(card3, publicstrels, True) + 2
     card4val = findElementInImage(card4, publicstrels, True) + 2
     card5val = findElementInImage(card5, publicstrels, True) + 2
+
+    card1suit = findElementInImage(card1s, publicSuitStrels, False)
+    card2suit = findElementInImage(card2s, publicSuitStrels, True)
+    card3suit = findElementInImage(card3s, publicSuitStrels, True)
+    card4suit = findElementInImage(card4s, publicSuitStrels, True)
+    card5suit = findElementInImage(card5s, publicSuitStrels, True)
+
+    print(str(card1val) + " " + str(card1suit))
+    print(str(card2val) + " " + str(card2suit))
+    print(str(card3val) + " " + str(card3suit))
+    print(str(card4val) + " " + str(card4suit))
+    print(str(card5val) + " " + str(card5suit))
+
     cardValues.append(card1val)
     cardValues.append(card2val)
     cardValues.append(card3val)
     cardValues.append(card4val)
     cardValues.append(card5val)
 
+    cardSuits.append(card1suit)
+    cardSuits.append(card2suit)
+    cardSuits.append(card3suit)
+    cardSuits.append(card4suit)
+    cardSuits.append(card5suit)
 
-    return cardValues
+
+    return cardValues, cardSuits
+
+# def findPublicCards(publiccards):
+#     height, width = publiccards.shape
+#     heightVar = int(height - (height / 2) - 20)
+#     cardValues = []
+#     card1value = publiccards[0:heightVar, 0:int((width/5) - 68)]
+#     card1suit = publiccards[heightVar - 2:heightVar + 38, 0:int((width/5) - 68)]
+#     card2value = publiccards[0:heightVar, int(width/5 + 5):int((width / 5) * 2 - 65)]
+#     card2suit = publiccards[heightVar - 2:heightVar + 38, int(width/5 + 5):int((width / 5) * 2 - 60)]
+#     card3value = publiccards[0:heightVar, int((width / 5) * 2 + 10):int((width / 5) * 3 - 62)]
+#     card3suit = publiccards[heightVar - 2:heightVar + 38, int((width / 5) * 2 + 10):int((width / 5) * 3 - 62)]
+#     card4value = publiccards[0:heightVar, int((width / 5) * 3 + 12):int((width / 5) * 4 - 56)]
+#     card4suit = publiccards[heightVar - 2:heightVar + 38, int((width / 5) * 3 + 12):int((width / 5) * 4 - 56)]
+#     card5value = publiccards[0:heightVar, int((width / 5) * 4 + 20):int((width / 5) * 5 - 55)]
+#     card5suit = publiccards[heightVar - 2:heightVar + 38, int((width / 5) * 4 + 20):int((width / 5) * 5 - 55)]
+#
+#     card1 = makeNew(findElementInImage(card1value, publicstrels, True) + 2, findElementInImage(card2suit, suitStrels, False) + 2)
+#     card2 = makeNew(findElementInImage(card2value, publicstrels, True) + 2, findElementInImage(card2suit, suitStrels, False) + 2)
+#     card3 = makeNew(findElementInImage(card3value, publicstrels, True) + 2, findElementInImage(card3suit, suitStrels, False) + 2)
+#     card4 = makeNew(findElementInImage(card4value, publicstrels, True) + 2, findElementInImage(card4suit, suitStrels, False) + 2)
+#     card5 = makeNew(findElementInImage(card5value, publicstrels, True) + 2, findElementInImage(card5suit, suitStrels, False) + 2)
+#
+#     cardValues.append(card1)
+#     cardValues.append(card2)
+#     cardValues.append(card3)
+#     cardValues.append(card4)
+#     cardValues.append(card5)
+#
+#     return cardValues
