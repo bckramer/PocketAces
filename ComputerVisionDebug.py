@@ -1,5 +1,5 @@
-# Below is a simple way to grab the entire screen in 1920x1080,
-# but it should work in other resolutions.
+# Run this script to verify information about the game
+# is being read correctly
 import numpy as np
 from Utils import *
 from findcontours import *
@@ -8,9 +8,11 @@ from PIL import ImageGrab
 from findvalues import *
 import cv2
 import time
-# VERY IMPORTANT: Without it, the entire screen will not be captured
 from ctypes import windll
 
+newPotSizeStrels = loadPotSizeStrels()
+callSize = 0
+prevPotSize = 0
 while True:
     screen_grab = ImageGrab.grab()
 
@@ -36,10 +38,18 @@ while True:
     card1Suit, card2Suit = findSuits(cards)
     printResult(card1Value, card2Value, card1Suit, card2Suit)
     potSize = findChipSize(potSize, 1, 2)
-    print (potSize);
-    findPublicCards(publicCards)
+    callSize = int(potSize) - prevPotSize
+    prevPotSize = int(potSize)
+    print ("Call size: " + str(callSize))
+    playerPot = findChipSize(playerChips, 0, 2)
+    print ("Pot size: " + str(potSize) + " Player Pot: " + str(playerPot))
+    cardValues, cardSuits = findPublicCards(publicCards)
+    i = 0
+    for card in cardValues:
+        printCard(card, cardSuits[i])
+        i = i + 1
     time.sleep(2)
-    playerPot = findChipSize(playerChips, chipCountStrels, 2)
+    print ("")
 
     if cv2.waitKey(30) & 0xFF == ord('q'):
         break

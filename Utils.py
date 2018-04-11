@@ -70,5 +70,26 @@ def printResult(card1Value, card2Value, card1Suit, card2Suit):
     else:
         card2SuitName = "Diamonds"
 
-    print ("You have a " + card1Name + " of " + card1SuitName)
-    print ("You have a " + card2Name + " of " + card2SuitName)
+    print ("Player Cards: " + card1Name + " of " + card1SuitName + " and " + card2Name + " of " + card2SuitName)
+
+def printCard(cardValue, cardSuit):
+    if cardValue == 11:
+        cardName = "Jack"
+    elif cardValue == 12:
+        cardName = "Queen"
+    elif cardValue == 13:
+        cardName = "King"
+    elif cardValue == 14:
+        cardName = "Ace"
+    else:
+        cardName = str(cardValue)
+    if cardSuit == 0:
+        cardSuitName = "Spades"
+    elif cardSuit == 1:
+        cardSuitName = "Clubs"
+    elif cardSuit == 2:
+        cardSuitName = "Hearts"
+    else:
+        cardSuitName = "Diamonds"
+
+    print(cardName + " of " + cardSuitName)

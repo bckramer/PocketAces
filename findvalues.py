@@ -82,12 +82,6 @@ def findPublicCards(publiccards):
     card4suit = findElementInImage(card4s, publicSuitStrels, True)
     card5suit = findElementInImage(card5s, publicSuitStrels, True)
 
-    print(str(card1val) + " " + str(card1suit))
-    print(str(card2val) + " " + str(card2suit))
-    print(str(card3val) + " " + str(card3suit))
-    print(str(card4val) + " " + str(card4suit))
-    print(str(card5val) + " " + str(card5suit))
-
     cardValues.append(card1val)
     cardValues.append(card2val)
     cardValues.append(card3val)
@@ -100,34 +94,4 @@ def findPublicCards(publiccards):
     cardSuits.append(card4suit)
     cardSuits.append(card5suit)
 
-
     return cardValues, cardSuits
-
-# def findPublicCards(publiccards):
-#     height, width = publiccards.shape
-#     heightVar = int(height - (height / 2) - 20)
-#     cardValues = []
-#     card1value = publiccards[0:heightVar, 0:int((width/5) - 68)]
-#     card1suit = publiccards[heightVar - 2:heightVar + 38, 0:int((width/5) - 68)]
-#     card2value = publiccards[0:heightVar, int(width/5 + 5):int((width / 5) * 2 - 65)]
-#     card2suit = publiccards[heightVar - 2:heightVar + 38, int(width/5 + 5):int((width / 5) * 2 - 60)]
-#     card3value = publiccards[0:heightVar, int((width / 5) * 2 + 10):int((width / 5) * 3 - 62)]
-#     card3suit = publiccards[heightVar - 2:heightVar + 38, int((width / 5) * 2 + 10):int((width / 5) * 3 - 62)]
-#     card4value = publiccards[0:heightVar, int((width / 5) * 3 + 12):int((width / 5) * 4 - 56)]
-#     card4suit = publiccards[heightVar - 2:heightVar + 38, int((width / 5) * 3 + 12):int((width / 5) * 4 - 56)]
-#     card5value = publiccards[0:heightVar, int((width / 5) * 4 + 20):int((width / 5) * 5 - 55)]
-#     card5suit = publiccards[heightVar - 2:heightVar + 38, int((width / 5) * 4 + 20):int((width / 5) * 5 - 55)]
-#
-#     card1 = makeNew(findElementInImage(card1value, publicstrels, True) + 2, findElementInImage(card2suit, suitStrels, False) + 2)
-#     card2 = makeNew(findElementInImage(card2value, publicstrels, True) + 2, findElementInImage(card2suit, suitStrels, False) + 2)
-#     card3 = makeNew(findElementInImage(card3value, publicstrels, True) + 2, findElementInImage(card3suit, suitStrels, False) + 2)
-#     card4 = makeNew(findElementInImage(card4value, publicstrels, True) + 2, findElementInImage(card4suit, suitStrels, False) + 2)
-#     card5 = makeNew(findElementInImage(card5value, publicstrels, True) + 2, findElementInImage(card5suit, suitStrels, False) + 2)
-#
-#     cardValues.append(card1)
-#     cardValues.append(card2)
-#     cardValues.append(card3)
-#     cardValues.append(card4)
-#     cardValues.append(card5)
-#
-#     return cardValues

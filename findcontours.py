@@ -21,7 +21,7 @@ def findElementInImage(image, structuringElements, cardValues):
             # the best solution. Modifying the 3 structuring
             # element fixes the 8 issues, but causes 2s to be
             # confused with 3s
-            if i == 1:
+            if i == 1 or i == 8:
                 k = i
             else:
                 return i
