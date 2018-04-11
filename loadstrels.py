@@ -63,7 +63,7 @@ def loadSuitStrels():
     suits = []
 
     spade = cv2.imread("PlayerSE/Spade.PNG", cv2.IMREAD_GRAYSCALE)
-    spade = binarizeAndErode(spade, 2, 1, 210, False)
+    spade = binarizeAndErode(spade, 3, 1, 210, False)
     suits.append(spade)
 
     club = cv2.imread("PlayerSE/Club.PNG", cv2.IMREAD_GRAYSCALE)
@@ -85,7 +85,6 @@ def loadPublicStrels():
 
     two = cv2.imread('PublicCardsSE/2.PNG', cv2.IMREAD_GRAYSCALE)
     two = binarizeAndErode(two, 2, 1, 210, False)
-    cv2.imshow("two", two)
     strels.append(two)
 
     three = cv2.imread('PublicCardsSE/3.PNG', cv2.IMREAD_GRAYSCALE)
@@ -208,13 +207,12 @@ def loadPotSizeStrels():
     nums.append(seven)
 
     eight = cv2.imread("PotSizeSE/8.PNG", cv2.IMREAD_GRAYSCALE)
-    eight = binarizeAndErode(eight, 1, 1, 150, True)
+    eight = binarizeAndErode(eight, 2, 1, 150, True)
     eight = eight[6:y - 6, 0:x - 11]
     nums.append(eight)
 
     nine = cv2.imread("PotSizeSE/9.PNG", cv2.IMREAD_GRAYSCALE)
-    nine = binarizeAndErode(nine, 1, 1, 150, True)
-    nine = binarizeAndErode(nine, 1, 1, 150, True)
+    nine = binarizeAndErode(nine, 2, 1, 150, True)
     nine = nine[0:y - 8, 0:x - 11]
     nums.append(nine)
 
@@ -243,6 +241,7 @@ def loadChipCountStrels():
 
     two = cv2.imread("ChipSE/2.PNG", cv2.IMREAD_GRAYSCALE)
     two = binarizeAndErode(two, 2, 1, 50, True)
+    cv2.imshow("2", two)
     y,x = two.shape[:2]
     two = two[0:y - 4, 0:x - 20]
     nums.append(two)
@@ -266,7 +265,7 @@ def loadChipCountStrels():
     nums.append(five)
 
     six = cv2.imread("ChipSE/6.PNG", cv2.IMREAD_GRAYSCALE)
-    six = binarizeAndErode(six, 2, 1, 50, True)
+    six = binarizeAndErode(six, 3, 1, 40, True)
     y, x = six.shape[:2]
     six = six[0:y - 4, 0:x - 42]
     nums.append(six)
@@ -281,11 +280,11 @@ def loadChipCountStrels():
     y, x = eight.shape[:2]
     eight = eight[0:y - 19, 0:x]
     eight = binarizeAndErode(eight, 2, 1, 50, True)
-    y, x = seven.shape[:2]
+    cv2.imshow("eight", eight)
     nums.append(eight)
 
     nine = cv2.imread("ChipSE/9.PNG", cv2.IMREAD_GRAYSCALE)
-    nine = binarizeAndErode(nine, 2, 1, 50, True)
+    nine = binarizeAndErode(nine, 2, 1, 40, True)
     y, x = nine.shape[:2]
     nine = nine[0:y, 0:x - 20]
     nums.append(nine)
