@@ -3,20 +3,24 @@ import numpy as np
 import time
 import sys
 if sys.version_info.major == 2:
-    import Tkinter as tk
-else:
-    import tkinter as tk
-
-class Maze(tk.Tk, object):
+#TODO adapt class to actual methods in rest of project
+ class pocketAcesNet(object):
     def __init__(self):
-        super(Maze, self).__init__()
+        super(pocketAcesNet, self).__init__()
         self.action_space = ['c', 'f', 'r', 'b', 'a']
         self.n_actions = len(self.action_space)
-        self.n_features = 2
+        self.n_features = 5
+
+    def reset(self):
+        self.update()
+        time.sleep(0.1)
+        resetGame();
+        # return observation
+        return [curentChips(),opponentChips(),publicCards(),yourCards(),callSize()];
 
 
     def step(self, action):
-        s = self.canvas.coords(self.rect)
+        s = [curentChips(),opponentChips(),publicCards(),yourCards(),callSize()]; #Current State
         base_action = np.array([0, 0])
         if action == 0:   # call
             call()
@@ -30,13 +34,13 @@ class Maze(tk.Tk, object):
             allIn()
 
 
-        next_coords = self.canvas.coords(self.rect)  # next state
+        next_coords = self.canvas.coords(self.rect)
 
         # reward function
-        reward = chipDifference
+        reward = chipDifference()
         done = True
 
-        s_ = chipDifference#(np.array(next_coords[:2]) - np.array(self.canvas.coords(self.oval)[:2]))/(MAZE_H*UNIT)
+        s_ = [curentChips(),opponentChips(),publicCards(),yourCards(),callSize()]; # next State
         return s_, reward, done
 
     def render(self):

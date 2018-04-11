@@ -1,8 +1,8 @@
-from maze_env import Maze
-from RL_brain import DeepQNetwork
+from NeuralNetwork.pocketAcesNet import pocketAcesNet
+from NeuralNetwork.RL_brain import DeepQNetwork
 
 
-def run_maze():
+def runPocketAces():
     step = 0
     for episode in range(300):
         # initial observation
@@ -10,7 +10,7 @@ def run_maze():
 
         while True:
             # fresh env
-            env.render()
+            gameStart();
 
             # RL choose action based on observation
             action = RL.choose_action(observation)
@@ -33,12 +33,12 @@ def run_maze():
 
     # end of game
     print('game over')
-    env.destroy()
+    stopGame()
 
 
 if __name__ == "__main__":
     # maze game
-    env = Maze()
+    env = pocketAcesNet()
     RL = DeepQNetwork(env.n_actions, env.n_features,
                       learning_rate=0.01,
                       reward_decay=0.9,
@@ -47,6 +47,6 @@ if __name__ == "__main__":
                       memory_size=2000,
                       # output_graph=True
                       )
-    env.after(100, run_maze)
+    env.after(100, runPocketAces)
     env.mainloop()
     RL.plot_cost()
