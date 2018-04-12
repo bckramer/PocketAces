@@ -48,8 +48,16 @@ def getAllValues():
     publicCardValue3 = publicCardValues[3]
     publicCardValue4 = publicCardValues[4]
 
+    stringSuits = ""
 
-    return np.array([card1Value, card1Suit, card2Value, publicCardValue0, publicCardValue1, publicCardValue2, publicCardValue3, publicCardValue4, publicCardSuits, card2Suit, potSize, playerPot])
+    for suit in publicCardSuits:
+        stringSuits = stringSuits + str(suit)
+
+    intSuits = int(stringSuits)
+
+    print (intSuits)
+
+    return np.array([card1Value, card1Suit, card2Value, card2Suit, publicCardValue0, publicCardValue1, publicCardValue2, publicCardValue3, publicCardValue4, intSuits, potSize, playerPot])
 
 def buttonsAvailable():
     screen_grab = ImageGrab.grab()
@@ -65,7 +73,11 @@ def buttonsAvailable():
     raiseButton = cv_image_bw[840:900, 1090:1170]
     allInButton = cv_image_bw[840:900, 1310:1400]
 
-    dealButtonOn, foldButtonOn, checkCallButtonOn, raiseButtonOn, allInButtonOn = False
+    dealButtonOn = False
+    foldButtonOn = False
+    checkCallButtonOn = False
+    raiseButtonOn = False
+    allInButtonOn = False
 
     im, contours, hierarchy = cv2.findContours(dealButton, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     if len(contours) > 0:

@@ -45,7 +45,6 @@ while True:
     cardValues, cardSuits = findPublicCards(publicCards)
     i = 0
     for card in cardValues:
-        printCard(card, cardSuits[i])
         i = i + 1
     time.sleep(2)
     print ("")

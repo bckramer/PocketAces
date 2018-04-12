@@ -12,7 +12,7 @@ user32.SetProcessDPIAware()
 while True:
 
     # publicCardValue and publicCardSuits are arrays of ints, everything else is an int
-    card1Value, card1Suit, card2Value, publicCardValues, publicCardSuits, card2Suit, potSize, playerPot = getAllValues()
+    #card1Value, card1Suit, card2Value, publicCardValues, publicCardSuits, card2Suit, potSize, playerPot = getAllValues()
 
 
     # All booleans
