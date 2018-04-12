@@ -49,7 +49,7 @@ def getAllValues():
     publicCardValue4 = publicCardValues[4]
 
 
-    return card1Value, card1Suit, card2Value, publicCardValue0, publicCardValue1, publicCardValue2, publicCardValue3, publicCardValue4, publicCardSuits, card2Suit, potSize, playerPot
+    return np.array([card1Value, card1Suit, card2Value, publicCardValue0, publicCardValue1, publicCardValue2, publicCardValue3, publicCardValue4, publicCardSuits, card2Suit, potSize, playerPot])
 
 def buttonsAvailable():
     screen_grab = ImageGrab.grab()
