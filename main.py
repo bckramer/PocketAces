@@ -16,6 +16,6 @@ while True:
 
 
     # All booleans
-    dealButtonOn, foldButtonOn, checkCallButtonOn, raiseButtonOn, allInButtonOn = buttonsAvailable()
+    dealButtonOn, foldButtonOn, checkCallButtonOn, raiseButtonOn, allInButtonOn, continueButtonOn = buttonsAvailable()
 
     print (dealButtonOn)
