@@ -53,6 +53,7 @@ class PocketAces(object):
             lastChips = newChips
             chipDifference = lastChips - newChips
             reward = chipDifference
+            deal()
         else:
             reward = 0
 
