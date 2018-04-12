@@ -1,12 +1,15 @@
 import numpy as np
 import time
 import sys
-from testFunctions import *
+from gameInput import *
 from ScreenRead import *
-
+lastChips = 100
+newChips = 0
 
 
 # if sys.version_info.major == 2:#TODO adapt class to actual methods in rest of project
+
+raiseBetAmount = 10;
 class PocketAces(object):
     def __init__(self):
         super(PocketAces, self).__init__()
@@ -44,7 +47,17 @@ class PocketAces(object):
         # next_coords = self.canvas.coords(self.rect)
 
         # reward function
-        reward = chipDifference()
+        dealButton, foldButton, checkCallButtons, raiseButton, allInButton = buttonsAvailable()
+        if dealButton == True:
+            newChips = getAllValues()[11]
+            lastChips = newChips
+            chipDifference = lastChips - newChips
+            reward = chipDifference
+        else:
+            reward = 0
+
+
+
         done = True
 
         s_ = getAllValues()  # next State
