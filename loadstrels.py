@@ -241,7 +241,6 @@ def loadChipCountStrels():
 
     two = cv2.imread("ChipSE/2.PNG", cv2.IMREAD_GRAYSCALE)
     two = binarizeAndErode(two, 2, 1, 50, True)
-    cv2.imshow("2", two)
     y,x = two.shape[:2]
     two = two[0:y - 4, 0:x - 20]
     nums.append(two)
@@ -280,7 +279,6 @@ def loadChipCountStrels():
     y, x = eight.shape[:2]
     eight = eight[0:y - 19, 0:x]
     eight = binarizeAndErode(eight, 2, 1, 50, True)
-    cv2.imshow("eight", eight)
     nums.append(eight)
 
     nine = cv2.imread("ChipSE/9.PNG", cv2.IMREAD_GRAYSCALE)
