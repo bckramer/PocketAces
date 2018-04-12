@@ -13,9 +13,8 @@ from ctypes import windll
 user32 = windll.user32
 user32.SetProcessDPIAware()
 
-while True:
+def getAllValues():
     screen_grab = ImageGrab.grab()
-
     cv_image = np.array(screen_grab, dtype='uint8')
     cv_image_grey = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
 
@@ -30,19 +29,6 @@ while True:
 
     potSize = cv_image_bw2[533:570, 800:950]
     w, h = cv_image_bw.shape[:2]
-    print (str(w) + " " + str(h))
-    buttons = cv_image_bw4[840:900, 800:1420]
-    dealButton = cv_image_bw4[840:900, 800:888]
-    foldButton = cv_image_bw4[840:900, 888:970]
-    checkCallButton = cv_image_bw4[840:900, 1000:1080]
-    raiseButton = cv_image_bw4[840:900, 1090:1170]
-    allInButton = cv_image_bw4[840:900, 1310:1400]
-    cv2.imshow("dealButton", dealButton)
-    cv2.imshow("foldButton", foldButton)
-    cv2.imshow("checkButton", checkCallButton)
-    cv2.imshow("raiseButton", raiseButton)
-    cv2.imshow("allInButton", allInButton)
-    cv2.imshow("buttons", buttons)
     playerChips = cv_image_bw3[810:838, 1000:1170]
     y, x = playerChips.shape[:2]
     playerChips = playerChips[0:y - 2, 0:x]
@@ -52,12 +38,42 @@ while True:
 
     card1Value, card2Value = findCards(cards)
     card1Suit, card2Suit = findSuits(cards)
-    printResult(card1Value, card2Value, card1Suit, card2Suit)
     potSize = findChipSize(potSize, 1, 2)
-    findPublicCards(publicCards)
-    time.sleep(2)
+    publicCardValues, publicCardSuits = findPublicCards(publicCards)
     playerPot = findChipSize(playerChips, chipCountStrels, 2)
 
-    if cv2.waitKey(30) & 0xFF == ord('q'):
-        break
+    return card1Value, card1Suit, card2Value, publicCardValues, publicCardSuits, card2Suit, potSize, playerPot
 
+def buttonsAvailable():
+    screen_grab = ImageGrab.grab()
+    cv_image = np.array(screen_grab, dtype='uint8')
+    cv_image_grey = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
+
+    thresh, cv_image_bw = cv2.threshold(cv_image_grey, 220, 255, cv2.THRESH_BINARY)
+
+    buttons = cv_image_bw[840:900, 800:1420]
+    dealButton = cv_image_bw[840:900, 800:888]
+    foldButton = cv_image_bw[840:900, 888:970]
+    checkCallButton = cv_image_bw[840:900, 1000:1080]
+    raiseButton = cv_image_bw[840:900, 1090:1170]
+    allInButton = cv_image_bw[840:900, 1310:1400]
+
+    dealButtonOn, foldButtonOn, checkCallButtonOn, raiseButtonOn, allInButtonOn = False
+
+    im, contours, hierarchy = cv2.findContours(dealButton, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    if len(contours) > 0:
+        dealButtonOn = True
+    im, contours, hierarchy = cv2.findContours(foldButton, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    if len(contours) > 0:
+        foldButtonOn = True
+    im, contours, hierarchy = cv2.findContours(checkCallButton, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    if len(contours) > 0:
+        checkCallButtonOn = True
+    im, contours, hierarchy = cv2.findContours(raiseButton, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    if len(contours) > 0:
+        raiseButtonOn = True
+    im, contours, hierarchy = cv2.findContours(allInButton, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    if len(contours) > 0:
+        allInButtonOn = True
+
+    return dealButtonOn, foldButtonOn, checkCallButtonOn, raiseButtonOn, allInButtonOn

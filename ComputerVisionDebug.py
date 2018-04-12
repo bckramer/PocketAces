@@ -33,9 +33,6 @@ while True:
     y, x = playerChips.shape[:2]
     playerChips = playerChips[0:y - 2, 0:x]
 
-    # Use to get pot size
-    # Use to get player chips
-
     card1Value, card2Value = findCards(cards)
     card1Suit, card2Suit = findSuits(cards)
     printResult(card1Value, card2Value, card1Suit, card2Suit)

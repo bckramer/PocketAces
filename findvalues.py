@@ -52,9 +52,7 @@ def findChipSize(chipSizeImage, potSize, size):
     return determinePotSize(chipSizeImage, strels, loadPlayerDollar())
 
 def findPublicCards(publiccards):
-    height, width = publiccards.shape
 
-    cardValues = []
     height, width = publiccards.shape
     heightVar = int(height - (height / 2) - 20)
     cardValues = []
@@ -93,5 +91,20 @@ def findPublicCards(publiccards):
     cardSuits.append(card3suit)
     cardSuits.append(card4suit)
     cardSuits.append(card5suit)
+
+    sameValues = True
+    sameSuits = True
+
+    for value in cardValues:
+        if cardValues[0] != value:
+            sameValues = False
+
+
+    for suit in cardSuits:
+        if cardSuits[0] != suit:
+            sameSuits = False
+
+    if sameValues and sameSuits:
+        return [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]
 
     return cardValues, cardSuits
