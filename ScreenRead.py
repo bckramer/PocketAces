@@ -72,12 +72,14 @@ def buttonsAvailable():
     checkCallButton = cv_image_bw[840:900, 1000:1080]
     raiseButton = cv_image_bw[840:900, 1090:1170]
     allInButton = cv_image_bw[840:900, 1310:1400]
+    continueButton = cv_image_bw[532:580, 950:1200]
 
     dealButtonOn = False
     foldButtonOn = False
     checkCallButtonOn = False
     raiseButtonOn = False
     allInButtonOn = False
+    continueButtonOn = False
 
     im, contours, hierarchy = cv2.findContours(dealButton, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     if len(contours) > 0:
@@ -94,5 +96,9 @@ def buttonsAvailable():
     im, contours, hierarchy = cv2.findContours(allInButton, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     if len(contours) > 0:
         allInButtonOn = True
+    im, contours, hierarchy = cv2.findContours(continueButton, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    if len(contours) > 0:
+        continueButtonOn = True
 
-    return dealButtonOn, foldButtonOn, checkCallButtonOn, raiseButtonOn, allInButtonOn
+
+    return dealButtonOn, foldButtonOn, checkCallButtonOn, raiseButtonOn, allInButtonOn, continueButtonOn

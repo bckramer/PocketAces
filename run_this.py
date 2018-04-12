@@ -1,10 +1,12 @@
 from pocketAcesNet import PocketAces
 from RL_brain import DeepQNetwork
 import cv2
+import time
 
 
 def run_pocket_aces():
         step = 0
+        time.sleep(2)
         for episode in range(300):
             # initial observation
             observation = env.reset()

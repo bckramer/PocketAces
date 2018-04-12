@@ -9,7 +9,7 @@ newChips = 0
 
 # if sys.version_info.major == 2:#TODO adapt class to actual methods in rest of project
 
-raiseBetAmount = 10;
+raiseBetAmount = 10
 class PocketAces(object):
     def __init__(self):
         super(PocketAces, self).__init__()
@@ -26,10 +26,10 @@ class PocketAces(object):
 
     def step(self, action):
         s = getAllValues() #current state
-        time.sleep(1)
+        time.sleep(2)
         base_action = np.array([0, 0])
         if action == 0:  # call
-            call(10)
+            call()
             print("call")
         elif action == 1:  # fold
             fold()
