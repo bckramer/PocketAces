@@ -146,4 +146,4 @@ class DeepQNetwork:
         plt.show()
 
 if __name__ == '__main__':
-    DQN = DeepQNetwork(6,5, output_graph=True)
+    DQN = DeepQNetwork(5, 12, output_graph=True)
