@@ -3,8 +3,6 @@ import time
 
 keyboard = Controller()
 time.sleep(1)
-keyboard.press('c')
-
 
 def call():
     keyboard.press('c')
@@ -27,3 +25,6 @@ def fold():
 
 def deal():
     keyboard.press('d')
+
+def continoue():
+    keyboard.press('c')

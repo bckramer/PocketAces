@@ -56,9 +56,6 @@ class PocketAces(object):
             deal()
         else:
             reward = 0
-
-
-
         done = True
 
         s_ = getAllValues()  # next State
