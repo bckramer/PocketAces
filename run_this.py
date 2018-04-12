@@ -1,5 +1,6 @@
 from pocketAcesNet import PocketAces
 from RL_brain import DeepQNetwork
+import cv2
 
 
 def run_pocket_aces():
@@ -9,6 +10,7 @@ def run_pocket_aces():
             observation = env.reset()
 
             while True:
+
             # fresh env
                # gameStart(); commented for testing
 
@@ -31,6 +33,9 @@ def run_pocket_aces():
                 if done:
                     break
                 step += 1
+
+                if cv2.waitKey(30) & 0xFF == ord('q'):
+                    break
 
         # end of game
         print('game over')
