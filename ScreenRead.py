@@ -42,7 +42,14 @@ def getAllValues():
     publicCardValues, publicCardSuits = findPublicCards(publicCards)
     playerPot = findChipSize(playerChips, chipCountStrels, 2)
 
-    return card1Value, card1Suit, card2Value, publicCardValues, publicCardSuits, card2Suit, potSize, playerPot
+    publicCardValue0 = publicCardValues[0]
+    publicCardValue1 = publicCardValues[1]
+    publicCardValue2 = publicCardValues[2]
+    publicCardValue3 = publicCardValues[3]
+    publicCardValue4 = publicCardValues[4]
+
+
+    return card1Value, card1Suit, card2Value, publicCardValue0, publicCardValue1, publicCardValue2, publicCardValue3, publicCardValue4, publicCardSuits, card2Suit, potSize, playerPot
 
 def buttonsAvailable():
     screen_grab = ImageGrab.grab()
