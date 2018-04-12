@@ -32,6 +32,7 @@ while True:
     playerChips = cv_image_bw3[810:838, 1000:1170]
     y, x = playerChips.shape[:2]
     playerChips = playerChips[0:y - 2, 0:x]
+    continueButton = cv_image_bw3[532:570, 950:1200]
 
     # Use to get pot size
     # Use to get player chips
