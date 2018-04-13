@@ -8,17 +8,18 @@ def call():
     keyboard.press('c')
 
 def bet(betAmount):
-    keyboard.press('b')
     for i in range(0, betAmount):
         keyboard.press('up')
+    keyboard.press('b')
 
 def allIn():
     keyboard.press('a')
 
 def raise1(betAmount):
-    keyboard.press('r')
     for i in range(0, betAmount):
+        time.sleep(.05)
         keyboard.press(Key.up)
+    keyboard.press('r')
 
 def fold():
     keyboard.press('f')

@@ -58,7 +58,7 @@ class PocketAces(object):
         if dealButton == True:
             newChips = getAllValues()[11]
             lastChips = newChips
-            chipDifference = lastChips - newChips
+            chipDifference = int(lastChips) - int(newChips)
             reward = chipDifference
             deal()
         else:
