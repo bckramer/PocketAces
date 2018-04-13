@@ -38,7 +38,7 @@ class PocketAces(object):
             print("call")
         elif action == 1:  # fold
             fold()
-            print("fold")
+            print("fold") and foldButton
         elif action == 2 and raiseButton:  # raise
             raise1(raiseBetAmount)
             print("raise")
@@ -49,7 +49,7 @@ class PocketAces(object):
             allIn()
             print("allin")
         else:
-            fold()
+            call()
             print("fold")
 
         # reward function
