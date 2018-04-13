@@ -1,4 +1,5 @@
 from pynput.keyboard import Key, Controller
+from pynput.mouse import Button
 import time
 
 keyboard = Controller()
@@ -32,3 +33,10 @@ def deal():
 
 def continue1():
     keyboard.press('c')
+
+def playAgain():
+    mouse = Controller()
+    mouse.position = (778, 675)
+    mouse.press(Button.left)
+    keyboard = Controller()
+

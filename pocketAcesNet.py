@@ -13,7 +13,7 @@ class PocketAces(object):
         self.action_space = ['c', 'f', 'r', 'b', 'a']
         self.n_actions = len(self.action_space)
         self.n_features = 12
-        self.lastChips = 100
+        self.lastChips = 1000
 
     def reset(self):
         # self.update()
@@ -51,14 +51,11 @@ class PocketAces(object):
         else:
             call()
             print("call")
-
         # reward function
         if dealButton == True:
             newChips = getAllValues()[11]
-            print ("New Chips: " + str(newChips))
             chipDifference = int(self.lastChips) - int(newChips)
             self.lastChips = int(newChips)
-            print ("Last Chips : " + str(self.lastChips))
             reward = chipDifference
             deal()
         else:
