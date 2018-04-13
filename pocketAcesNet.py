@@ -29,7 +29,7 @@ class PocketAces(object):
         if(continueButton == True):
             continue1()
 
-        while not (dealButton and foldButton and checkButton and raiseButton and allInButton):
+        while not dealButton and not foldButton and not checkButton and not raiseButton and not allInButton:
             time.sleep(.05)
             dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton = buttonsAvailable()
 
