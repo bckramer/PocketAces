@@ -26,19 +26,19 @@ class PocketAces(object):
         s = getAllValues() #current state
         base_action = np.array([0, 0])
         dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton = buttonsAvailable()
-        if(continueButton == True):
-            continue1()
 
-        while not dealButton and not foldButton and not checkButton and not raiseButton and not allInButton:
+        while not dealButton and not foldButton and not checkButton and not raiseButton and not allInButton and not continueButton:
             time.sleep(.05)
             dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton = buttonsAvailable()
 
-        if action == 0:  # call
+        if (continueButton == True):
+            continue1()
+        elif action == 0:  # call
             call()
             print("call")
-        elif action == 1:  # fold
+        elif action == 1 and foldButton:  # fold
             fold()
-            print("fold") and foldButton
+            print("fold")
         elif action == 2 and raiseButton:  # raise
             raise1(raiseBetAmount)
             print("raise")
