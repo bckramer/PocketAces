@@ -3,12 +3,12 @@ import time
 import sys
 from gameInput import *
 from ScreenRead import *
-lastChips = 100
-newChips = 0
 # if sys.version_info.major == 2:#TODO adapt class to actual methods in rest of project
 
 raiseBetAmount = 10
 class PocketAces(object):
+    lastChips = 100
+    newChips = 0
     def __init__(self):
         super(PocketAces, self).__init__()
         self.action_space = ['c', 'f', 'r', 'b', 'a']
@@ -24,7 +24,6 @@ class PocketAces(object):
 
     def step(self, action):
         s = getAllValues() #current state
-        time.sleep(2)
         base_action = np.array([0, 0])
         dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton = buttonsAvailable()
         if(continueButton == True):
@@ -39,15 +38,18 @@ class PocketAces(object):
         elif action == 1:  # fold
             fold()
             print("fold")
-        elif action == 2:  # raise
+        elif action == 2 and raiseButton:  # raise
             raise1(raiseBetAmount)
             print("raise")
-        elif action == 3:  # bet
+        elif action == 3 and raiseButton:  # bet
             bet(raiseBetAmount)
             print("bet")
         elif action == 4:  # all in
             allIn()
             print("allin")
+        else:
+            fold()
+            print("fold")
 
         # next_coords = self.canvas.coords(self.rect)
 

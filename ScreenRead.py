@@ -24,7 +24,6 @@ def getAllValues():
 
     thresh, cv_image_bw2 = cv2.threshold(cv_image_grey, 100, 255, cv2.THRESH_BINARY)
     thresh, cv_image_bw3 = cv2.threshold(cv_image_grey, 75, 255, cv2.THRESH_BINARY)
-    thresh, cv_image_bw4 = cv2.threshold(cv_image_grey, 220, 255, cv2.THRESH_BINARY)
 
 
     potSize = cv_image_bw2[533:570, 800:950]
@@ -51,11 +50,11 @@ def getAllValues():
     stringSuits = ""
 
     for suit in publicCardSuits:
+        if suit == -2:
+            suit = 0
         stringSuits = stringSuits + str(suit)
 
     intSuits = int(stringSuits)
-
-    print (intSuits)
 
     return np.array([card1Value, card1Suit, card2Value, card2Suit, publicCardValue0, publicCardValue1, publicCardValue2, publicCardValue3, publicCardValue4, intSuits, potSize, playerPot])
 
