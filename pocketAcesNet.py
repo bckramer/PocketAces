@@ -28,6 +28,10 @@ class PocketAces(object):
         s = getAllValues() #current state
         time.sleep(2)
         base_action = np.array([0, 0])
+        dealButton, foldButton, checkCallButtons, raiseButton, allInButton, continoueButton = buttonsAvailable()
+        if(continoueButton == True):
+            continoue()
+
         if action == 0:  # call
             call()
             print("call")
@@ -47,7 +51,7 @@ class PocketAces(object):
         # next_coords = self.canvas.coords(self.rect)
 
         # reward function
-        dealButton, foldButton, checkCallButtons, raiseButton, allInButton = buttonsAvailable()
+
         if dealButton == True:
             newChips = getAllValues()[11]
             lastChips = newChips
