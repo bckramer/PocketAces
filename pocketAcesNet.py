@@ -5,8 +5,6 @@ from gameInput import *
 from ScreenRead import *
 lastChips = 100
 newChips = 0
-
-
 # if sys.version_info.major == 2:#TODO adapt class to actual methods in rest of project
 
 raiseBetAmount = 10
@@ -28,9 +26,12 @@ class PocketAces(object):
         s = getAllValues() #current state
         time.sleep(2)
         base_action = np.array([0, 0])
-        dealButton, foldButton, checkCallButtons, raiseButton, allInButton, continoueButton = buttonsAvailable()
-        if(continoueButton == True):
-            continoue()
+        dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton = buttonsAvailable()
+        if(continueButton == True):
+            continue1()
+
+        if checkButton == False and foldButton == False:
+            time.sleep(.5)
 
         if action == 0:  # call
             call()

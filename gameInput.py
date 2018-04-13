@@ -26,5 +26,5 @@ def fold():
 def deal():
     keyboard.press('d')
 
-def continoue():
+def continue1():
     keyboard.press('c')
