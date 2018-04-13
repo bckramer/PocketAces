@@ -56,8 +56,6 @@ def getAllValues():
 
     intSuits = int(stringSuits)
 
-    print (type(intSuits))
-
     return np.array([card1Value, card1Suit, card2Value, card2Suit, publicCardValue0, publicCardValue1, publicCardValue2, publicCardValue3, publicCardValue4, intSuits, potSize, playerPot])
 
 def buttonsAvailable():

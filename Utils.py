@@ -93,3 +93,25 @@ def printCard(cardValue, cardSuit):
         cardSuitName = "Diamonds"
 
     print(cardName + " of " + cardSuitName)
+
+def getReadableCard(cardValue, cardSuit):
+    if cardValue == 11:
+        cardName = "Jack"
+    elif cardValue == 12:
+        cardName = "Queen"
+    elif cardValue == 13:
+        cardName = "King"
+    elif cardValue == 14:
+        cardName = "Ace"
+    else:
+        cardName = str(cardValue)
+    if cardSuit == 0:
+        cardSuitName = "Spades"
+    elif cardSuit == 1:
+        cardSuitName = "Clubs"
+    elif cardSuit == 2:
+        cardSuitName = "Hearts"
+    else:
+        cardSuitName = "Diamonds"
+
+    return cardName + " of " + cardSuitName

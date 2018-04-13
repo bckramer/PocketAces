@@ -7,13 +7,13 @@ from ScreenRead import *
 
 raiseBetAmount = 10
 class PocketAces(object):
-    lastChips = 100
     newChips = 0
     def __init__(self):
         super(PocketAces, self).__init__()
         self.action_space = ['c', 'f', 'r', 'b', 'a']
         self.n_actions = len(self.action_space)
         self.n_features = 12
+        self.lastChips = 100
 
     def reset(self):
         # self.update()
@@ -50,13 +50,15 @@ class PocketAces(object):
             print("allin")
         else:
             call()
-            print("fold")
+            print("call")
 
         # reward function
         if dealButton == True:
             newChips = getAllValues()[11]
-            lastChips = newChips
-            chipDifference = int(lastChips) - int(newChips)
+            print ("New Chips: " + str(newChips))
+            chipDifference = int(self.lastChips) - int(newChips)
+            self.lastChips = int(newChips)
+            print ("Last Chips : " + str(self.lastChips))
             reward = chipDifference
             deal()
         else:
