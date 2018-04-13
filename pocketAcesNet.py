@@ -29,8 +29,9 @@ class PocketAces(object):
         if(continueButton == True):
             continue1()
 
-        if checkButton == False and foldButton == False:
-            time.sleep(.5)
+        while not (dealButton and foldButton and checkButton and raiseButton and allInButton):
+            time.sleep(.05)
+            dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton = buttonsAvailable()
 
         if action == 0:  # call
             call()
@@ -51,10 +52,7 @@ class PocketAces(object):
             fold()
             print("fold")
 
-        # next_coords = self.canvas.coords(self.rect)
-
         # reward function
-
         if dealButton == True:
             newChips = getAllValues()[11]
             lastChips = newChips

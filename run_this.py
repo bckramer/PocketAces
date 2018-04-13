@@ -6,7 +6,7 @@ import time
 
 def run_pocket_aces():
         step = 0
-        time.sleep(2)
+        time.sleep(2) #allows user to click off into DD Poker 3
         for episode in range(300):
             # initial observation
             observation = env.reset()
