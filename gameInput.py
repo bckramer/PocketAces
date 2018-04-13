@@ -9,7 +9,7 @@ def call():
 
 def bet(betAmount):
     for i in range(0, betAmount):
-        keyboard.press('up')
+        keyboard.press(Key.up)
     keyboard.press('b')
 
 def allIn():
