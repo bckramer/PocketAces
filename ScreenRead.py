@@ -64,6 +64,7 @@ def buttonsAvailable():
     cv_image_grey = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
 
     thresh, cv_image_bw = cv2.threshold(cv_image_grey, 220, 255, cv2.THRESH_BINARY)
+    thresh, cv_image_bw2 = cv2.threshold(cv_image_grey, 100, 255, cv2.THRESH_BINARY)
 
     buttons = cv_image_bw[840:900, 800:1420]
     dealButton = cv_image_bw[840:900, 800:888]
@@ -72,6 +73,7 @@ def buttonsAvailable():
     raiseButton = cv_image_bw[840:900, 1090:1170]
     allInButton = cv_image_bw[840:900, 1310:1400]
     continueButton = cv_image_bw[532:580, 950:1200]
+    playAgainButton = cv_image_bw2[365:370, 1070:1080]
 
     dealButtonOn = False
     foldButtonOn = False
@@ -79,6 +81,7 @@ def buttonsAvailable():
     raiseButtonOn = False
     allInButtonOn = False
     continueButtonOn = False
+    playAgainButtonOn = False
 
     im, contours, hierarchy = cv2.findContours(dealButton, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     if len(contours) > 0:
@@ -98,6 +101,10 @@ def buttonsAvailable():
     im, contours, hierarchy = cv2.findContours(continueButton, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     if len(contours) > 0:
         continueButtonOn = True
+    im, contours, hierarchy = cv2.findContours(playAgainButton, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    if len(contours) > 0:
+        playAgainButtonOn = True
 
 
-    return dealButtonOn, foldButtonOn, checkCallButtonOn, raiseButtonOn, allInButtonOn, continueButtonOn
+
+    return dealButtonOn, foldButtonOn, checkCallButtonOn, raiseButtonOn, allInButtonOn, continueButtonOn, playAgainButtonOn
