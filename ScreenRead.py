@@ -50,7 +50,7 @@ def getAllValues():
     stringSuits = ""
 
     for suit in publicCardSuits:
-        if suit == -2:
+        if suit == -1:
             suit = 0
         stringSuits = stringSuits + str(suit)
 
