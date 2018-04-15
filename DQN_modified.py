@@ -1,6 +1,7 @@
 import numpy as np
 import tensorflow as tf
 
+
 np.random.seed(1)
 tf.set_random_seed(1)
 
@@ -14,7 +15,7 @@ class DeepQNetwork:
             learning_rate=0.01,
             reward_decay=0.9,
             e_greedy=0.9,
-            replace_target_iter=300,
+            replace_target_iter=10000,
             memory_size=500,
             batch_size=32,
             e_greedy_increment=None,
@@ -144,6 +145,7 @@ class DeepQNetwork:
         plt.ylabel('Cost')
         plt.xlabel('training steps')
         plt.show()
+
 
 if __name__ == '__main__':
     DQN = DeepQNetwork(5, 12, output_graph=True)
