@@ -13,7 +13,7 @@ from ctypes import windll
 user32 = windll.user32
 user32.SetProcessDPIAware()
 
-def getAllValues():
+def getAllValues(prevPot):
     screen_grab = ImageGrab.grab()
     cv_image = np.array(screen_grab, dtype='uint8')
     cv_image_grey = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
@@ -56,7 +56,9 @@ def getAllValues():
 
     intSuits = int(stringSuits)
 
-    return np.array([card1Value, card1Suit, card2Value, card2Suit, publicCardValue0, publicCardValue1, publicCardValue2, publicCardValue3, publicCardValue4, intSuits, potSize, playerPot])
+    callSize = int(potSize) - int(prevPot)
+
+    return np.array([card1Value, card1Suit, card2Value, card2Suit, publicCardValue0, publicCardValue1, publicCardValue2, publicCardValue3, publicCardValue4, intSuits, potSize, playerPot, callSize])
 
 def buttonsAvailable():
     screen_grab = ImageGrab.grab()
