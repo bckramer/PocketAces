@@ -1,6 +1,9 @@
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+from tensorflow.python.util.all_util import remove_undocumented
+from tensorflow.python.util.tf_export import tf_export
+
 
 np.random.seed(1)
 tf.set_random_seed(1)
@@ -15,8 +18,8 @@ class DeepQNetwork:
             learning_rate=0.01,
             reward_decay=0.9,
             e_greedy=0.9,
-            replace_target_iter=300,
-            memory_size=500,
+            replace_target_iter=10000,
+            memory_size=3500,
             batch_size=32,
             e_greedy_increment=None,
             output_graph=False,
@@ -190,3 +193,41 @@ class DeepQNetwork:
         plt.ylabel('Cost')
         plt.xlabel('training steps')
         plt.show()
+
+
+    def save(self,s, a, r, s_):
+        tf.saved_model.simple_save(self.sess, "model",
+                                   inputs={"s": tf.convert_to_tensor(s), "s_": tf.convert_to_tensor(s_),
+                                           "r": tf.convert_to_tensor(r),
+                                           "a": tf.convert_to_tensor(a)},
+                                   outputs={"q_target": tf.convert_to_tensor(self.q_target)})
+
+    def build(self):
+        export_dir = "build"
+        builder = tf.saved_model.builder.SavedModelBuilder(export_dir)
+        TRAINING = "train"
+        SERVING = "serve"
+        tf_export("saved_model.tag_constants.SERVING").export_constant(
+            __name__, "SERVING")
+        tf_export("saved_model.tag_constants.TRAINING").export_constant(
+            __name__, "TRAINING")
+
+        with tf.Session(graph=tf.Graph()) as sess:
+            builder.add_meta_graph_and_variables(sess,
+                                                 [SERVING])
+            # assets_collection=foo_assets)
+        # Add a second MetaGraphDef for inference.
+        with tf.Session(graph=tf.Graph()) as sess:
+            builder.add_meta_graph([SERVING])
+
+        builder.save()
+
+    def load(self):
+        SERVING = "serve"
+        tf_export("saved_model.tag_constants.SERVING").export_constant(
+            __name__, "SERVING")
+        with tf.Session(graph=tf.Graph()) as sess:
+            tf.saved_model.loader.load(sess, [SERVING], "./model")
+
+
+

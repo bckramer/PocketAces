@@ -1,5 +1,7 @@
 from pocketAcesNet import PocketAces
 from RL_brain import DeepQNetwork
+from RL_brain import *
+
 import cv2
 import time
 
@@ -7,7 +9,8 @@ import time
 def run_pocket_aces():
         step = 0
         time.sleep(2) #allows user to click off into DD Poker 3
-        for episode in range(300):
+        for episode in range(10000):
+
             # initial observation
             observation = env.reset()
 
@@ -27,6 +30,12 @@ def run_pocket_aces():
 
                 if (step > 200) and (step % 5 == 0):
                     RL.learn()
+
+                # if episode == 5:
+                #     RL.save(observation, action, reward, observation_)
+                #     RL.build()
+                #     RL.load()
+                #     return
 
                 # swap observation
                 observation = observation_
