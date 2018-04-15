@@ -9,6 +9,7 @@ import time
 def run_pocket_aces():
         step = 0
         time.sleep(2) #allows user to click off into DD Poker 3
+
         for episode in range(10000):
 
             # initial observation
@@ -31,14 +32,21 @@ def run_pocket_aces():
                 if (step > 200) and (step % 5 == 0):
                     RL.learn()
 
-                #if episode == 5:
-                #    RL.save(observation, action, reward, observation_)
-                #     RL.build()
-                #     RL.load()
-                #    break
-
                 # swap observation
                 observation = observation_
+
+                #saving, MAKE SURE SAVE DIRECTORY IS DELETED
+                if episode == 3000:
+                    RL.save(observation, action, reward, observation_, "save/save1")
+                    RL.build("save/build1")
+
+                if episode == 6000:
+                     RL.save(observation, action, reward, observation_,"save/save2")
+                     RL.build("save/build2")
+
+                if episode == 9900:
+                    RL.save(observation, action, reward, observation_, "save/save3")
+                    RL.build("save/build3")
 
                 # break while loop when end of this episode
                 if done:
@@ -60,8 +68,8 @@ if __name__ == "__main__":
                       learning_rate=0.01,
                       reward_decay=0.9,
                       e_greedy=0.9,
-                      replace_target_iter=200,
-                      memory_size=2000,
+                      replace_target_iter=10000,
+                      memory_size=100000,
                       # output_graph=True
                       )
     #env.after(100, run_pocket_aces)
