@@ -28,10 +28,10 @@ class PocketAces(object):
         time.sleep(0.1)
         # resetGame(); commented for testing
         # return observation
-        return getAllValues()
+        return getAllValues(self.prevPot)
 
     def step(self, action):
-        s = getAllValues() #current state
+        s = getAllValues(self.prevPot) #current state
         base_action = np.array([0, 0])
         dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton, playAgainButton = buttonsAvailable()
         if self.newTournament == True:
@@ -46,11 +46,6 @@ class PocketAces(object):
             if timeWaited > 2:
                 continue1()
 
-        self.currentPot = s[10]
-        callSize = int(self.currentPot) - int(self.prevPot)
-        self.prevPot = self.currentPot
-        if (callSize != 0):
-            print("Call Size: " + str(callSize))
         if (continueButton == True):
             continue1()
         elif action == 0:  # call
@@ -94,8 +89,8 @@ class PocketAces(object):
             reward = 0
         done = True
 
-        s_ = getAllValues()  # next State
-        s_.append(callSize)
+        self.prevPot = s[11]
+        s_ =  getAllValues(self.prevPot) # next State
 
         return s_, reward, done
 
