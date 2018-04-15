@@ -89,6 +89,7 @@ class PocketAces(object):
         done = True
 
         s_ = getAllValues()  # next State
+        s_.append(callSize)
 
         return s_, reward, done
 
