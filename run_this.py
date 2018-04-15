@@ -31,11 +31,11 @@ def run_pocket_aces():
                 if (step > 200) and (step % 5 == 0):
                     RL.learn()
 
-                # if episode == 5:
-                #     RL.save(observation, action, reward, observation_)
+                if episode == 5:
+                #    RL.save(observation, action, reward, observation_)
                 #     RL.build()
                 #     RL.load()
-                #     return
+                    return
 
                 # swap observation
                 observation = observation_

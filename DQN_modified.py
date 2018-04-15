@@ -148,4 +148,4 @@ class DeepQNetwork:
 
 
 if __name__ == '__main__':
-    DQN = DeepQNetwork(5, 12, output_graph=True)
+    DQN = DeepQNetwork(5, 13, output_graph=True)

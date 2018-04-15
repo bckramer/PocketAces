@@ -17,7 +17,7 @@ class PocketAces(object):
         super(PocketAces, self).__init__()
         self.action_space = ['c', 'f', 'r1','r2','r3', 'a']
         self.n_actions = len(self.action_space)
-        self.n_features = 12
+        self.n_features = 13
         self.lastChips = 1000
         self.currentPot = 0
         self.prevPot = 0

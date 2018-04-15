@@ -200,7 +200,8 @@ class DeepQNetwork:
                                    inputs={"s": tf.convert_to_tensor(s), "s_": tf.convert_to_tensor(s_),
                                            "r": tf.convert_to_tensor(r),
                                            "a": tf.convert_to_tensor(a)},
-                                   outputs={"q_target": tf.convert_to_tensor(self.q_target)})
+                                   outputs={"q_target": tf.convert_to_tensor(self.q_target),
+                                            "q_eval":tf.convert_to_tensor(self.q_eval)})
 
     def build(self):
         export_dir = "build"
