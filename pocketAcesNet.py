@@ -15,7 +15,7 @@ class PocketAces(object):
     newChips = 0
     def __init__(self):
         super(PocketAces, self).__init__()
-        self.action_space = ['c', 'f', 'r', 'b', 'a']
+        self.action_space = ['c', 'f', 'r1','r2','r3', 'a']
         self.n_actions = len(self.action_space)
         self.n_features = 12
         self.lastChips = 1000
@@ -60,12 +60,18 @@ class PocketAces(object):
             fold()
             print("fold")
         elif action == 2 and raiseButton:  # raise
-            raise1(raiseBetAmount)
+            potSize = int(s[11])
+            raise1(int(potSize/5))
             print("raise")
         elif action == 3 and raiseButton:  # bet
-            bet(raiseBetAmount)
+            potSize = int(s[11])
+            raise1(int(potSize/4))
             print("bet")
-        elif action == 4:  # all in
+        elif action == 4 and raiseButton:  # bet
+            potSize = int(s[11])
+            raise1(int(potSize/10))
+            print("bet")
+        elif action == 5:  # all in
             allIn()
             print("allin")
         else:
