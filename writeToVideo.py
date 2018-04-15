@@ -17,7 +17,7 @@ while(True):
 
     frame = np.array(ImageGrab.grab())
 
-    values = getAllValues()
+    values = getAllValues(0)
     # print(values[1])
     # print(values[3])
     card1Name, card1Suit = getReadableCard(int(values[0]), int(values[1]))

@@ -78,7 +78,7 @@ class PocketAces(object):
             self.newTournament = True
             print("play again")
         if dealButton == True:
-            newChips = getAllValues()[11]
+            newChips = getAllValues(self.lastChips)[11]
             chipDifference = int(self.lastChips) - int(newChips)
             self.lastChips = int(newChips)
             self.currentPot = 0
