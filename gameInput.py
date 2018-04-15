@@ -32,3 +32,4 @@ def deal():
 
 def continue1():
     keyboard.press('c')
+

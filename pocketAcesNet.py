@@ -2,8 +2,13 @@ import numpy as np
 import time
 import sys
 from gameInput import *
+from mouseCommands import *
 from ScreenRead import *
 # if sys.version_info.major == 2:#TODO adapt class to actual methods in rest of project
+from ctypes import windll
+user32 = windll.user32
+user32.SetProcessDPIAware()
+mouse = Controller()
 
 raiseBetAmount = 10
 class PocketAces(object):
@@ -13,7 +18,7 @@ class PocketAces(object):
         self.action_space = ['c', 'f', 'r', 'b', 'a']
         self.n_actions = len(self.action_space)
         self.n_features = 12
-        self.lastChips = 100
+        self.lastChips = 1000
 
     def reset(self):
         # self.update()
@@ -25,11 +30,11 @@ class PocketAces(object):
     def step(self, action):
         s = getAllValues() #current state
         base_action = np.array([0, 0])
-        dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton = buttonsAvailable()
+        dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton, playAgainButton = buttonsAvailable()
 
         while not dealButton and not foldButton and not checkButton and not raiseButton and not allInButton and not continueButton:
             time.sleep(.05)
-            dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton = buttonsAvailable()
+            dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton, playAgainButton = buttonsAvailable()
 
         if (continueButton == True):
             continue1()
@@ -51,14 +56,14 @@ class PocketAces(object):
         else:
             call()
             print("call")
-
         # reward function
+        if playAgainButton == True:
+            playAgain()
+            print("play again")
         if dealButton == True:
             newChips = getAllValues()[11]
-            print ("New Chips: " + str(newChips))
             chipDifference = int(self.lastChips) - int(newChips)
             self.lastChips = int(newChips)
-            print ("Last Chips : " + str(self.lastChips))
             reward = chipDifference
             deal()
         else:

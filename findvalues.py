@@ -24,8 +24,8 @@ chipCountStrels = loadChipCountStrels()
 def findSuits(cardsImage):
     card1Suit = cardsImage[50:100, 10:50]
     card2Suit = cardsImage[58:100, 48:80]
-    card1 = findElementInImage(card1Suit, suitStrels, False)
-    card2 = findElementInImage(card2Suit, suitStrels, False)
+    card1 = findElementInImage(card1Suit, suitStrels, False) + 1
+    card2 = findElementInImage(card2Suit, suitStrels, False) + 1
 
     return card1, card2
 
@@ -74,11 +74,11 @@ def findPublicCards(publiccards):
     card4val = findElementInImage(card4, publicstrels, True) + 2
     card5val = findElementInImage(card5, publicstrels, True) + 2
 
-    card1suit = findElementInImage(card1s, publicSuitStrels, False)
-    card2suit = findElementInImage(card2s, publicSuitStrels, True)
-    card3suit = findElementInImage(card3s, publicSuitStrels, True)
-    card4suit = findElementInImage(card4s, publicSuitStrels, True)
-    card5suit = findElementInImage(card5s, publicSuitStrels, True)
+    card1suit = findElementInImage(card1s, publicSuitStrels, False) + 1
+    card2suit = findElementInImage(card2s, publicSuitStrels, True) + 1
+    card3suit = findElementInImage(card3s, publicSuitStrels, True) + 1
+    card4suit = findElementInImage(card4s, publicSuitStrels, True) + 1
+    card5suit = findElementInImage(card5s, publicSuitStrels, True) + 1
 
     cardValues.append(card1val)
     cardValues.append(card2val)

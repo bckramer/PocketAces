@@ -30,6 +30,7 @@ while True:
 
     potSize = cv_image_bw2[533:570, 800:950]
     playerChips = cv_image_bw3[810:838, 1000:1170]
+    playAgain = cv_image_bw2[365:370, 1070:1080]
     y, x = playerChips.shape[:2]
     playerChips = playerChips[0:y - 2, 0:x]
 
