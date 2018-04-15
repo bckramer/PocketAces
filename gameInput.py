@@ -1,4 +1,5 @@
 from pynput.keyboard import Key, Controller
+from ScreenRead import getAllValues
 import time
 
 keyboard = Controller()
@@ -32,4 +33,14 @@ def deal():
 
 def continue1():
     keyboard.press('c')
+
+def keyInputRaise(betAmount):
+    betAmount = betAmount -1
+    betAmountString = str(betAmount)
+    for i in range(0, len(betAmountString)):
+        keyboard.press(betAmountString[i])
+    keyboard.press(Key.up)
+    keyboard.press('b')
+    keyboard.press('r')
+
 

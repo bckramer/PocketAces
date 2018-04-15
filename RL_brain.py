@@ -4,7 +4,6 @@ import tensorflow as tf
 from tensorflow.python.util.all_util import remove_undocumented
 from tensorflow.python.util.tf_export import tf_export
 
-
 np.random.seed(1)
 tf.set_random_seed(1)
 
@@ -19,10 +18,10 @@ class DeepQNetwork:
             reward_decay=0.9,
             e_greedy=0.9,
             replace_target_iter=10000,
-            memory_size=3500,
+            memory_size=100000,
             batch_size=32,
             e_greedy_increment=None,
-            output_graph=False,
+            output_graph=True,
     ):
         self.n_actions = n_actions
         self.n_features = n_features
@@ -85,7 +84,7 @@ class DeepQNetwork:
             self._train_op = tf.train.RMSPropOptimizer(self.lr).minimize(self.loss)
 
         # ------------------ build target_net ------------------
-        self.s_ = tf.placeholder(tf.float32, [None, self.n_features], name='s_')    # input
+        self.s_ = tf.placeholder(tf.float32, [None, self.n_features], name='s_')  # input
         with tf.variable_scope('target_net'):
             # c_names(collections_names) are the collections to store variables
             c_names = ['target_net_params', tf.GraphKeys.GLOBAL_VARIABLES]
@@ -194,24 +193,22 @@ class DeepQNetwork:
         plt.xlabel('training steps')
         plt.show()
 
-
-    def save(self,s, a, r, s_):
-        tf.saved_model.simple_save(self.sess, "model",
+    def save(self, s, a, r, s_, exportDir):
+        tf.saved_model.simple_save(self.sess, exportDir,
                                    inputs={"s": tf.convert_to_tensor(s), "s_": tf.convert_to_tensor(s_),
                                            "r": tf.convert_to_tensor(r),
                                            "a": tf.convert_to_tensor(a)},
                                    outputs={"q_target": tf.convert_to_tensor(self.q_target),
-                                            "q_eval":tf.convert_to_tensor(self.q_eval)})
+                                            "q_eval": tf.convert_to_tensor(self.q_eval)
+                                            , "loss": tf.convert_to_tensor(self.loss),
+                                            "next": tf.convert_to_tensor(self.q_next)})
 
-    def build(self):
-        export_dir = "build"
+    def build(self, export_dir):
         builder = tf.saved_model.builder.SavedModelBuilder(export_dir)
         TRAINING = "train"
         SERVING = "serve"
         tf_export("saved_model.tag_constants.SERVING").export_constant(
             __name__, "SERVING")
-        tf_export("saved_model.tag_constants.TRAINING").export_constant(
-            __name__, "TRAINING")
 
         with tf.Session(graph=tf.Graph()) as sess:
             builder.add_meta_graph_and_variables(sess,
@@ -223,12 +220,9 @@ class DeepQNetwork:
 
         builder.save()
 
-    def load(self):
+    def load(self, exportDir):
         SERVING = "serve"
         tf_export("saved_model.tag_constants.SERVING").export_constant(
             __name__, "SERVING")
         with tf.Session(graph=tf.Graph()) as sess:
-            tf.saved_model.loader.load(sess, [SERVING], "./model")
-
-
-
+            tf.saved_model.loader.load(sess, [SERVING], exportDir)
