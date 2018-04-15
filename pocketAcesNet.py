@@ -19,6 +19,9 @@ class PocketAces(object):
         self.n_actions = len(self.action_space)
         self.n_features = 12
         self.lastChips = 1000
+        self.currentPot = 0
+        self.prevPot = 0
+        self.newTournament = True
 
     def reset(self):
         # self.update()
@@ -31,11 +34,23 @@ class PocketAces(object):
         s = getAllValues() #current state
         base_action = np.array([0, 0])
         dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton, playAgainButton = buttonsAvailable()
+        if self.newTournament == True:
+            self.lastChips = s[11]
+            self.newTournament = False
 
+        timeWaited = 0
         while not dealButton and not foldButton and not checkButton and not raiseButton and not allInButton and not continueButton:
             time.sleep(.05)
             dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton, playAgainButton = buttonsAvailable()
+            timeWaited = timeWaited + 0.05
+            if timeWaited > 2:
+                continue1()
 
+        self.currentPot = s[10]
+        callSize = int(self.currentPot) - int(self.prevPot)
+        self.prevPot = self.currentPot
+        if (callSize != 0):
+            print("Call Size: " + str(callSize))
         if (continueButton == True):
             continue1()
         elif action == 0:  # call
@@ -59,11 +74,14 @@ class PocketAces(object):
         # reward function
         if playAgainButton == True:
             playAgain()
+            self.newTournament = True
             print("play again")
         if dealButton == True:
             newChips = getAllValues()[11]
             chipDifference = int(self.lastChips) - int(newChips)
             self.lastChips = int(newChips)
+            self.currentPot = 0
+            self.prevPot = 0
             reward = chipDifference
             deal()
         else:
