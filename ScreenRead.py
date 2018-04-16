@@ -82,7 +82,8 @@ def buttonsAvailable():
     checkCallButton = cv_image_bw[840:900, 1000:1080]
     raiseButton = cv_image_bw[840:900, 1090:1170]
     allInButton = cv_image_bw[840:900, 1310:1400]
-    continueButton = cv_image_bw[532:580, 950:1200]
+    continueButton = cv_image_bw[532:560, 950:1200]
+    cv2.imshow("continueButton", continueButton)
     playAgainButton = cv_image_bw2[365:370, 1070:1080]
 
     dealButtonOn = False

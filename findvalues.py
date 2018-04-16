@@ -65,7 +65,6 @@ def findPublicCards(publiccards):
     wholeCards = [wholeCard1, wholeCard2, wholeCard3, wholeCard4, wholeCard5]
 
     card1 = publiccards[0:heightVar - 6, 0:int((width/5) - 60)]
-    cv2.imshow("card", card1)
     card1s = publiccards[heightVar - 2:heightVar + 38, 0:int((width/5) - 68)]
     card2 = publiccards[0:heightVar, int(width/5 + 5):int((width / 5) * 2 - 65)]
     card2s = publiccards[heightVar - 2:heightVar + 38, int(width/5 + 5):int((width / 5) * 2 - 60)]

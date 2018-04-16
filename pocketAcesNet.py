@@ -49,7 +49,7 @@ class PocketAces(object):
         if (continueButton == True):
             continue1()
         elif action == 0:  # call
-            call()
+            # call()
             print("call")
         elif action == 1 and foldButton:  # fold
             fold()
@@ -70,7 +70,7 @@ class PocketAces(object):
             allIn()
             print("allin")
         else:
-            call()
+            # call()
             print("call")
         # reward function
         if playAgainButton == True:
