@@ -6,6 +6,7 @@ from findcontours import *
 from loadstrels import *
 from PIL import ImageGrab
 from findvalues import *
+from ScreenRead import *
 import cv2
 import time
 from ctypes import windll
@@ -45,6 +46,7 @@ while True:
     prevPotSize = int(potSize)
     print("Call size: " + str(callSize))
     playerPot = findChipSize(playerChips, 0, 2)
+    values = getAllValues(0)
     print("Pot size: " + str(potSize) + " Player Pot: " + str(playerPot))
     cardValues, cardSuits = findPublicCards(publicCards)
     i = 0

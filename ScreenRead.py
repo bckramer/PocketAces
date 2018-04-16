@@ -31,12 +31,20 @@ def getAllValues(prevPot):
     playerChips = cv_image_bw3[810:838, 1000:1170]
     y, x = playerChips.shape[:2]
     playerChips = playerChips[0:y - 2, 0:x]
+    oneCardCheck = cv_image_bw2[770:780, 1142:1152]
 
     # Use to get pot size
     # Use to get player chips
 
-    card1Value, card2Value = findCards(cards)
-    card1Suit, card2Suit = findSuits(cards)
+    im, contours, hierarchy = cv2.findContours(oneCardCheck, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    if len(contours) == 0:
+        card1Value = 0
+        card2Value = 0
+        card1Suit = 0
+        card2Suit = 0
+    else:
+        card1Value, card2Value = findCards(cards)
+        card1Suit, card2Suit = findSuits(cards)
     potSize = findChipSize(potSize, 1, 2)
     publicCardValues, publicCardSuits = findPublicCards(publicCards)
     playerPot = findChipSize(playerChips, chipCountStrels, 2)

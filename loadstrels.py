@@ -113,7 +113,6 @@ def loadPublicStrels():
 
     nine = cv2.imread('PublicCardsSE/9.PNG', cv2.IMREAD_GRAYSCALE)
     nine = binarizeAndErode(nine, 4, 1, 175, False)
-    cv2.imshow("Nine", nine)
     strels.append(nine)
 
     ten = cv2.imread('PublicCardsSE/10.PNG', cv2.IMREAD_GRAYSCALE)

@@ -33,8 +33,10 @@ def findSuits(cardsImage):
 def findCards(cardsImage):
     kernel = np.ones((1, 1), np.uint8)
     card1Value = cardsImage[8:50, 12:50]
+    cv2.imshow("card1value", card1Value)
     card1Value = cv2.erode(card1Value, kernel, iterations=1)
     card2Value = cardsImage[20:58, 48:80]
+    cv2.imshow("card2value", card2Value)
     card2Value = cv2.erode(card2Value, kernel, iterations=1)
 
     card1 = findElementInImage(card1Value, valueStrels, True) + 2
@@ -54,17 +56,15 @@ def findChipSize(chipSizeImage, potSize, size):
 def findPublicCards(publiccards):
 
     height, width = publiccards.shape
-    cv2.imshow("publicCards", publiccards)
     heightVar = int(height - (height / 2) - 20)
     cardValues = []
     cardSuits = []
-    wholeCards = []
     wholeCard1 = publiccards[0:height, 0:int((width/5))]
     wholeCard2 = publiccards[0:height, int(width/5):int(2*width/5)]
     wholeCard3 = publiccards[0:height, int(2*width/5):int(3*width / 5)]
     wholeCard4 = publiccards[0:height, int(3* width / 5) + 10:int(4 * width / 5)]
     wholeCard5 = publiccards[0:height, int(4 * width / 5) + 15:int(width)]
-    wholeCards.extend([wholeCard1, wholeCard2, wholeCard3, wholeCard4, wholeCard5])
+    wholeCards = [wholeCard1, wholeCard2, wholeCard3, wholeCard4, wholeCard5]
 
     card1 = publiccards[0:heightVar, 0:int((width/5) - 68)]
     card1s = publiccards[heightVar - 2:heightVar + 38, 0:int((width/5) - 68)]
@@ -87,10 +87,12 @@ def findPublicCards(publiccards):
             cardSuits.append(findElementInImage(cardSuitImages[i], publicSuitStrels, True) + 1)
         i = i + 1
 
-    if len(cardValues) == 0:
-        cardValues = [0, 0, 0, 0, 0]
-    if len(cardSuits) == 0:
-        cardSuits = [0, 0, 0, 0, 0]
+    if len(cardValues) < 5:
+        for i in range (len(cardValues), 5):
+            cardValues.append(0)
+    if len(cardSuits) < 5:
+        for i in range (len(cardSuits), 5):
+            cardSuits.append(0)
 
 
     return cardValues, cardSuits
