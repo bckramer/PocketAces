@@ -10,11 +10,11 @@ def run_pocket_aces():
         step = 0
         time.sleep(2) #allows user to click off into DD Poker 3
 
-        for episode in range(10000):
+        for episode in range(20):
 
             # initial observation
             observation = env.reset()
-
+            RL.load("save/build3")
             while True:
 
             # fresh env
@@ -36,17 +36,17 @@ def run_pocket_aces():
                 observation = observation_
 
                 #saving, MAKE SURE SAVE DIRECTORY IS DELETED
-                if episode == 3000:
-                    RL.save(observation, action, reward, observation_, "save/save1")
-                    RL.build("save/build1")
-
-                if episode == 6000:
-                     RL.save(observation, action, reward, observation_,"save/save2")
-                     RL.build("save/build2")
-
-                if episode == 9900:
-                    RL.save(observation, action, reward, observation_, "save/save3")
-                    RL.build("save/build3")
+                # if episode == 3000:
+                #     RL.save(observation, action, reward, observation_, "save/save1")
+                #     RL.build("save/build1")
+                #
+                # if episode == 6000:
+                #      RL.save(observation, action, reward, observation_,"save/save2")
+                #      RL.build("save/build2")
+                #
+                # if episode == 9900:
+                #     RL.save(observation, action, reward, observation_, "save/save3")
+                #     RL.build("save/build3")
 
                 # break while loop when end of this episode
                 if done:

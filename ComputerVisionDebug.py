@@ -47,6 +47,7 @@ while True:
     print("Call size: " + str(callSize))
     playerPot = findChipSize(playerChips, 0, 2)
     values = getAllValues(0)
+    buttons = buttonsAvailable()
     print("Pot size: " + str(potSize) + " Player Pot: " + str(playerPot))
     cardValues, cardSuits = findPublicCards(publicCards)
     i = 0

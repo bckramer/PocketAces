@@ -116,9 +116,10 @@ def loadPublicStrels():
     strels.append(nine)
 
     ten = cv2.imread('PublicCardsSE/10.PNG', cv2.IMREAD_GRAYSCALE)
-    ten = binarizeAndErode(ten, 3, 1, 175, False)
+    ten = binarizeAndErode(ten, 4, 1, 160, False)
     strels.append(ten)
 
+    # TODO Jacks and tens are being confused
     jack = cv2.imread('PublicCardsSE/J.PNG', cv2.IMREAD_GRAYSCALE)
     jack = binarizeAndErode(jack, 2, 1, 175, False)
     strels.append(jack)

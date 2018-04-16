@@ -8,7 +8,6 @@ from ScreenRead import *
 from ctypes import windll
 user32 = windll.user32
 user32.SetProcessDPIAware()
-mouse = Controller()
 
 raiseBetAmount = 10
 class PocketAces(object):
@@ -46,6 +45,7 @@ class PocketAces(object):
             if timeWaited > 2:
                 continue1()
 
+        print("Action " + str(action))
         if (continueButton == True):
             continue1()
         elif action == 0:  # call

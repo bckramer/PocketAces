@@ -37,8 +37,11 @@ def continue1():
 def keyInputRaise(betAmount):
     betAmount = betAmount -1
     betAmountString = str(betAmount)
+    print("Bet Amount "  + betAmount)
+    print(betAmountString)
     for i in range(0, len(betAmountString)):
         keyboard.press(betAmountString[i])
+        print(str(betAmountString[i]))
     keyboard.press(Key.up)
     keyboard.press('b')
     keyboard.press('r')
