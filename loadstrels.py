@@ -84,55 +84,56 @@ def loadPublicStrels():
     strels = []
 
     two = cv2.imread('PublicCardsSE/2.PNG', cv2.IMREAD_GRAYSCALE)
-    two = binarizeAndErode(two, 2, 1, 210, False)
+    two = binarizeAndErode(two, 2, 1, 175, False)
     strels.append(two)
 
     three = cv2.imread('PublicCardsSE/3.PNG', cv2.IMREAD_GRAYSCALE)
-    three = binarizeAndErode(three, 2, 1, 210, False)
+    three = binarizeAndErode(three, 2, 1, 175, False)
     strels.append(three)
 
     four = cv2.imread('PublicCardsSE/4.PNG', cv2.IMREAD_GRAYSCALE)
-    four = binarizeAndErode(four, 2, 1, 210, False)
+    four = binarizeAndErode(four, 2, 1, 175, False)
     strels.append(four)
 
     five = cv2.imread('PublicCardsSE/5.PNG', cv2.IMREAD_GRAYSCALE)
-    five = binarizeAndErode(five, 2, 1, 210, False)
+    five = binarizeAndErode(five, 2, 1, 175, False)
     strels.append(five)
 
     six = cv2.imread('PublicCardsSE/6.PNG', cv2.IMREAD_GRAYSCALE)
-    six = binarizeAndErode(six, 2, 1, 210, False)
+    six = binarizeAndErode(six, 2, 1, 175, False)
     strels.append(six)
 
     seven = cv2.imread('PublicCardsSE/7.PNG', cv2.IMREAD_GRAYSCALE)
-    seven = binarizeAndErode(seven, 2, 1, 210, False)
+    seven = binarizeAndErode(seven, 2, 1, 175, False)
     strels.append(seven)
 
     eight = cv2.imread('PublicCardsSE/8.PNG', cv2.IMREAD_GRAYSCALE)
-    eight = binarizeAndErode(eight, 4, 1, 210, False)
+    eight = binarizeAndErode(eight, 3, 1, 175, False)
     strels.append(eight)
 
     nine = cv2.imread('PublicCardsSE/9.PNG', cv2.IMREAD_GRAYSCALE)
-    nine = binarizeAndErode(nine, 4, 1, 210, False)
+    nine = binarizeAndErode(nine, 4, 1, 175, False)
+    cv2.imshow("Nine", nine)
     strels.append(nine)
 
     ten = cv2.imread('PublicCardsSE/10.PNG', cv2.IMREAD_GRAYSCALE)
-    ten = binarizeAndErode(ten, 4, 1, 210, False)
+    ten = binarizeAndErode(ten, 3, 1, 175, False)
     strels.append(ten)
 
     jack = cv2.imread('PublicCardsSE/J.PNG', cv2.IMREAD_GRAYSCALE)
-    jack = binarizeAndErode(jack, 2, 1, 210, False)
+    jack = binarizeAndErode(jack, 2, 1, 175, False)
     strels.append(jack)
 
     queen = cv2.imread('PublicCardsSE/Q.PNG', cv2.IMREAD_GRAYSCALE)
-    queen = binarizeAndErode(queen, 2, 1, 210, False)
+    queen = binarizeAndErode(queen, 2, 1, 175, False)
     strels.append(queen)
 
     king = cv2.imread('PublicCardsSE/K.PNG', cv2.IMREAD_GRAYSCALE)
-    king = binarizeAndErode(king, 2, 1, 210, False)
+    king = binarizeAndErode(king, 2, 1, 175, False)
     strels.append(king)
 
     ace = cv2.imread('PublicCardsSE/A.PNG', cv2.IMREAD_GRAYSCALE)
-    ace = binarizeAndErode(ace, 3, 1, 210, False)
+    ace = binarizeAndErode(ace, 3, 1, 175, False)
     strels.append(ace)
 
     return strels
@@ -145,7 +146,7 @@ def loadPublicSuitStrels():
     suits.append(spade)
 
     club = cv2.imread("PublicSuitsSE/Club.PNG", cv2.IMREAD_GRAYSCALE)
-    club = binarizeAndErode(club, 3, 1, 210, False)
+    club = binarizeAndErode(club, 2, 1, 210, False)
     suits.append(club)
 
     heart = cv2.imread("PublicSuitsSE/Heart.PNG", cv2.IMREAD_GRAYSCALE)

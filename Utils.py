@@ -83,11 +83,11 @@ def printCard(cardValue, cardSuit):
         cardName = "Ace"
     else:
         cardName = str(cardValue)
-    if cardSuit == 0:
+    if cardSuit == 1:
         cardSuitName = "Spades"
-    elif cardSuit == 1:
-        cardSuitName = "Clubs"
     elif cardSuit == 2:
+        cardSuitName = "Clubs"
+    elif cardSuit == 3:
         cardSuitName = "Hearts"
     else:
         cardSuitName = "Diamonds"

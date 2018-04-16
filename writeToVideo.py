@@ -28,15 +28,14 @@ while(True):
 
     publicCards = []
     publicCards.extend((values[4], values[5], values[6], values[7], values[8]))
-    cv2.putText(frame, "Public Cards", (275, 152), font, .7, (0, 255, 0), 2, cv2.LINE_AA)
+    cv2.putText(frame, "Public Cards", (275, 162), font, .7, (0, 255, 0), 2, cv2.LINE_AA)
     i = 0
     j = 0
     for card in publicCards:
         suits = str(values[9])
         if card != "0" and suits != "0":
-            print(str(card))
             cardName, cardSuit = getReadableCard(int(card), int(suits[i]))
-            cv2.putText(frame, cardName + " of " + cardSuit, (275, 202 + (i * 50)), font, .7, (0, 255, 0), 2, cv2.LINE_AA)
+            cv2.putText(frame, cardName + " of " + cardSuit, (275, 212 + (i * 50)), font, .7, (0, 255, 0), 2, cv2.LINE_AA)
             i = i + 1
         j = j + 1
 
@@ -48,7 +47,7 @@ while(True):
 
     out.write(frame)
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    if cv2.waitKey(60) & 0xFF == ord('q'):
         break
 
 

@@ -54,9 +54,18 @@ def findChipSize(chipSizeImage, potSize, size):
 def findPublicCards(publiccards):
 
     height, width = publiccards.shape
+    cv2.imshow("publicCards", publiccards)
     heightVar = int(height - (height / 2) - 20)
     cardValues = []
     cardSuits = []
+    wholeCards = []
+    wholeCard1 = publiccards[0:height, 0:int((width/5))]
+    wholeCard2 = publiccards[0:height, int(width/5):int(2*width/5)]
+    wholeCard3 = publiccards[0:height, int(2*width/5):int(3*width / 5)]
+    wholeCard4 = publiccards[0:height, int(3* width / 5) + 10:int(4 * width / 5)]
+    wholeCard5 = publiccards[0:height, int(4 * width / 5) + 15:int(width)]
+    wholeCards.extend([wholeCard1, wholeCard2, wholeCard3, wholeCard4, wholeCard5])
+
     card1 = publiccards[0:heightVar, 0:int((width/5) - 68)]
     card1s = publiccards[heightVar - 2:heightVar + 38, 0:int((width/5) - 68)]
     card2 = publiccards[0:heightVar, int(width/5 + 5):int((width / 5) * 2 - 65)]
@@ -68,43 +77,27 @@ def findPublicCards(publiccards):
     card5 = publiccards[0:heightVar, int((width / 5) * 4 + 20):int((width / 5) * 5 - 55)]
     card5s = publiccards[heightVar - 2:heightVar + 38, int((width / 5) * 4 + 20):int((width / 5) * 5 - 55)]
 
-    card1val = findElementInImage(card1, publicstrels, True) + 2
-    card2val = findElementInImage(card2, publicstrels, True) + 2
-    card3val = findElementInImage(card3, publicstrels, True) + 2
-    card4val = findElementInImage(card4, publicstrels, True) + 2
-    card5val = findElementInImage(card5, publicstrels, True) + 2
+    cardValueImages = [card1, card2, card3, card4, card5]
+    cardSuitImages = [card1s, card2s, card3s, card4s, card5s]
 
-    card1suit = findElementInImage(card1s, publicSuitStrels, False) + 1
-    card2suit = findElementInImage(card2s, publicSuitStrels, True) + 1
-    card3suit = findElementInImage(card3s, publicSuitStrels, True) + 1
-    card4suit = findElementInImage(card4s, publicSuitStrels, True) + 1
-    card5suit = findElementInImage(card5s, publicSuitStrels, True) + 1
+    i = 0
+    for card in wholeCards:
+        if isCard(card):
+            cardValues.append(findElementInImage(cardValueImages[i], publicstrels, True) + 2)
+            cardSuits.append(findElementInImage(cardSuitImages[i], publicSuitStrels, True) + 1)
+        i = i + 1
 
-    cardValues.append(card1val)
-    cardValues.append(card2val)
-    cardValues.append(card3val)
-    cardValues.append(card4val)
-    cardValues.append(card5val)
+    if len(cardValues) == 0:
+        cardValues = [0, 0, 0, 0, 0]
+    if len(cardSuits) == 0:
+        cardSuits = [0, 0, 0, 0, 0]
 
-    cardSuits.append(card1suit)
-    cardSuits.append(card2suit)
-    cardSuits.append(card3suit)
-    cardSuits.append(card4suit)
-    cardSuits.append(card5suit)
-
-    sameValues = True
-    sameSuits = True
-
-    for value in cardValues:
-        if cardValues[0] != value:
-            sameValues = False
-
-
-    for suit in cardSuits:
-        if cardSuits[0] != suit:
-            sameSuits = False
-
-    if sameValues and sameSuits:
-        return [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]
 
     return cardValues, cardSuits
+
+def isCard(image):
+    im, contours, hierarchy = cv2.findContours(image, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    if len(contours) > 1:
+        return True
+    else:
+        return False

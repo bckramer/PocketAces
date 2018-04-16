@@ -43,13 +43,13 @@ while True:
     potSize = findChipSize(potSize, 1, 2)
     callSize = int(potSize) - prevPotSize
     prevPotSize = int(potSize)
-    print ("Call size: " + str(callSize))
+    print("Call size: " + str(callSize))
     playerPot = findChipSize(playerChips, 0, 2)
-    print ("Pot size: " + str(potSize) + " Player Pot: " + str(playerPot))
+    print("Pot size: " + str(potSize) + " Player Pot: " + str(playerPot))
     cardValues, cardSuits = findPublicCards(publicCards)
     i = 0
     for card in cardValues:
-        printCard(card, cardSuits[i])
+        printCard(int(card), int(cardSuits[i]))
         i = i + 1
     time.sleep(2)
     print ("")
