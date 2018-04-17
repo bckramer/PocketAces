@@ -51,16 +51,16 @@ class PocketAces(object):
             fold()
             print("fold")
         elif action == 2 and raiseButton:  # raise
-            potSize = int(s[11])
-            keyInputRaise(int(potSize/5))
+            playerPot = int(s[11])
+            keyInputRaise(int(playerPot/5))
             print("raise")
         elif action == 3 and raiseButton:  # bet
-            potSize = int(s[11])
-            keyInputRaise(int(potSize/4))
+            playerPot = int(s[11])
+            keyInputRaise(int(playerPot/4))
             print("bet")
         elif action == 4 and raiseButton:  # bet
-            potSize = int(s[11])
-            keyInputRaise(int(potSize/10))
+            playerPot = int(s[11])
+            keyInputRaise(int(playerPot/10))
             print("bet")
         elif action == 5:  # all in
             allIn()
@@ -68,7 +68,6 @@ class PocketAces(object):
         else:
             call()
             print("call")
-        time.sleep(1)
         # reward function
         if playAgainButton == True:
             playAgain()
