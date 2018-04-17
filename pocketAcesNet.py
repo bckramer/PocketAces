@@ -44,12 +44,8 @@ class PocketAces(object):
             timeWaited = timeWaited + 0.05
             if timeWaited > 2:
                 continue1()
-
-        print("Action " + str(action))
-        if (continueButton == True):
-            continue1()
-        elif action == 0:  # call
-            # call()
+        if action == 0:  # call
+            call()
             print("call")
         elif action == 1 and foldButton:  # fold
             fold()
@@ -70,16 +66,18 @@ class PocketAces(object):
             allIn()
             print("allin")
         else:
-            # call()
+            call()
             print("call")
+        time.sleep(1)
         # reward function
         if playAgainButton == True:
             playAgain()
             self.newTournament = True
             print("play again")
         if dealButton == True:
-            newChips = getAllValues(self.prevPot)[11]
-            chipDifference = int(self.lastChips) - int(newChips)
+            newValues = getAllValues(self.prevPot)
+            newChips = str(newValues[11])
+            chipDifference = int(newChips) - int(self.lastChips)
             self.lastChips = int(newChips)
             self.currentPot = 0
             self.prevPot = 0
@@ -88,8 +86,7 @@ class PocketAces(object):
         else:
             reward = 0
         done = True
-
-        self.prevPot = s[11]
+        self.prevPot = s[10]
         s_ =  getAllValues(self.prevPot) # next State
 
         return s_, reward, done

@@ -39,8 +39,8 @@ def deal():
     keyboard.release('d')
 
 def continue1():
-    keyboard.press('c')
-    keyboard.release('c')
+    keyboard.press(Key.space)
+    keyboard.release(Key.space)
 
 def keyInputRaise(betAmount):
     betAmount = betAmount -1
