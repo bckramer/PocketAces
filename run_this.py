@@ -13,7 +13,7 @@ def run_pocket_aces():
         step = 0
         time.sleep(2) #allows user to click off into DD Poker 3
 
-        RL.load("save/build3")
+        #RL.load("save/build3")
         for episode in range(25000):
 
             # initial observation
