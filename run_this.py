@@ -13,8 +13,8 @@ def run_pocket_aces():
         step = 0
         time.sleep(2) #allows user to click off into DD Poker 3
 
-        #RL.load("save/build3")
-        for episode in range(25000):
+        # RL.load("save/build6")
+        for episode in range(100):
 
             # initial observation
             observation = env.reset()
@@ -29,6 +29,11 @@ def run_pocket_aces():
 
                 # RL take action and get next observation and reward
                 observation_, reward, done = env.step(action)
+                playerPot = observation_[11]
+                f = open('untrained.csv', 'a')
+                f.write(str(playerPot))
+                f.write('\n')
+                f.close()
 
                 RL.store_transition(observation, action, reward, observation_)
 
@@ -39,36 +44,36 @@ def run_pocket_aces():
                 observation = observation_
 
                 #saving, MAKE SURE SAVE DIRECTORY IS DELETED
-                if episode == 3000:
-                    RL.save(observation, action, reward, observation_, "save/save1")
-                    RL.build("save/build1")
-
-                if episode == 6000:
-                     RL.save(observation, action, reward, observation_,"save/save2")
-                     RL.build("save/build2")
-
-                if episode == 10000:
-                    RL.save(observation, action, reward, observation_, "save/save3")
-                    RL.build("save/build3")
-
-                if episode == 15000:
-                    RL.save(observation, action, reward, observation_, "save/save4")
-                    RL.build("save/build4")
-
-                if episode == 20000:
-                    RL.save(observation, action, reward, observation_, "save/save5")
-                    RL.build("save/build5")
-
-                if episode == 24800:
-                    RL.save(observation, action, reward, observation_, "save/save6")
-                    RL.build("save/build6")
+                # if episode == 3000:
+                #     RL.save(observation, action, reward, observation_, "save/save1")
+                #     RL.build("save/build1")
+                #
+                # if episode == 6000:
+                #      RL.save(observation, action, reward, observation_,"save/save2")
+                #      RL.build("save/build2")
+                #
+                # if episode == 10000:
+                #     RL.save(observation, action, reward, observation_, "save/save3")
+                #     RL.build("save/build3")
+                #
+                # if episode == 15000:
+                #     RL.save(observation, action, reward, observation_, "save/save4")
+                #     RL.build("save/build4")
+                #
+                # if episode == 20000:
+                #     RL.save(observation, action, reward, observation_, "save/save5")
+                #     RL.build("save/build5")
+                #
+                # if episode == 24800:
+                #     RL.save(observation, action, reward, observation_, "save/save6")
+                #     RL.build("save/build6")
 
                 # break while loop when end of this episode
                 if done:
                     break
                 step += 1
 
-                if cv2.waitKey(30) & 0xFF == ord('q'):
+                if cv2.waitKey(0) & 0xFF == ord('q'):
                     break
 
         # end of game

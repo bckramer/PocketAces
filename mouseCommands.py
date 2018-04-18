@@ -5,7 +5,6 @@ user32 = windll.user32
 user32.SetProcessDPIAware()
 
 mouse = Controller()
-time.sleep(1)
 
 def playAgain():
     mouse.position = (977, 857)

@@ -10,7 +10,7 @@ user32 = windll.user32
 user32.SetProcessDPIAware()
 
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter('output.avi',fourcc, 20.0, (1920,1080))
+out = cv2.VideoWriter('output.avi',fourcc, 10, (1920,1080))
 font = cv2.FONT_HERSHEY_SIMPLEX
 # card1Value, card1Suit, card2Value, card2Suit, publicCardValue0, publicCardValue1, publicCardValue2, publicCardValue3, publicCardValue4, intSuits, potSize, playerPot
 while(True):
@@ -47,7 +47,7 @@ while(True):
 
     out.write(frame)
 
-    if cv2.waitKey(60) & 0xFF == ord('q'):
+    if cv2.waitKey(0) & 0xFF == ord('q'):
         break
 
 

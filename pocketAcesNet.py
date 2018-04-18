@@ -43,11 +43,11 @@ class PocketAces(object):
             self.newTournament = False
 
         timeWaited = 0
-        while not dealButton and not foldButton and not checkButton and not raiseButton and not allInButton and not continueButton:
+        while not dealButton and not foldButton and not checkButton and not raiseButton and not allInButton:
             time.sleep(.05)
             dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton, playAgainButton = buttonsAvailable()
             timeWaited = timeWaited + 0.05
-            if timeWaited > 2:
+            if timeWaited > .5:
                 continue1()
         if action == 0:  # call
             call()
