@@ -17,46 +17,27 @@ newPotSizeStrels = loadPotSizeStrels()
 callSize = 0
 prevPotSize = 0
 while True:
-    screen_grab = ImageGrab.grab()
-
-    cv_image = np.array(screen_grab, dtype='uint8')
-    cv_image_grey = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
-
-    thresh, cv_image_bw = cv2.threshold(cv_image_grey, 200, 255, cv2.THRESH_BINARY_INV)
-    cards = cv_image_bw[620:720, 1000:1100]
-    publicCards = cv_image_bw[398:510, 912:1400]
-
-    thresh, cv_image_bw2 = cv2.threshold(cv_image_grey, 100, 255, cv2.THRESH_BINARY)
-    thresh, cv_image_bw3 = cv2.threshold(cv_image_grey, 75, 255, cv2.THRESH_BINARY)
-
-    potSize = cv_image_bw2[533:570, 800:950]
-    playerChips = cv_image_bw3[810:838, 1000:1170]
-    playAgain = cv_image_bw2[365:370, 1070:1080]
-    y, x = playerChips.shape[:2]
-    playerChips = playerChips[0:y - 2, 0:x]
-
-    # Use to get pot size
-    # Use to get player chips
-
-    card1Value, card2Value = findCards(cards)
-    card1Suit, card2Suit = findSuits(cards)
-    printResult(card1Value, card2Value, card1Suit, card2Suit)
-    potSize = findChipSize(potSize, 1, 2)
-    callSize = int(potSize) - prevPotSize
-    prevPotSize = int(potSize)
-    print("Call size: " + str(callSize))
-    playerPot = findChipSize(playerChips, 0, 2)
     values = getAllValues(0)
     buttons = buttonsAvailable()
-    print("Pot size: " + str(potSize) + " Player Pot: " + str(playerPot))
-    cardValues, cardSuits = findPublicCards(publicCards)
-    i = 0
-    for card in cardValues:
-        printCard(int(card), int(cardSuits[i]))
-        i = i + 1
+    print("Pot size: " + str(values[10]) + " Player Pot: " + str(values[11]))
+    suits = str(values[9])
+    print("")
+    print("Public Cards")
+    printCard(values[4], int(suits[0]))
+    if suits != "0":
+        printCard(values[5], int(suits[1]))
+    if suits != "0":
+        printCard(values[6], int(suits[2]))
+    if suits != "0":
+        printCard(values[7], int(suits[3]))
+    if suits != "0":
+        printCard(values[8], int(suits[4]))
+    print("")
+    print("Player Cards")
+    printCard(values[0], values[1])
+    printCard(values[2], values[3])
+    print("-------------------")
     time.sleep(2)
-    print ("")
-
     if cv2.waitKey(30) & 0xFF == ord('q'):
         break
 

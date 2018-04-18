@@ -17,9 +17,13 @@ class PocketAces(object):
         self.action_space = ['c', 'f', 'r1','r2','r3', 'a']
         self.n_actions = len(self.action_space)
         self.n_features = 13
-        self.lastChips = 1000
-        self.currentPot = 0
+        # The players most recent amount of chips
+        self.lastChips = 0
+        # The pot size of the last game. Used for calculating opponents raise size
         self.prevPot = 0
+        # When a new tournament begins, the player pot
+        # is reset. Using this value allows us
+        # to reset it for the net as well.
         self.newTournament = True
 
     def reset(self):
@@ -34,7 +38,8 @@ class PocketAces(object):
         base_action = np.array([0, 0])
         dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton, playAgainButton = buttonsAvailable()
         if self.newTournament == True:
-            self.lastChips = s[11]
+            tempPlayerPotSize = s[11]
+            self.lastChips = tempPlayerPotSize
             self.newTournament = False
 
         timeWaited = 0
@@ -78,14 +83,14 @@ class PocketAces(object):
             newChips = str(newValues[11])
             chipDifference = int(newChips) - int(self.lastChips)
             self.lastChips = int(newChips)
-            self.currentPot = 0
             self.prevPot = 0
             reward = chipDifference
             deal()
         else:
             reward = 0
         done = True
-        self.prevPot = s[10]
+        prevPot = s[10]
+        self.prevPot = prevPot
         s_ =  getAllValues(self.prevPot) # next State
 
         return s_, reward, done

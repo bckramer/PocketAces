@@ -148,7 +148,7 @@ def loadPublicSuitStrels():
     suits.append(spade)
 
     club = cv2.imread("PublicSuitsSE/Club.PNG", cv2.IMREAD_GRAYSCALE)
-    club = binarizeAndErode(club, 2, 1, 210, False)
+    club = binarizeAndErode(club, 3, 1, 210, False)
     suits.append(club)
 
     heart = cv2.imread("PublicSuitsSE/Heart.PNG", cv2.IMREAD_GRAYSCALE)
@@ -205,7 +205,7 @@ def loadPotSizeStrels():
     nums.append(six)
 
     seven = cv2.imread("PotSizeSE/7.PNG", cv2.IMREAD_GRAYSCALE)
-    seven = binarizeAndErode(seven, 1, 1, 150, True)
+    seven = binarizeAndErode(seven, 2, 1, 130, True)
     seven = seven[0:y - 10, 0:x - 11]
     nums.append(seven)
 

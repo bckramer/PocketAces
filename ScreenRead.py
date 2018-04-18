@@ -17,25 +17,23 @@ def getAllValues(prevPot):
     screen_grab = ImageGrab.grab()
     cv_image = np.array(screen_grab, dtype='uint8')
     cv_image_grey = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
-
+    # All the binarizations of the board
     thresh, cv_image_bw = cv2.threshold(cv_image_grey, 200, 255, cv2.THRESH_BINARY_INV)
-    cards = cv_image_bw[620:720, 1000:1100]
-    publicCards = cv_image_bw[398:510, 912:1400]
-
     thresh, cv_image_bw2 = cv2.threshold(cv_image_grey, 100, 255, cv2.THRESH_BINARY)
     thresh, cv_image_bw3 = cv2.threshold(cv_image_grey, 75, 255, cv2.THRESH_BINARY)
-
-
+    # Image of the player cards
+    cards = cv_image_bw[620:720, 1000:1100]
+    # Image of the public cards, also known as the river
+    publicCards = cv_image_bw[398:510, 912:1400]
+    # Image of the public pot size
     potSize = cv_image_bw2[533:570, 800:950]
-    w, h = cv_image_bw.shape[:2]
+    # Image of the players pot size
     playerChips = cv_image_bw3[810:838, 1000:1170]
     y, x = playerChips.shape[:2]
     playerChips = playerChips[0:y - 2, 0:x]
+    # Anchor for checking if there is only one card present
     oneCardCheck = cv_image_bw2[770:780, 1142:1152]
-
-    # Use to get pot size
-    # Use to get player chips
-
+    # If there is only one card, set all card values to 0
     im, contours, hierarchy = cv2.findContours(oneCardCheck, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     if len(contours) == 0:
         card1Value = 0
@@ -45,28 +43,35 @@ def getAllValues(prevPot):
     else:
         card1Value, card2Value = findCards(cards)
         card1Suit, card2Suit = findSuits(cards)
+    # Find the value of the pot size
     potSize = findChipSize(potSize, 1, 2)
-    publicCardValues, publicCardSuits = findPublicCards(publicCards)
+    if potSize == -1:
+        potSize = 0
+    # Find the players pot size
     playerPot = findChipSize(playerChips, chipCountStrels, 2)
-
+    # Find the values of the public cards and their suits
+    publicCardValues, publicCardSuits = findPublicCards(publicCards)
+    # Need to be broken down for the neural network
     publicCardValue0 = publicCardValues[0]
     publicCardValue1 = publicCardValues[1]
     publicCardValue2 = publicCardValues[2]
     publicCardValue3 = publicCardValues[3]
     publicCardValue4 = publicCardValues[4]
-
+    # Suits needs to be one value for the network
     stringSuits = ""
-
     for suit in publicCardSuits:
         if suit == -1:
             suit = 0
         stringSuits = stringSuits + str(suit)
-
     intSuits = int(stringSuits)
-
+    # Calculate the size of the opponents call
     callSize = int(potSize) - int(prevPot)
+    # Create the array of all the values found
+    allValues = np.array([card1Value, card1Suit, card2Value, card2Suit, publicCardValue0, publicCardValue1, publicCardValue2, publicCardValue3, publicCardValue4, intSuits, potSize, playerPot, callSize])
+    # Convert all values to integers
+    allValues = allValues.astype(np.int)
 
-    return np.array([card1Value, card1Suit, card2Value, card2Suit, publicCardValue0, publicCardValue1, publicCardValue2, publicCardValue3, publicCardValue4, intSuits, potSize, playerPot, callSize])
+    return allValues
 
 def buttonsAvailable():
     screen_grab = ImageGrab.grab()
@@ -83,7 +88,6 @@ def buttonsAvailable():
     raiseButton = cv_image_bw[840:900, 1090:1170]
     allInButton = cv_image_bw[840:900, 1310:1400]
     continueButton = cv_image_bw[532:560, 950:1200]
-    cv2.imshow("continueButton", continueButton)
     playAgainButton = cv_image_bw2[365:370, 1070:1080]
 
     dealButtonOn = False

@@ -85,7 +85,7 @@ if __name__ == "__main__":
                       e_greedy=0.9,
                       replace_target_iter=25000,
                       memory_size=200000,
-                      # output_graph=True
+                      output_graph=True
                       )
     #env.after(100, run_pocket_aces)
     run_pocket_aces()
