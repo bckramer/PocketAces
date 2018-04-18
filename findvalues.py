@@ -74,7 +74,6 @@ def findPublicCards(publiccards):
     card4s = publiccards[heightVar - 2:heightVar + 38, int((width / 5) * 3 + 12):int((width / 5) * 4 - 56)]
     card5 = publiccards[0:heightVar, int((width / 5) * 4 + 20):int((width / 5) * 5 - 55)]
     card5s = publiccards[heightVar - 2:heightVar + 38, int((width / 5) * 4 + 16):int((width / 5) * 5 - 53)]
-    cv2.imshow("card1s", card5s)
     # Put the values in a list for less verbose operations
     cardValueImages = [card1, card2, card3, card4, card5]
     cardSuitImages = [card1s, card2s, card3s, card4s, card5s]

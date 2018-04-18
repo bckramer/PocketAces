@@ -26,7 +26,7 @@ def getAllValues(prevPot):
     # Image of the public cards, also known as the river
     publicCards = cv_image_bw[398:510, 912:1400]
     # Image of the public pot size
-    potSize = cv_image_bw2[533:570, 800:950]
+    potSize = cv_image_bw2[533:570, 780:950]
     # Image of the players pot size
     playerChips = cv_image_bw3[810:838, 1000:1170]
     y, x = playerChips.shape[:2]
