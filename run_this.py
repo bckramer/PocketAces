@@ -13,15 +13,16 @@ def run_pocket_aces():
         step = 0
         time.sleep(2) #allows user to click off into DD Poker 3
 
-        # RL.load("save/build6")
-        for episode in range(100):
+        RL.load("save/build6")
+        totalReward = 0
+        for episode in range(10):
 
             # initial observation
             observation = env.reset()
             while True:
 
             # fresh env
-               # gameStart(); commented for testing
+                # gameStart(); commented for testing
 
                 # RL choose action based on observation
                 action = RL.choose_action(observation)
@@ -29,11 +30,19 @@ def run_pocket_aces():
 
                 # RL take action and get next observation and reward
                 observation_, reward, done = env.step(action)
-                playerPot = observation_[11]
-                f = open('untrained.csv', 'a')
-                f.write(str(playerPot))
-                f.write('\n')
-                f.close()
+                # Uncomment to write data to an excel file
+                # plotData = reward
+                # totalReward = totalReward + plotData
+                # f = open('totalReward.csv', 'a')
+                # f.write(str(totalReward))
+                # f.write('\n')
+                # f.close()
+                #
+                # f = open('playerPot.csv', 'a')
+                # print(str(observation_[11]))
+                # f.write(str(observation_[11]))
+                # f.write('\n')
+                # f.close()
 
                 RL.store_transition(observation, action, reward, observation_)
 
@@ -71,7 +80,7 @@ def run_pocket_aces():
                 # break while loop when end of this episode
                 if done:
                     break
-                step += 1
+                step = step + 1
 
                 if cv2.waitKey(0) & 0xFF == ord('q'):
                     break
@@ -82,7 +91,6 @@ def run_pocket_aces():
 
 
 if __name__ == "__main__":
-    # maze game
     env = PocketAces()
     RL = DeepQNetwork(env.n_actions, env.n_features,
                       learning_rate=0.01,
@@ -92,6 +100,6 @@ if __name__ == "__main__":
                       memory_size=200000,
                       output_graph=True
                       )
-    #env.after(100, run_pocket_aces)
+    # env.after(100, run_pocket_aces)
     run_pocket_aces()
     RL.plot_cost()

@@ -82,5 +82,5 @@ def findROIs(image, strel):
         boxes = insertion_sort(boxes)
         boxes.reverse()
         # for i in range(0, len(boxes)):
-        #     cv2.imshow("box" + str(i), boxes[i].image)
+        #     cv2.imwrite("box" + str(i) + ".png", boxes[i].image)
     return boxes
