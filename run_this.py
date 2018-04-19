@@ -13,7 +13,8 @@ def run_pocket_aces():
         step = 0
         time.sleep(2) #allows user to click off into DD Poker 3
 
-        # RL.load("save/build6")
+        RL.load("save/build6")
+        totalReward = 0
         for episode in range(100):
 
             # initial observation
@@ -29,9 +30,16 @@ def run_pocket_aces():
 
                 # RL take action and get next observation and reward
                 observation_, reward, done = env.step(action)
-                playerPot = observation_[11]
-                f = open('untrained.csv', 'a')
-                f.write(str(playerPot))
+                plotData = reward
+                totalReward = totalReward + plotData
+                f = open('totalReward.csv', 'a')
+                f.write(str(totalReward))
+                f.write('\n')
+                f.close()
+
+                f = open('playerPot.csv', 'a')
+                print(str(observation_[11]))
+                f.write(str(observation_[11]))
                 f.write('\n')
                 f.close()
 
