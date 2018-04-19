@@ -18,7 +18,7 @@ class DeepQNetwork:
             reward_decay=0.9,
             e_greedy=0.9,
             replace_target_iter=25000,
-            memory_size=200000,
+            memory_size=20000,
             batch_size=32,
             e_greedy_increment=None,
             output_graph=True,
@@ -209,10 +209,12 @@ class DeepQNetwork:
         SERVING = "serve"
         tf_export("saved_model.tag_constants.SERVING").export_constant(
             __name__, "SERVING")
+        tf_export("saved_model.tag_constants.TRAINING").export_constant(
+            __name__, "TRAINING")
 
         with tf.Session(graph=tf.Graph()) as sess:
             builder.add_meta_graph_and_variables(sess,
-                                                 [SERVING])
+                                                 [TRAINING])
             # assets_collection=foo_assets)
         # Add a second MetaGraphDef for inference.
         with tf.Session(graph=tf.Graph()) as sess:
@@ -222,7 +224,10 @@ class DeepQNetwork:
 
     def load(self, exportDir):
         SERVING = "serve"
+        TRAINING = "train"
         tf_export("saved_model.tag_constants.SERVING").export_constant(
             __name__, "SERVING")
+        tf_export("saved_model.tag_constants.TRAINING").export_constant(
+            __name__, "TRAINING")
         with tf.Session(graph=tf.Graph()) as sess:
-            tf.saved_model.loader.load(sess, [SERVING], exportDir)
+            tf.saved_model.loader.load(sess,[TRAINING], exportDir)
