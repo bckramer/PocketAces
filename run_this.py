@@ -15,14 +15,14 @@ def run_pocket_aces():
 
         RL.load("save/build6")
         totalReward = 0
-        for episode in range(50):
+        for episode in range(10):
 
             # initial observation
             observation = env.reset()
             while True:
 
             # fresh env
-               # gameStart(); commented for testing
+                # gameStart(); commented for testing
 
                 # RL choose action based on observation
                 action = RL.choose_action(observation)
@@ -30,6 +30,7 @@ def run_pocket_aces():
 
                 # RL take action and get next observation and reward
                 observation_, reward, done = env.step(action)
+                # Uncomment to write data to an excel file
                 # plotData = reward
                 # totalReward = totalReward + plotData
                 # f = open('totalReward.csv', 'a')
@@ -77,9 +78,9 @@ def run_pocket_aces():
                 #     RL.build("save/build6")
 
                 # break while loop when end of this episode
-                step = step + 1
                 if done:
                     break
+                step = step + 1
 
                 if cv2.waitKey(0) & 0xFF == ord('q'):
                     break
@@ -90,7 +91,6 @@ def run_pocket_aces():
 
 
 if __name__ == "__main__":
-    # maze game
     env = PocketAces()
     RL = DeepQNetwork(env.n_actions, env.n_features,
                       learning_rate=0.01,
@@ -100,6 +100,6 @@ if __name__ == "__main__":
                       memory_size=200000,
                       output_graph=True
                       )
-    #env.after(100, run_pocket_aces)
+    # env.after(100, run_pocket_aces)
     run_pocket_aces()
     RL.plot_cost()

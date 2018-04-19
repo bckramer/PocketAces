@@ -36,6 +36,7 @@ class PocketAces(object):
     def step(self, action):
         s = getAllValues(self.prevPot) #current state
         base_action = np.array([0, 0])
+        done = False
         dealButton, foldButton, checkButton, raiseButton, allInButton, continueButton, playAgainButton = buttonsAvailable()
         if self.newTournament == True:
             tempPlayerPotSize = s[11]
@@ -85,10 +86,10 @@ class PocketAces(object):
             self.lastChips = int(newChips)
             self.prevPot = 0
             reward = chipDifference
+            done = True
             deal()
         else:
             reward = 0
-        done = True
         prevPot = s[10]
         self.prevPot = prevPot
         s_ =  getAllValues(self.prevPot) # next State
