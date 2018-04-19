@@ -15,7 +15,7 @@ def run_pocket_aces():
 
         RL.load("save/build6")
         totalReward = 0
-        for episode in range(100):
+        for episode in range(50):
 
             # initial observation
             observation = env.reset()
@@ -30,18 +30,18 @@ def run_pocket_aces():
 
                 # RL take action and get next observation and reward
                 observation_, reward, done = env.step(action)
-                plotData = reward
-                totalReward = totalReward + plotData
-                f = open('totalReward.csv', 'a')
-                f.write(str(totalReward))
-                f.write('\n')
-                f.close()
-
-                f = open('playerPot.csv', 'a')
-                print(str(observation_[11]))
-                f.write(str(observation_[11]))
-                f.write('\n')
-                f.close()
+                # plotData = reward
+                # totalReward = totalReward + plotData
+                # f = open('totalReward.csv', 'a')
+                # f.write(str(totalReward))
+                # f.write('\n')
+                # f.close()
+                #
+                # f = open('playerPot.csv', 'a')
+                # print(str(observation_[11]))
+                # f.write(str(observation_[11]))
+                # f.write('\n')
+                # f.close()
 
                 RL.store_transition(observation, action, reward, observation_)
 
@@ -77,9 +77,9 @@ def run_pocket_aces():
                 #     RL.build("save/build6")
 
                 # break while loop when end of this episode
+                step = step + 1
                 if done:
                     break
-                step += 1
 
                 if cv2.waitKey(0) & 0xFF == ord('q'):
                     break
