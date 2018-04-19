@@ -58,7 +58,7 @@ class PocketAces(object):
             print("fold")
         elif action == 2 and raiseButton:  # raise
             playerPot = int(s[11])
-            keyInputRaise(int(playerPot/5))
+            keyInputRaise(int(playerPot/20))
             print("raise")
         elif action == 3 and raiseButton:  # bet
             playerPot = int(s[11])
