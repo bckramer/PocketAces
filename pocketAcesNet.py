@@ -77,6 +77,7 @@ class PocketAces(object):
         # reward function
         if playAgainButton == True:
             playAgain()
+            done = True
             self.newTournament = True
             print("play again")
         if dealButton == True:
