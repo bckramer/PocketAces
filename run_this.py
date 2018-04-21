@@ -6,7 +6,7 @@ import cv2
 import time
 
 
-# modified from the tutorial found at
+# Built following the tutorial found at
 # https://github.com/MorvanZhou/Reinforcement-learning-with-tensorflow/tree/master/contents/5_Deep_Q_Network
 
 def run_pocket_aces():
@@ -18,10 +18,8 @@ def run_pocket_aces():
         for episode in range(500):
 
             # saving, MAKE SURE SAVE DIRECTORY IS DELETED
-            # if episode == 3000:
-            #     RL.save(observation, action, reward, observation_, "save/save1")
-            #     RL.build("save/build1")
-            #
+
+
             # if episode == 6000:
             #     RL.save(observation, action, reward, observation_, "save/save2")
             #     RL.build("save/build2")
@@ -54,6 +52,11 @@ def run_pocket_aces():
 
                     # RL take action and get next observation and reward
                     observation_, reward, done = env.step(action)
+
+                    if episode == 5:
+                        #RL.save(observation, action, reward, observation_, "save/save1")
+                        #RL.build("save/build1")
+                        RL.load("save/save1")
 
                     # Uncomment to write data to an excel file
                     plotData = reward
@@ -97,7 +100,7 @@ if __name__ == "__main__":
                       learning_rate=0.01,
                       reward_decay=0.9,
                       e_greedy=0.9,
-                      replace_target_iter=25000,
+                      replace_target_iter=1000,
                       memory_size=200000,
                       output_graph=True
                       )
