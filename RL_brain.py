@@ -7,6 +7,8 @@ from tensorflow.python.util.tf_export import tf_export
 np.random.seed(1)
 tf.set_random_seed(1)
 
+# Built following the tutorial found at
+# https://github.com/MorvanZhou/Reinforcement-learning-with-tensorflow/tree/master/contents/5_Deep_Q_Network
 
 # Deep Q Network off-policy
 class DeepQNetwork:
@@ -117,12 +119,10 @@ class DeepQNetwork:
         # to have batch dimension when feed into tf placeholder
         observation = observation[np.newaxis, :]
         if np.random.uniform() < self.epsilon:
-            print ("TRUE")
             # forward feed the observation and get q value for every actions
             actions_value = self.sess.run(self.q_eval, feed_dict={self.s: observation})
             action = np.argmax(actions_value)
         else:
-            print("RAND")
             action = np.random.randint(0, self.n_actions)
         return action
 
@@ -199,9 +199,7 @@ class DeepQNetwork:
                                    inputs={"s": tf.convert_to_tensor(s), "s_": tf.convert_to_tensor(s_),
                                            "r": tf.convert_to_tensor(r),
                                            "a": tf.convert_to_tensor(a)},
-                                   outputs={"q_target": tf.convert_to_tensor(self.q_target),
-                                            "q_eval": tf.convert_to_tensor(self.q_eval)
-                                            , "loss": tf.convert_to_tensor(self.loss),
+                                   outputs={"loss": tf.convert_to_tensor(self.loss),
                                             "next": tf.convert_to_tensor(self.q_next)})
 
     def build(self, export_dir):
@@ -213,12 +211,12 @@ class DeepQNetwork:
         tf_export("saved_model.tag_constants.TRAINING").export_constant(
             __name__, "TRAINING")
 
-        with tf.Session(graph=tf.Graph()) as sess:
-            builder.add_meta_graph_and_variables(sess,
+        with tf.Session(graph=tf.Graph()) as self.sess:
+            builder.add_meta_graph_and_variables(self.sess,
                                                  [TRAINING])
             # assets_collection=foo_assets)
         # Add a second MetaGraphDef for inference.
-        with tf.Session(graph=tf.Graph()) as sess:
+        with tf.Session(graph=tf.Graph()) as self.sess:
             builder.add_meta_graph([SERVING])
 
         builder.save()
@@ -231,4 +229,4 @@ class DeepQNetwork:
         tf_export("saved_model.tag_constants.TRAINING").export_constant(
             __name__, "TRAINING")
         with tf.Session(graph=tf.Graph()) as sess:
-            tf.saved_model.loader.load(sess,[TRAINING], exportDir)
+            tf.saved_model.loader.load(self.sess,[SERVING], exportDir)

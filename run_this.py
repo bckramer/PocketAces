@@ -6,22 +6,20 @@ import cv2
 import time
 
 
-# modified from the tutorial found at
+# Built following the tutorial found at
 # https://github.com/MorvanZhou/Reinforcement-learning-with-tensorflow/tree/master/contents/5_Deep_Q_Network
 
 def run_pocket_aces():
         step = 0
         time.sleep(2) #allows user to click off into DD Poker 3
 
-        RL.load("save/build4")
+        # RL.load("save/build4")
         totalReward = 0
         for episode in range(500):
 
             # saving, MAKE SURE SAVE DIRECTORY IS DELETED
-            # if episode == 3000:
-            #     RL.save(observation, action, reward, observation_, "save/save1")
-            #     RL.build("save/build1")
-            #
+
+
             # if episode == 6000:
             #     RL.save(observation, action, reward, observation_, "save/save2")
             #     RL.build("save/build2")
@@ -72,8 +70,8 @@ def run_pocket_aces():
 
                     RL.store_transition(observation, action, reward, observation_)
 
-                if (step > 200) and (step % 10 == 0):
-                    RL.learn()
+                    if (step > 200) and (step % 10 == 0):
+                        RL.learn()
 
                 # swap observation
                 observation = observation_
