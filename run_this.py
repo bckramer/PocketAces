@@ -42,43 +42,40 @@ def run_pocket_aces():
 
             # initial observation
             observation = env.reset()
+            reward = 0
             while True:
 
                 # gameStart(); commented for testing
-                reward = 0
-                while(reward <= 0):
-                    # RL choose action based on observation
-                    action = RL.choose_action(observation)
+                # RL choose action based on observation
+                action = RL.choose_action(observation)
 
-                    # RL take action and get next observation and reward
-                    observation_, reward, done = env.step(action)
+                # RL take action and get next observation and reward
+                observation_, reward, done = env.step(action)
 
-                    # Uncomment to write data to an excel file
-                    if done:
-                        plotData = reward
-                        totalReward = totalReward + plotData
-                        f = open('trainedTotalReward3-positiveRewards.csv', 'a')
-                        f.write(str(totalReward))
-                        f.write('\n')
-                        f.close()
+                # Uncomment to write data to an excel file
+                plotData = reward
+                totalReward = totalReward + plotData
+                f = open('trainedTotalReward3-positiveRewards.csv', 'a')
+                f.write(str(totalReward))
+                f.write('\n')
+                f.close()
 
-                        f = open('trainedPlayerPot3-positiveRewards.csv', 'a')
-                        print(str(observation_[11]))
-                        f.write(str(observation_[11]))
-                        f.write('\n')
-                        f.close()
+                f = open('trainedPlayerPot3-positiveRewards.csv', 'a')
+                print(str(observation_[11]))
+                f.write(str(observation_[11]))
+                f.write('\n')
+                f.close()
 
-                    RL.store_transition(observation, action, reward, observation_)
+                RL.store_transition(observation, action, reward, observation_)
 
-                    if (step > 200) and (step % 10 == 0):
-                        RL.learn()
+                if (step > 200) and (step % 10 == 0):
+                    RL.learn()
 
                 # swap observation
                 observation = observation_
 
                 # break while loop when end of this episode
                 if done:
-
                     break
                 step = step + 1
 
