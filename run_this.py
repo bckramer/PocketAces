@@ -13,7 +13,7 @@ def run_pocket_aces():
         step = 0
         time.sleep(2) #allows user to click off into DD Poker 3
 
-        # RL.load("save/build4")
+        RL.load("save/build4")
         totalReward = 0
         for episode in range(500):
 
@@ -56,18 +56,19 @@ def run_pocket_aces():
                     observation_, reward, done = env.step(action)
 
                     # Uncomment to write data to an excel file
-                    plotData = reward
-                    totalReward = totalReward + plotData
-                    f = open('freshTotalReward-positiveRewards.csv', 'a')
-                    f.write(str(totalReward))
-                    f.write('\n')
-                    f.close()
+                    if done:
+                        plotData = reward
+                        totalReward = totalReward + plotData
+                        f = open('trainedTotalReward3-positiveRewards.csv', 'a')
+                        f.write(str(totalReward))
+                        f.write('\n')
+                        f.close()
 
-                    f = open('freshPlayerPot-positiveRewards.csv', 'a')
-                    print(str(observation_[11]))
-                    f.write(str(observation_[11]))
-                    f.write('\n')
-                    f.close()
+                        f = open('trainedPlayerPot3-positiveRewards.csv', 'a')
+                        print(str(observation_[11]))
+                        f.write(str(observation_[11]))
+                        f.write('\n')
+                        f.close()
 
                     RL.store_transition(observation, action, reward, observation_)
 
@@ -97,7 +98,7 @@ if __name__ == "__main__":
                       learning_rate=0.01,
                       reward_decay=0.9,
                       e_greedy=0.9,
-                      replace_target_iter=25000,
+                      replace_target_iter=200,
                       memory_size=200000,
                       output_graph=True
                       )

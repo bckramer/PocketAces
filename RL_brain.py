@@ -17,7 +17,7 @@ class DeepQNetwork:
             learning_rate=0.01,
             reward_decay=0.9,
             e_greedy=0.9,
-            replace_target_iter=25000,
+            replace_target_iter=200,
             memory_size=20000,
             batch_size=32,
             e_greedy_increment=None,
@@ -116,12 +116,13 @@ class DeepQNetwork:
     def choose_action(self, observation):
         # to have batch dimension when feed into tf placeholder
         observation = observation[np.newaxis, :]
-
         if np.random.uniform() < self.epsilon:
+            print ("TRUE")
             # forward feed the observation and get q value for every actions
             actions_value = self.sess.run(self.q_eval, feed_dict={self.s: observation})
             action = np.argmax(actions_value)
         else:
+            print("RAND")
             action = np.random.randint(0, self.n_actions)
         return action
 
