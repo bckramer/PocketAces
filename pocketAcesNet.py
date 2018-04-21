@@ -77,7 +77,6 @@ class PocketAces(object):
         # reward function
         if playAgainButton == True:
             playAgain()
-            done = True
             self.newTournament = True
             print("play again")
         if dealButton == True:
@@ -87,7 +86,8 @@ class PocketAces(object):
             self.lastChips = int(newChips)
             self.prevPot = 0
             reward = chipDifference
-            done = True
+            if reward > 0:
+                done = True
             deal()
         else:
             reward = 0
