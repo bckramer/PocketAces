@@ -35,11 +35,11 @@ def run_pocket_aces():
 
             if episode == 15000:
                 RL.save(observation, action, reward, observation_, "save/save12")
-                RL.build("save/build5")
+
 
             if episode == 20000:
                 RL.save(observation, action, reward, observation_, "save/save13")
-                RL.build("save/build6")
+                
 
             # initial observation
             observation = env.reset()
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     RL = DeepQNetwork(env.n_actions, env.n_features,
                       learning_rate=0.01,
                       reward_decay=0.9,
-                      e_greedy=0.9,
+                      e_greedy=0.8,
                       replace_target_iter=200,
                       memory_size=36000,
                       output_graph=True
