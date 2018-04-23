@@ -1,6 +1,7 @@
 from pocketAcesNet import PocketAces
 from RL_brain import DeepQNetwork
 from RL_brain import *
+import random
 
 import cv2
 import time
@@ -12,30 +13,33 @@ import time
 def run_pocket_aces():
         step = 0
         time.sleep(2) #allows user to click off into DD Poker 3
-
-        RL.load("save/save4")
+        RL.load("save/save5")
         totalReward = 0
-        for episode in range(500):
+        for episode in range(20000):
 
             # saving, MAKE SURE SAVE DIRECTORY IS DELETED
             if episode == 1000:
-                RL.save(observation, action, reward, observation_, "save/save0")
+                RL.save(observation, action, reward, observation_, "save/save7")
 
             if episode == 3000:
-                RL.save(observation, action, reward, observation_, "save/save1")
+                RL.save(observation, action, reward, observation_, "save/save8")
 
             if episode == 6000:
-                RL.save(observation, action, reward, observation_, "save/save2")
+                RL.save(observation, action, reward, observation_, "save/save9")
 
             if episode == 10000:
-                RL.save(observation, action, reward, observation_, "save/save3")
+                RL.save(observation, action, reward, observation_, "save/save10")
 
             if episode == 12000:
-                RL.save(observation, action, reward, observation_, "save/save4")
+                RL.save(observation, action, reward, observation_, "save/save11")
 
             if episode == 15000:
-                RL.save(observation, action, reward, observation_, "save/save5")
+                RL.save(observation, action, reward, observation_, "save/save12")
                 RL.build("save/build5")
+
+            if episode == 20000:
+                RL.save(observation, action, reward, observation_, "save/save13")
+                RL.build("save/build6")
 
             # initial observation
             observation = env.reset()
@@ -44,21 +48,26 @@ def run_pocket_aces():
 
                 # gameStart(); commented for testing
                 # RL choose action based on observation
-                action = RL.choose_action(observation)
+                action = random.randint(0, 6)
 
                 # RL take action and get next observation and reward
                 observation_, reward, done = env.step(action)
 
                 plotData = reward
                 totalReward = totalReward + plotData
-                f = open('trainedTotalReward3-positiveRewards.csv', 'a')
+                f = open('csv/randomdSessionTotalReward2-positiveRewards.csv', 'a')
                 f.write(str(totalReward))
                 f.write('\n')
                 f.close()
 
-                f = open('trainedPlayerPot3-positiveRewards.csv', 'a')
-                print(str(observation_[11]))
+                f = open('csv/randomSessionPlayerPot2-positiveRewards.csv', 'a')
                 f.write(str(observation_[11]))
+                f.write('\n')
+                f.close()
+
+                f = open('csv/randomSessionAllValues2-positiveRewards.csv', 'a')
+                for value in observation_:
+                    f.write(str(value) + ",")
                 f.write('\n')
                 f.close()
 
@@ -90,7 +99,7 @@ if __name__ == "__main__":
                       reward_decay=0.9,
                       e_greedy=0.9,
                       replace_target_iter=200,
-                      memory_size=200000,
+                      memory_size=36000,
                       output_graph=True
                       )
     # env.after(100, run_pocket_aces)

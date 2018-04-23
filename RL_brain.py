@@ -18,10 +18,10 @@ class DeepQNetwork:
             n_features,
             learning_rate=0.01,
             reward_decay=0.9,
-            e_greedy=0.9,
+            e_greedy=0.75,
             replace_target_iter=200,
-            memory_size=20000,
-            batch_size=32,
+            memory_size=36000,
+            batch_size=256,
             e_greedy_increment=None,
             output_graph=True,
     ):
