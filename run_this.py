@@ -48,24 +48,24 @@ def run_pocket_aces():
 
                 # gameStart(); commented for testing
                 # RL choose action based on observation
-                action = random.randint(0, 6)
+                action = RL.choose_action(observation)
 
                 # RL take action and get next observation and reward
                 observation_, reward, done = env.step(action)
 
                 plotData = reward
                 totalReward = totalReward + plotData
-                f = open('csv/randomdSessionTotalReward2-positiveRewards.csv', 'a')
+                f = open('csv/trainingSession2_TotalReward-positiveRewards.csv', 'a')
                 f.write(str(totalReward))
                 f.write('\n')
                 f.close()
 
-                f = open('csv/randomSessionPlayerPot2-positiveRewards.csv', 'a')
+                f = open('csv/trainingSession2_PlayerPot-positiveRewards.csv', 'a')
                 f.write(str(observation_[11]))
                 f.write('\n')
                 f.close()
 
-                f = open('csv/randomSessionAllValues2-positiveRewards.csv', 'a')
+                f = open('csv/trainingSession2-AllInformation-positiveRewards.csv', 'a')
                 for value in observation_:
                     f.write(str(value) + ",")
                 f.write('\n')

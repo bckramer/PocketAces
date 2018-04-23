@@ -52,28 +52,28 @@ class PocketAces(object):
                 continue1()
         if action == 0:  # call
             call()
-            print("call")
+            # print("call")
         elif action == 1 and foldButton:  # fold
             fold()
-            print("fold")
+            # print("fold")
         elif action == 2 and raiseButton:  # raise
             playerPot = int(s[11])
             keyInputRaise(int(playerPot/20))
-            print("raise")
+            # print("raise")
         elif action == 3 and raiseButton:  # bet
             playerPot = int(s[11])
             keyInputRaise(int(playerPot/4))
-            print("bet")
+            # print("bet")
         elif action == 4 and raiseButton:  # bet
             playerPot = int(s[11])
             keyInputRaise(int(playerPot/10))
-            print("bet")
+            # print("bet")
         elif action == 5:  # all in
             allIn()
-            print("allin")
+            # print("allin")
         else:
             call()
-            print("call")
+            # print("call")
         # reward function
         if playAgainButton == True:
             playAgain()
