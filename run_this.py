@@ -13,33 +13,49 @@ import time
 def run_pocket_aces():
         step = 0
         time.sleep(2) #allows user to click off into DD Poker 3
-        RL.load("save/save5")
         totalReward = 0
-        for episode in range(20000):
+        for episode in range(50000):
 
             # saving, MAKE SURE SAVE DIRECTORY IS DELETED
             if episode == 1000:
-                RL.save(observation, action, reward, observation_, "save/save7")
+                RL.save(observation, action, reward, observation_, "save/save1")
 
             if episode == 3000:
-                RL.save(observation, action, reward, observation_, "save/save8")
+                RL.save(observation, action, reward, observation_, "save/save2")
 
             if episode == 6000:
-                RL.save(observation, action, reward, observation_, "save/save9")
+                RL.save(observation, action, reward, observation_, "save/save3")
 
             if episode == 10000:
-                RL.save(observation, action, reward, observation_, "save/save10")
+                RL.save(observation, action, reward, observation_, "save/save4")
 
             if episode == 12000:
-                RL.save(observation, action, reward, observation_, "save/save11")
+                RL.save(observation, action, reward, observation_, "save/save5")
 
             if episode == 15000:
-                RL.save(observation, action, reward, observation_, "save/save12")
-                RL.build("save/build5")
+                RL.save(observation, action, reward, observation_, "save/save6")
 
             if episode == 20000:
-                RL.save(observation, action, reward, observation_, "save/save13")
-                RL.build("save/build6")
+                RL.save(observation, action, reward, observation_, "save/save7")
+
+            if episode == 25000:
+                RL.save(observation, action, reward, observation_, "save/save8")
+
+            if episode == 30000:
+                RL.save(observation, action, reward, observation_, "save/save9")
+
+            if episode == 35000:
+                RL.save(observation, action, reward, observation_, "save/save10")
+
+            if episode == 40000:
+                RL.save(observation, action, reward, observation_, "save/save11")
+
+            if episode == 45000:
+                RL.save(observation, action, reward, observation_, "save/save10")
+
+            if episode == 49000:
+                RL.save(observation, action, reward, observation_, "save/save11")
+
 
             # initial observation
             observation = env.reset()
@@ -53,19 +69,15 @@ def run_pocket_aces():
                 # RL take action and get next observation and reward
                 observation_, reward, done = env.step(action)
 
+                # TODO Change when pot size is measured
                 plotData = reward
                 totalReward = totalReward + plotData
-                f = open('csv/trainingSession2_TotalReward-positiveRewards.csv', 'a')
+                f = open('csv/trainingSession_loaded_TotalReward-positiveRewards.csv', 'a')
                 f.write(str(totalReward))
                 f.write('\n')
                 f.close()
 
-                f = open('csv/trainingSession2_PlayerPot-positiveRewards.csv', 'a')
-                f.write(str(observation_[11]))
-                f.write('\n')
-                f.close()
-
-                f = open('csv/trainingSession2-AllInformation-positiveRewards.csv', 'a')
+                f = open('csv/trainingSession2_loaded_AllInformation-positiveRewards.csv', 'a')
                 for value in observation_:
                     f.write(str(value) + ",")
                 f.write('\n')
