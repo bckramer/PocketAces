@@ -56,6 +56,9 @@ def run_pocket_aces():
             if episode == 49000:
                 RL.save(observation, action, reward, observation_, "save/save12")
 
+            if episode == 50000:
+                RL.save(observation, action, reward, observation_, "save/save14")
+
 
             # initial observation
             observation = env.reset()
@@ -69,15 +72,14 @@ def run_pocket_aces():
                 # RL take action and get next observation and reward
                 observation_, reward, done = env.step(action)
 
-                # TODO Change when pot size is measured
                 plotData = reward
                 totalReward = totalReward + plotData
-                f = open('csv/trainingSession_loaded_TotalReward-positiveRewards.csv', 'a')
+                f = open('csv/session3/trainingSession3_loaded_TotalReward-positiveRewards.csv', 'a')
                 f.write(str(totalReward))
                 f.write('\n')
                 f.close()
 
-                f = open('csv/trainingSession2_loaded_AllInformation-positiveRewards.csv', 'a')
+                f = open('csv/session3/trainingSession3_loaded_AllInformation-positiveRewards.csv', 'a')
                 for value in observation_:
                     f.write(str(value) + ",")
                 f.write('\n')
@@ -110,8 +112,8 @@ if __name__ == "__main__":
                       learning_rate=0.01,
                       reward_decay=0.9,
                       e_greedy=0.8,
-                      replace_target_iter=200,
-                      memory_size=36000,
+                      replace_target_iter=500,
+                      memory_size=45000,
                       output_graph=True
                       )
     # env.after(100, run_pocket_aces)
