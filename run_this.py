@@ -18,43 +18,43 @@ def run_pocket_aces():
 
             # saving, MAKE SURE SAVE DIRECTORY IS DELETED
             if episode == 1000:
-                RL.save(observation, action, reward, observation_, "save/save1")
+                RL.save(observation, action, reward, observation_, "save/save0")
 
             if episode == 3000:
-                RL.save(observation, action, reward, observation_, "save/save2")
+                RL.save(observation, action, reward, observation_, "save/save1")
 
             if episode == 6000:
-                RL.save(observation, action, reward, observation_, "save/save3")
+                RL.save(observation, action, reward, observation_, "save/save2")
 
             if episode == 10000:
-                RL.save(observation, action, reward, observation_, "save/save4")
+                RL.save(observation, action, reward, observation_, "save/save3")
 
             if episode == 12000:
-                RL.save(observation, action, reward, observation_, "save/save5")
+                RL.save(observation, action, reward, observation_, "save/save4")
 
             if episode == 15000:
-                RL.save(observation, action, reward, observation_, "save/save6")
+                RL.save(observation, action, reward, observation_, "save/save5")
 
             if episode == 20000:
-                RL.save(observation, action, reward, observation_, "save/save7")
+                RL.save(observation, action, reward, observation_, "save/save6")
 
             if episode == 25000:
-                RL.save(observation, action, reward, observation_, "save/save8")
+                RL.save(observation, action, reward, observation_, "save/save7")
 
             if episode == 30000:
-                RL.save(observation, action, reward, observation_, "save/save9")
+                RL.save(observation, action, reward, observation_, "save/save8")
 
             if episode == 35000:
-                RL.save(observation, action, reward, observation_, "save/save10")
+                RL.save(observation, action, reward, observation_, "save/save9")
 
             if episode == 40000:
-                RL.save(observation, action, reward, observation_, "save/save11")
-
-            if episode == 45000:
                 RL.save(observation, action, reward, observation_, "save/save10")
 
-            if episode == 49000:
+            if episode == 45000:
                 RL.save(observation, action, reward, observation_, "save/save11")
+
+            if episode == 49000:
+                RL.save(observation, action, reward, observation_, "save/save12")
 
 
             # initial observation
@@ -109,7 +109,7 @@ if __name__ == "__main__":
     RL = DeepQNetwork(env.n_actions, env.n_features,
                       learning_rate=0.01,
                       reward_decay=0.9,
-                      e_greedy=0.9,
+                      e_greedy=0.8,
                       replace_target_iter=200,
                       memory_size=36000,
                       output_graph=True
