@@ -79,7 +79,7 @@ class PocketAces(object):
             playAgain()
             self.newTournament = True
             print("play again")
-            f = open('csv/session3/trainingSession3_loaded_PlayAgainCounter-positiveRewards.csv', 'a')
+            f = open('csv/session3/_no_greed_trainingSession3_loaded_PlayAgainCounter-positiveRewards.csv', 'a')
             f.write("PLAY_AGAIN")
             f.write('\n')
             f.close()
@@ -92,7 +92,7 @@ class PocketAces(object):
                 self.prevPot = 0
                 reward = chipDifference
                 temp = getAllValues(self.prevPot);
-                f = open('csv/session3/trainingSession3_PlayerPot-positiveRewards.csv', 'a')
+                f = open('csv/session3/_no_greed_trainingSession3_PlayerPot-positiveRewards.csv', 'a')
                 if reward >= 0:
                     f.write(str(temp[11]) + "," + "WIN");
                 else:

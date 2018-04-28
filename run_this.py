@@ -74,12 +74,12 @@ def run_pocket_aces():
 
                 plotData = reward
                 totalReward = totalReward + plotData
-                f = open('csv/session3/trainingSession3_loaded_TotalReward-positiveRewards.csv', 'a')
+                f = open('csv/session3/_no_greed_Session3_loaded_TotalReward-positiveRewards.csv', 'a')
                 f.write(str(totalReward))
                 f.write('\n')
                 f.close()
 
-                f = open('csv/session3/trainingSession3_loaded_AllInformation-positiveRewards.csv', 'a')
+                f = open('csv/session3/_no_greed_Session3_loaded_AllInformation-positiveRewards.csv', 'a')
                 for value in observation_:
                     f.write(str(value) + ",")
                 f.write('\n')
@@ -103,7 +103,6 @@ def run_pocket_aces():
 
         # end of game
         print('game over')
-        #stopGame() commented for testing
 
 
 if __name__ == "__main__":
@@ -111,11 +110,10 @@ if __name__ == "__main__":
     RL = DeepQNetwork(env.n_actions, env.n_features,
                       learning_rate=0.01,
                       reward_decay=0.9,
-                      e_greedy=0.8,
+                      e_greedy=1,
                       replace_target_iter=500,
                       memory_size=45000,
                       output_graph=True
                       )
-    # env.after(100, run_pocket_aces)
     run_pocket_aces()
     RL.plot_cost()

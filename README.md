@@ -1,4 +1,6 @@
 # PocketAces
-PocketAces is a Deep Q network that plays poker using computer vision. It plays the game DD poker 3 using computer vision
-to feed the data from the game into the neural network. It then takes the output of this network and inputs it into DD poker 3
-using pynput. This using a Deep Q network with a reinforcment learning algorithm.
+Pocket Aces is a completely autonomous poker-playing bot. Using OpenCV, Tensorflow and the pynput Python libraries,
+Pocket Aces can interact with the virtual Texas Hold 'Em game DD Poker 3 without any supervision and without any interaction
+with the source code of DD Poker 3.
+
+Tutorial followed for the neural network: https://github.com/MorvanZhou/Reinforcement-learning-with-tensorflow
